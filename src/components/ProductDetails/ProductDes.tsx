@@ -201,13 +201,13 @@ const ProductDes: React.FC<ProductProps> = ({ product }) => {
                                 Product Description
                             </Typography>
                             <Typography variant="h6" color="gray">
-                                {product.descriptionLong}
+                                {product.descriptionLong[0]}
                             </Typography>
                             <Typography variant="h6" color="gray">
-                                {product.descriptionLong}
+                                {product.descriptionLong[1]}
                             </Typography>
                             <Typography variant="h6" color="gray">
-                                {product.descriptionLong}
+                                {product.descriptionLong[2]}
                             </Typography>
                         </Stack>
                     )}

@@ -12,10 +12,10 @@ const SocialNavbar: React.FC = () => {
     justifyContent: "space-between",
     color: "#ffffff",
     padding: "0.55rem 1.5rem",
-  });
+  })
   const Icons = styled(Box)({
     display: 'flex',
-    gap: '10px',
+    gap: '6px',
   });
   const Wrapper = styled("div")({
     display: "flex",
@@ -23,71 +23,97 @@ const SocialNavbar: React.FC = () => {
     justifyContent: "center"
   });
   const Text = styled("h6")({
-    fontSize: "14px"
+    fontSize: "12px"
   })
 
   return (
-    <Box sx={{ backgroundColor: "#252B42", color: "#ffffff", display: { xs: "none", md: "block" }, }}>
-      <StyledToolebar>  
-        <Wrapper sx={{ gap: "10px" }}>
-          <Wrapper sx={{ gap: "5px", padding: "10px" }}>
-            <CallIcon sx={{ color: "#ffffff", fontSize: "16px", "&:hover": { color: "#23A6F0", cursor: "pointer" } }} />
-            <Text>
-              (225) 555-0118
-            </Text>
-          </Wrapper>
-          <Wrapper sx={{ gap: "5px", padding: "10px" }}>
-            <MailOutlineIcon sx={{ color: "#ffffff", fontSize: "16px", "&:hover": { color: "#23A6F0", cursor: "pointer" } }} />
-            <Text>
-              (225) 555-0118
-            </Text>
-          </Wrapper>
-        </Wrapper>
+      <Box
+          sx={{
+              backgroundColor: "#252B42",
+              color: "#ffffff",
+              display: { xs: "none", md: "block" },
+          }}
+      >
+          <StyledToolebar>
+              <Wrapper sx={{ gap: "8px" }}>
+                  <Wrapper sx={{ gap: "5px", padding: "10px" }}>
+                      <CallIcon
+                          sx={{
+                              color: "#ffffff",
+                              fontSize: "14px",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                      <Text>(225) 555-0118</Text>
+                  </Wrapper>
+                  <Wrapper sx={{ gap: "5px", padding: "10px" }}>
+                      <MailOutlineIcon
+                          sx={{
+                              color: "#ffffff",
+                              fontSize: "14px",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                      <Text>michelle.rivera@example.com</Text>
+                  </Wrapper>
+              </Wrapper>
 
-        <Wrapper>
-          <Text sx={{ padding: "8px" }}>
-            Follow Us and get a chance to win 80% off
-          </Text>
-        </Wrapper>
+              <Wrapper>
+                  <Text sx={{ padding: "8px" }}>
+                      Follow Us and get a chance to win 80% off
+                  </Text>
+              </Wrapper>
 
-        <Wrapper sx={{ gap: "10px", padding: "10px" }}>
-          <Text>
-            Follow Us :
-          </Text>
-          <Icons>
-            <InstagramIcon sx={{
-              color: "#ffffff",
-              "&:hover": {
-                color: "#23A6F0",
-                cursor: "pointer"
-              },
-            }} />
-            <YouTubeIcon sx={{
-              color: "#ffffff",
-              "&:hover": {
-                color: "#23A6F0",
-                cursor: "pointer"
-              },
-            }} />
-            <FacebookIcon sx={{
-              color: "#ffffff",
-              "&:hover": {
-                color: "#23A6F0",
-                cursor: "pointer"
-              },
-            }} />
-            <TwitterIcon sx={{
-              color: "#ffffff",
-              "&:hover": {
-                color: "#23A6F0",
-                cursor: "pointer"
-              },
-            }} />
-          </Icons>
-        </Wrapper>
-      </StyledToolebar>
-    </Box>
-  )
+              <Wrapper sx={{ gap: "8px", padding: "8px" }}>
+                  <Text>Follow Us :</Text>
+                  <Icons>
+                      <InstagramIcon
+                          sx={{
+                              color: "#ffffff",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                      <YouTubeIcon
+                          sx={{
+                              color: "#ffffff",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                      <FacebookIcon
+                          sx={{
+                              color: "#ffffff",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                      <TwitterIcon
+                          sx={{
+                              color: "#ffffff",
+                              "&:hover": {
+                                  color: "#23A6F0",
+                                  cursor: "pointer",
+                              },
+                          }}
+                      />
+                  </Icons>
+              </Wrapper>
+          </StyledToolebar>
+      </Box>
+  );
 }
 
 export default SocialNavbar

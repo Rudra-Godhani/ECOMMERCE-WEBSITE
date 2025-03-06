@@ -62,8 +62,8 @@ const Contact: React.FC = () => {
                 <Box>
                     <Box display={"grid"} gridTemplateColumns={"repeat(auto-fit,minmax(243px,1fr))"} sx={{ width: { xs: "100%", sm: "100%", md: "516px" }, px: { xs: "0px", ms: "0px" } }}>
                         {
-                            footerData.map((data) => (
-                                <Stack p="25px" gap="16px">
+                            footerData.map((data,index) => (
+                                <Stack key={index} p="25px" gap="16px">
                                     <Typography variant='h3' fontSize={"24px"} fontWeight={"700"} color='white'>{data.city}</Typography>
                                     <Typography variant='h4' fontSize={"20px"} fontWeight={"400"} color='white'>{data.street}</Typography>
                                     <Box width="58px" border={"2px solid #23A6F0"}></Box>

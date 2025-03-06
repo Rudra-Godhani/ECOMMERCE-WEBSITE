@@ -6,10 +6,20 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 
 import heroSecond1 from "../../assets/images/Banner/editors-4-Photoroom.png";
 import heroSecond2 from "../../assets/editors-3-Photoroom.png";
+import { NavLink } from "react-router-dom";
 
 const slides = [
-    { image: heroSecond1, title: "Vita Classic Product", subtitle: "We know how large objects will act, We know how are objects will act, We know" },
-    { image: heroSecond2, title: "SUMMER SPECIALS", subtitle: "Exclusive deals on the best styles of the season." },
+    {
+        image: heroSecond1,
+        title: "Vita Classic Product",
+        subtitle:
+            "We know how large objects will act, We know how are objects will act, We know",
+    },
+    {
+        image: heroSecond2,
+        title: "SUMMER SPECIALS",
+        subtitle: "Exclusive deals on the best styles of the season.",
+    },
 ];
 
 const responsive = {
@@ -26,7 +36,7 @@ const HeroSecond: React.FC = () => {
     const goToNext = () => {
         if (carouselRef.current) {
             carouselRef.current.next(); // Move to the next slide
-            setCurrentSlide((prev) => (prev) % slides.length); // Update state properly
+            setCurrentSlide((prev) => prev % slides.length); // Update state properly
         }
     };
 
@@ -36,8 +46,6 @@ const HeroSecond: React.FC = () => {
             setCurrentSlide((prev) => (prev + slides.length) % slides.length); // Update state properly
         }
     };
-
-
 
     return (
         <Box width="100%" height="100%" position="relative">
@@ -52,61 +60,120 @@ const HeroSecond: React.FC = () => {
                 beforeChange={(nextSlide) => setCurrentSlide(nextSlide)}
             >
                 {slides.map((slide, index) => (
-                    <Box key={index} sx={{
-                        backgroundColor: "#23856D",
-                        display: "flex",
-                        flexDirection: { xs: "column", md: "row" },
-                        justifyContent: { md: "space-around" },
-                        pl: { md: "120px", lg: "150px" },
-                        pr: { md: "90px", lg: "150px" },
-                        pt: { xs: "100px", md: "0px" },
-                        textAlign: { xs: "center", md: "start" },
-                        gap: { xs: "0px", md: "30px" }
-                    }}>
-                        <Stack sx={{
-                            justifyContent: "center",
-                            alignItems: { xs: "center", md: "flex-start" },
-                            gap: "30px",
-                            width: { xs: "100%", md: "45%" }
-                        }}>
-                            <Typography variant="h4" fontWeight={"400"} fontSize={"20px"} lineHeight={"30px"} color='white'>SUMMER 2020</Typography>
-                            <Typography variant="h1" fontWeight={"700"} color='white'
+                    <Box
+                        key={index}
+                        sx={{
+                            backgroundColor: "#23856D",
+                            display: "flex",
+                            flexDirection: { xs: "column", md: "row" },
+                            justifyContent: { md: "space-around" },
+                            pl: { md: "120px", lg: "150px" },
+                            pr: { md: "90px", lg: "150px" },
+                            pt: { xs: "100px", md: "0px" },
+                            textAlign: { xs: "center", md: "start" },
+                            gap: { xs: "0px", md: "30px" },
+                        }}
+                    >
+                        <Stack
+                            sx={{
+                                justifyContent: "center",
+                                alignItems: { xs: "center", md: "flex-start" },
+                                gap: "30px",
+                                width: { xs: "100%", md: "45%" },
+                            }}
+                        >
+                            <Typography
+                                variant="h4"
+                                fontWeight={"400"}
+                                fontSize={"20px"}
+                                lineHeight={"30px"}
+                                color="white"
+                            >
+                                SUMMER 2020
+                            </Typography>
+                            <Typography
+                                variant="h1"
+                                fontWeight={"700"}
+                                color="white"
                                 sx={{
-                                    fontSize: { xs: "40px", md: "45px", lg: "58px" },
-                                    lineHeight: { sx: "40px", md: "60px", lg: "80px" }
+                                    fontSize: {
+                                        xs: "40px",
+                                        md: "45px",
+                                        lg: "58px",
+                                    },
+                                    lineHeight: {
+                                        sx: "40px",
+                                        md: "60px",
+                                        lg: "80px",
+                                    },
                                 }}
-                            >{slide.title}</Typography>
-                            <Typography variant="body2" fontWeight={"400"} fontSize={"14px"} lineHeight={"20px"} color='white' sx={{ width: "70%" }}>{slide.subtitle}</Typography>
-                            <Stack sx={{
-                                width: "100%",
-                                gap: "35px",
-                                textAlign: "center",
-                                display: "flex",
-                                alignItems: "center",
-                                flexDirection: { xs: "column", md: "row" },
-                                justifyContent: { xs: "center", md: "start" },
-                            }}>
-                                <Typography variant="h3" fontWeight={"700"} fontSize={"24px"} lineHeight={"32px"} color='white'>$16.48</Typography>
-                                <Button
-                                    sx={{
-                                        color: "#FFFFFF",
-                                        backgroundColor: "#2DC071",
-                                        p: "15px 40px",
-                                        whiteSpace: "nowrap",
-                                        minWidth: "fit-content",
-                                        width: "fit-content",
-                                        alignSelf: { xs: "center", md: "flex-start" },
-                                    }}
-                                >
-                                    ADD TO CART
-                                </Button>
+                            >
+                                {slide.title}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                fontWeight={"400"}
+                                fontSize={"14px"}
+                                lineHeight={"20px"}
+                                color="white"
+                                sx={{ width: "70%" }}
+                            >
+                                {slide.subtitle}
+                            </Typography>
+                            <Stack
+                                sx={{
+                                    width: "100%",
+                                    gap: "35px",
+                                    textAlign: "center",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    flexDirection: { xs: "column", md: "row" },
+                                    justifyContent: {
+                                        xs: "center",
+                                        md: "start",
+                                    },
+                                }}
+                            >
+                                <NavLink to="/product/listing">
+                                    <Button
+                                        sx={{
+                                            color: "#FFFFFF",
+                                            backgroundColor: "#2DC071",
+                                            p: "15px 40px",
+                                            whiteSpace: "nowrap",
+                                            minWidth: "fit-content",
+                                            width: "fit-content",
+                                            alignSelf: {
+                                                xs: "center",
+                                                md: "flex-start",
+                                            },
+                                        }}
+                                    >
+                                        Shop Now
+                                    </Button>
+                                </NavLink>
                             </Stack>
                         </Stack>
-                        <Box sx={{
-                            p: "0px 0px ", height: "auto", overflow: "hidden", pt: { xs: "30px", md: "112px" }, display: "flex",
-                            justifyContent: "center"
-                        }}>
-                            <img src={slide.image} alt="" style={{ objectFit: "cover", width: "510px", height: "auto", display: "block" }} />
+                        <Box
+                            sx={{
+                                p: "0px 0px ",
+                                height: "auto",
+                                overflow: "hidden",
+                                pt: { xs: "30px", md: "112px" },
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <img
+                                src={slide.image}
+                                alt=""
+                                style={{
+                                    objectFit: "cover",
+                                    width: "510px",
+                                    height: "auto",
+                                    display: "block",
+                                }}
+                            />
                         </Box>
                     </Box>
                 ))}
@@ -136,14 +203,26 @@ const HeroSecond: React.FC = () => {
             </Box>
 
             <IconButton
-                sx={{ position: "absolute", top: "50%", left: "2%", transform: "translateY(-50%)", color: "#FFFFFF" }}
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "2%",
+                    transform: "translateY(-50%)",
+                    color: "#FFFFFF",
+                }}
                 onClick={goToPrev}
             >
                 <ArrowBackIos fontSize="large" />
             </IconButton>
 
             <IconButton
-                sx={{ position: "absolute", top: "50%", right: "2%", transform: "translateY(-50%)", color: "#FFFFFF" }}
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "2%",
+                    transform: "translateY(-50%)",
+                    color: "#FFFFFF",
+                }}
                 onClick={goToNext}
             >
                 <ArrowForwardIos fontSize="large" />

@@ -179,8 +179,8 @@ const Footer: React.FC = () => {
                                             sm: "14px"
                                         },
                                         p: {
-                                            xs: "14.5px",
-                                            sm: "16.5px"
+                                            xs: "11.5px",
+                                            sm: "14px"
                                         }
                                     }}>
                                         Subscribe

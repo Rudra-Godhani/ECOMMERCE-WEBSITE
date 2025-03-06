@@ -31,7 +31,7 @@ export interface Product {
     id: number;
     title: string;
     descriptionSmall: string;
-    descriptionLong: string;
+    descriptionLong: string[];
     price: number;
     retailPrice: number;
     images: string[];
@@ -63,8 +63,11 @@ export const productsData: Product[] = [
         id: 1,
         title: "Nike Air Max 270",
         descriptionSmall: "Stylish and comfortable running shoes.",
-        descriptionLong:
-            "The Nike Air Max 270 features a large Air unit for ultimate comfort and a sleek design for a modern look.",
+        descriptionLong: [
+            "The Nike Air Max 270 features a large Air unit for unmatched comfort and a sleek, modern design perfect for running or casual everyday wear.",
+            "Drawing inspiration from Air Max 180 and 93, it blends retro style with advanced cushioning, ideal for athletes and fashion-forward individuals alike.",
+            "Its lightweight mesh upper ensures breathability, while vibrant colors and a durable outsole provide traction and a bold look on any surface.",
+        ],
         price: 149.99,
         retailPrice: 180.0,
         images: [
@@ -95,8 +98,11 @@ export const productsData: Product[] = [
         id: 2,
         title: "Rolex Submariner",
         descriptionSmall: "Luxury diving watch with timeless design.",
-        descriptionLong:
-            "The Rolex Submariner is an iconic watch that combines elegance with performance, perfect for deep-sea adventures.",
+        descriptionLong: [
+            "The Rolex Submariner combines elegance and performance, designed for deep-sea diving with a timeless aesthetic that suits both adventure and sophisticated events perfectly.",
+            "Introduced in 1953, it offers 300-meter water resistance, a ceramic bezel, and Oystersteel build, ensuring durability and precision for any dive.",
+            "Luminescent markers and the Caliber 3235 movement provide visibility and accuracy, making this luxury watch an iconic choice for all occasions.",
+        ],
         price: 10999.99,
         retailPrice: 12000.0,
         images: [
@@ -127,8 +133,11 @@ export const productsData: Product[] = [
         id: 3,
         title: "Gucci GG Marmont Handbag",
         descriptionSmall: "Elegant leather handbag with GG logo.",
-        descriptionLong:
-            "The Gucci GG Marmont handbag features a soft structure, quilted leather, and the signature GG logo, perfect for any occasion.",
+        descriptionLong: [
+            "The Gucci GG Marmont handbag showcases soft quilted leather and the signature GG logo, offering a chic, versatile style for any occasion or outfit.",
+            "Designed with an adjustable chain strap, it shifts from shoulder bag to crossbody, blending luxury with practicality and ample interior space.",
+            "Crafted from premium materials, this timeless piece delivers sophistication and durability, elevating your look for daily use or special moments effortlessly.",
+        ],
         price: 2399.99,
         retailPrice: 2700.0,
         images: [
@@ -159,8 +168,11 @@ export const productsData: Product[] = [
         id: 4,
         title: "Chanel No. 5 Perfume",
         descriptionSmall: "Classic fragrance for women.",
-        descriptionLong:
-            "Chanel No. 5 is a timeless and elegant fragrance with floral and musky notes, perfect for any occasion.",
+        descriptionLong: [
+            "Chanel No. 5 delivers a timeless floral and musky scent, blending elegance and sophistication to elevate any occasion with its long-lasting aroma.",
+            "Launched in 1921, it opens with citrus, followed by jasmine and rose, housed in an iconic bottle that exudes classic luxury.",
+            "This fragrance balances fresh top notes with a warm, musky base, making it a signature choice for perfume lovers everywhere.",
+        ],
         price: 149.99,
         retailPrice: 180.0,
         images: [
@@ -191,8 +203,11 @@ export const productsData: Product[] = [
         id: 5,
         title: "Levi’s 501 Original Fit Jeans",
         descriptionSmall: "Iconic denim jeans with a classic fit.",
-        descriptionLong:
-            "Levi’s 501 jeans feature a straight leg, button fly, and durable denim fabric for a timeless and comfortable fit.",
+        descriptionLong: [
+            "Levi’s 501 jeans offer a straight-leg fit, button fly, and durable denim, delivering timeless style and comfort for casual wear or everyday outfits.",
+            "Since 1873, these jeans provide a regular fit with high-quality fabric, ensuring lasting durability and versatility for any fashion-forward wardrobe.",
+            "With their iconic design and sturdy build, they pair effortlessly with anything, making them a classic staple for all occasions.",
+        ],
         price: 69.99,
         retailPrice: 89.99,
         images: [
@@ -223,8 +238,11 @@ export const productsData: Product[] = [
         id: 6,
         title: "Zara Floral Summer Dress",
         descriptionSmall: "Elegant floral dress for summer.",
-        descriptionLong:
-            "This Zara summer dress features a flowy fit, floral patterns, and lightweight fabric for a chic and comfortable look.",
+        descriptionLong: [
+            "The Zara Floral Summer Dress features a flowy fit, vibrant floral patterns, and lightweight fabric, offering chic comfort for warm days or casual outings.",
+            "With an A-line silhouette, it provides breathability and elegance, making it a perfect choice for summer events or relaxed stylish moments.",
+            "Its bright colors and soft material create an effortless, fashionable look, ideal for pairing with sandals or accessories anywhere.",
+        ],
         price: 49.99,
         retailPrice: 65.0,
         images: [
@@ -255,8 +273,11 @@ export const productsData: Product[] = [
         id: 7,
         title: "Adidas Ultraboost 22",
         descriptionSmall: "High-performance running shoes.",
-        descriptionLong:
-            "The Adidas Ultraboost 22 offers superior cushioning, energy return, and a sleek design for optimal performance.",
+        descriptionLong: [
+            "Adidas Ultraboost 22 offers superior cushioning and energy return with a sleek design, crafted for runners seeking peak performance and comfort every day.",
+            "Featuring Boost technology and a Primeknit upper, it molds to your foot, delivering a lightweight, snug fit for any run.",
+            "The Continental rubber outsole ensures exceptional grip on all terrains, combining durability and style for athletes or casual wearers alike.",
+        ],
         price: 180.0,
         retailPrice: 200.0,
         images: [
@@ -287,8 +308,11 @@ export const productsData: Product[] = [
         id: 8,
         title: "Cartier Love Bracelet",
         descriptionSmall: "Elegant gold bracelet with screw motif.",
-        descriptionLong:
-            "The Cartier Love Bracelet is a symbol of timeless love, crafted in 18K gold with a unique screw design.",
+        descriptionLong: [
+            "The Cartier Love Bracelet, made in 18K gold, features a unique screw motif, symbolizing timeless love and elegance for any occasion or wearer.",
+            "Introduced in 1969, it comes with a screwdriver to lock, offering a luxurious blend of commitment and bold, iconic design.",
+            "Its flawless gold finish and distinctive style make it a cherished piece, ideal for gifting or keeping as a keepsake.",
+        ],
         price: 6900.0,
         retailPrice: 7500.0,
         images: [
@@ -319,8 +343,11 @@ export const productsData: Product[] = [
         id: 9,
         title: "Ray-Ban Aviator Sunglasses",
         descriptionSmall: "Classic metal frame sunglasses.",
-        descriptionLong:
-            "Ray-Ban Aviator sunglasses offer a timeless design with UV protection lenses and a sleek metal frame.",
+        descriptionLong: [
+            "Ray-Ban Aviator sunglasses feature a classic metal frame and UV-protective lenses, offering timeless style and clear vision for outdoor activities or daily wear.",
+            "Designed in 1937 for U.S. aviators, they provide lightweight comfort and glare reduction, perfect for driving or enjoying sunny days anywhere.",
+            "With sleek lines and versatile color options, these durable shades deliver a cool, iconic look suitable for any occasion or outfit.",
+        ],
         price: 159.99,
         retailPrice: 180.0,
         images: [
@@ -351,8 +378,11 @@ export const productsData: Product[] = [
         id: 10,
         title: "Michael Kors Jet Set Tote",
         descriptionSmall: "Elegant designer handbag.",
-        descriptionLong:
-            "The Michael Kors Jet Set tote is a spacious and stylish bag, perfect for everyday essentials.",
+        descriptionLong: [
+            "The Michael Kors Jet Set Tote offers a spacious, stylish design with saffiano leather, perfect for carrying essentials to work or casual outings daily.",
+            "Featuring multiple compartments and a structured shape, it combines elegance and utility, making it ideal for busy lifestyles or travel needs.",
+            "Crafted with premium materials, this chic tote elevates any outfit, providing durability and a designer touch for fashion-conscious individuals everywhere.",
+        ],
         price: 199.99,
         retailPrice: 250.0,
         images: [
@@ -383,8 +413,11 @@ export const productsData: Product[] = [
         id: 11,
         title: "Armani Exchange Chronograph Watch",
         descriptionSmall: "Sleek and stylish men's watch.",
-        descriptionLong:
-            "This Armani Exchange watch features a stainless steel design, chronograph functionality, and a modern dial.",
+        descriptionLong: [
+            "This Armani Exchange watch features a stainless steel design with chronograph functionality and a modern dial, perfect for both casual and formal occasions.",
+            "Crafted for precision, it blends sleek aesthetics with quartz movement, offering a durable, stylish timepiece that enhances any outfit effortlessly.",
+            "Its bold design and reliable performance make it a standout accessory, delivering sophistication and utility for the modern man daily.",
+        ],
         price: 179.99,
         retailPrice: 220.0,
         images: [
@@ -415,8 +448,11 @@ export const productsData: Product[] = [
         id: 12,
         title: "Nike Air Force 1",
         descriptionSmall: "Iconic low-top sneakers.",
-        descriptionLong:
-            "The Nike Air Force 1 offers premium leather, a timeless design, and all-day comfort.",
+        descriptionLong: [
+            "The Nike Air Force 1 offers premium leather and a timeless low-top design, ensuring all-day comfort for casual wear or stylish street looks.",
+            "With its iconic silhouette and cushioned sole, it delivers durability and support, making it a favorite for sneaker enthusiasts everywhere.",
+            "This classic shoe blends heritage style with modern comfort, perfect for pairing with jeans or shorts for any occasion.",
+        ],
         price: 120.0,
         retailPrice: 150.0,
         images: [
@@ -447,8 +483,11 @@ export const productsData: Product[] = [
         id: 13,
         title: "Fossil Leather Wallet",
         descriptionSmall: "Genuine leather wallet for men.",
-        descriptionLong:
-            "The Fossil leather wallet is crafted with premium materials, offering multiple card slots and RFID protection.",
+        descriptionLong: [
+            "The Fossil leather wallet is crafted with premium materials, featuring multiple card slots and RFID protection for secure, stylish storage every day.",
+            "Made from genuine leather, it offers a sleek design with durable stitching, ensuring longevity and a timeless look for any occasion.",
+            "Its compact yet spacious layout keeps essentials organized, blending functionality with elegance for the modern man on the go.",
+        ],
         price: 49.99,
         retailPrice: 60.0,
         images: [
@@ -479,8 +518,11 @@ export const productsData: Product[] = [
         id: 14,
         title: "Tissot PRX Automatic Watch",
         descriptionSmall: "Elegant Swiss automatic watch.",
-        descriptionLong:
-            "The Tissot PRX features a stainless steel bracelet, sapphire crystal, and automatic movement.",
+        descriptionLong: [
+            "The Tissot PRX features a stainless steel bracelet, sapphire crystal, and automatic movement, blending Swiss precision with a stylish design for all occasions.",
+            "Its vintage-inspired look and scratch-resistant crystal offer durability and elegance, making it a reliable choice for watch enthusiasts everywhere.",
+            "With an 80-hour power reserve, this automatic timepiece ensures accurate timekeeping, combining sophistication with functionality for daily wear.",
+        ],
         price: 649.99,
         retailPrice: 750.0,
         images: [
@@ -511,8 +553,11 @@ export const productsData: Product[] = [
         id: 15,
         title: "Tom Ford Oud Wood Perfume",
         descriptionSmall: "Luxury fragrance for men.",
-        descriptionLong:
-            "Tom Ford's Oud Wood is a rich, exotic fragrance with notes of oud, sandalwood, and vanilla.",
+        descriptionLong: [
+            "Tom Ford Oud Wood is a rich, exotic fragrance with oud, sandalwood, and vanilla notes, offering a luxurious scent for sophisticated occasions.",
+            "This bold blend features smoky oud and creamy sandalwood, creating a warm, long-lasting aroma that captivates with every spritz.",
+            "Hints of cardamom and amber add depth, making it an alluring choice for evening wear or special moments anywhere.",
+        ],
         price: 250.0,
         retailPrice: 300.0,
         images: [
@@ -543,8 +588,11 @@ export const productsData: Product[] = [
         id: 16,
         title: "Pandora Rose Gold Charm Bracelet",
         descriptionSmall: "Elegant rose gold bracelet.",
-        descriptionLong:
-            "The Pandora charm bracelet is crafted in rose gold-plated metal, allowing you to personalize it with charms.",
+        descriptionLong: [
+            "The Pandora charm bracelet, crafted in rose gold-plated metal, lets you personalize it with charms, adding a touch of elegance to any style.",
+            "Its warm rose gold finish offers a romantic glow, making it a versatile piece for daily wear or special occasions alike.",
+            "Designed for customization, this durable bracelet blends timeless beauty with personal expression, perfect for gifting or cherishing yourself.",
+        ],
         price: 79.99,
         retailPrice: 100.0,
         images: [
@@ -575,8 +623,11 @@ export const productsData: Product[] = [
         id: 17,
         title: "Tommy Hilfiger Men's Polo Shirt",
         descriptionSmall: "Classic polo shirt with a timeless design.",
-        descriptionLong:
-            "This Tommy Hilfiger polo shirt is made from breathable cotton fabric and features the brand's iconic logo embroidery.",
+        descriptionLong: [
+            "This Tommy Hilfiger polo shirt is made from breathable cotton with iconic logo embroidery, offering timeless style and comfort for any casual occasion.",
+            "Its soft fabric and ribbed collar ensure a lightweight, relaxed fit, perfect for work, weekends, or warm-weather outings effortlessly.",
+            "Featuring a two-button placket and classic design, it blends signature branding with versatility, making it a wardrobe essential for men.",
+        ],
         price: 49.99,
         retailPrice: 65.0,
         images: [
@@ -607,8 +658,11 @@ export const productsData: Product[] = [
         id: 18,
         title: "Michael Kors Leather Handbag",
         descriptionSmall: "Elegant and spacious handbag.",
-        descriptionLong:
-            "The Michael Kors leather handbag offers a sleek design, spacious interior, and premium craftsmanship.",
+        descriptionLong: [
+            "The Michael Kors leather handbag offers a sleek design and spacious interior, crafted with premium materials for elegance and functionality in daily use.",
+            "Its high-quality leather and multiple compartments provide ample storage, making it perfect for work, travel, or casual outings effortlessly.",
+            "This timeless piece combines sophisticated style with durable craftsmanship, ensuring a luxurious accessory that complements any outfit beautifully.",
+        ],
         price: 299.99,
         retailPrice: 350.0,
         images: [
@@ -639,8 +693,11 @@ export const productsData: Product[] = [
         id: 19,
         title: "Armani Exchange Chronograph Watch",
         descriptionSmall: "Stylish watch with a modern design.",
-        descriptionLong:
-            "This Armani Exchange chronograph watch features a sleek stainless steel case, a durable strap, and multiple dials for precise timekeeping.",
+        descriptionLong: [
+            "This Armani Exchange chronograph watch features a sleek stainless steel case, durable strap, and multiple dials for precise timekeeping and modern style.",
+            "Designed with sub-dials for functionality, it offers a sophisticated look that pairs effortlessly with casual or formal outfits every day.",
+            "Its robust build and contemporary design make it a reliable, fashionable accessory for the modern man seeking elegance and utility.",
+        ],
         price: 199.99,
         retailPrice: 250.0,
         images: [
@@ -671,8 +728,11 @@ export const productsData: Product[] = [
         id: 20,
         title: "MAC Matte Lipstick",
         descriptionSmall: "Long-lasting matte lipstick.",
-        descriptionLong:
-            "MAC's Matte Lipstick offers bold color, a smooth application, and a non-drying finish that lasts all day.",
+        descriptionLong: [
+            "MAC Matte Lipstick offers bold, pigmented color with smooth application and a non-drying finish, ensuring a flawless look that lasts all day long.",
+            "Its velvety texture glides on effortlessly, providing full coverage and a shine-free matte effect, perfect for day or night wear.",
+            "This lipstick delivers intense shades and comfort, making it a beauty essential for creating striking lip looks anytime.",
+        ],
         price: 19.99,
         retailPrice: 25.0,
         images: [
@@ -703,8 +763,11 @@ export const productsData: Product[] = [
         id: 21,
         title: "Adidas Superstar Sneakers",
         descriptionSmall: "Iconic sneakers with a classic shell toe.",
-        descriptionLong:
-            "The Adidas Superstar features a leather upper, comfortable cushioning, and the signature shell toe for a timeless look.",
+        "descriptionLong": [
+            "The Adidas Superstar features a leather upper, comfy cushioning, and signature shell toe, delivering a timeless look for casual wear or street style.",
+            "With its durable rubber toe and sleek design, it offers support and a retro vibe, loved by sneaker fans worldwide.",
+            "This iconic shoe blends heritage aesthetics with modern comfort, making it a versatile choice for any outfit or occasion."
+        ],
         price: 89.99,
         retailPrice: 110.0,
         images: [
@@ -735,8 +798,11 @@ export const productsData: Product[] = [
         id: 22,
         title: "H&M Kids' Winter Jacket",
         descriptionSmall: "Warm and cozy jacket for kids.",
-        descriptionLong:
-            "This H&M winter jacket for kids provides warmth, comfort, and a stylish design, perfect for chilly days.",
+        "descriptionLong": [
+            "This H&M winter jacket for kids provides warmth and comfort with a stylish design, perfect for keeping little ones cozy on chilly days.",
+            "Featuring insulated materials and a fleece lining, it ensures excellent protection against cold weather, ideal for playtime or outings.",
+            "Its water-resistant outer layer and vibrant colors make it a practical, fashionable choice for kids during winter months."
+        ],
         price: 39.99,
         retailPrice: 50.0,
         images: [
@@ -767,8 +833,11 @@ export const productsData: Product[] = [
         id: 23,
         title: "Gucci Gold Bracelet",
         descriptionSmall: "Luxury bracelet with an elegant design.",
-        descriptionLong:
-            "The Gucci gold bracelet is crafted from fine gold, featuring an intricate pattern that exudes luxury and style.",
+        "descriptionLong": [
+            "The Gucci gold bracelet is crafted from fine gold, featuring an intricate pattern that exudes luxury and style for any occasion or outfit.",
+            "Its exquisite design and premium materials make it a timeless piece, perfect for adding sophistication to your jewelry collection effortlessly.",
+            "This elegant bracelet showcases Gucci’s signature craftsmanship, offering a bold yet refined accessory that elevates your look beautifully."
+        ],
         price: 1299.99,
         retailPrice: 1500.0,
         images: [
@@ -799,8 +868,11 @@ export const productsData: Product[] = [
         id: 24,
         title: "Levi’s Women's Skinny Jeans",
         descriptionSmall: "Trendy and comfortable skinny jeans.",
-        descriptionLong:
-            "These Levi’s skinny jeans are made with stretchable denim for a perfect fit and stylish appeal.",
+        "descriptionLong": [
+            "These Levi’s skinny jeans are made with stretchable denim, offering a perfect fit and stylish appeal for casual or dressed-up looks every day.",
+            "Designed with a flattering silhouette, they hug your curves comfortably, blending timeless Levi’s quality with modern fashion for any occasion.",
+            "The flexible fabric and classic five-pocket style ensure durability and versatility, making them a wardrobe staple for women everywhere."
+        ],
         price: 59.99,
         retailPrice: 75.0,
         images: [
@@ -831,8 +903,11 @@ export const productsData: Product[] = [
         id: 25,
         title: "Versace Eros Perfume",
         descriptionSmall: "Bold and captivating men's fragrance.",
-        descriptionLong:
-            "Versace Eros is a fresh and woody fragrance with hints of mint, vanilla, and cedarwood for a long-lasting scent.",
+        "descriptionLong": [
+            "Versace Eros is a fresh, woody fragrance with mint, vanilla, and cedarwood notes, offering a bold, long-lasting scent for confident men everywhere.",
+            "Its invigorating blend of green apple and tonka bean creates a sensual aroma, perfect for date nights or special occasions.",
+            "This captivating perfume balances freshness with warmth, delivering a masculine edge that stands out and lingers all day long."
+        ],
         price: 79.99,
         retailPrice: 100.0,
         images: [
@@ -863,8 +938,11 @@ export const productsData: Product[] = [
         id: 26,
         title: "Cotton Kids T-Shirt",
         descriptionSmall: "Soft and breathable cotton t-shirt for kids.",
-        descriptionLong:
-            "This premium cotton t-shirt is lightweight, breathable, and perfect for everyday wear. Available in multiple colors and sizes.",
+        "descriptionLong": [
+            "This premium cotton t-shirt is lightweight and breathable, designed for kids’ everyday wear with a soft feel, available in vibrant colors and various sizes.",
+            "Crafted from high-quality cotton, it ensures all-day comfort and durability, perfect for school, play, or casual outings with a fade-resistant finish.",
+            "The versatile design and multiple color options make this t-shirt a wardrobe staple, keeping kids cool and stylish during any activity."
+        ],
         price: 12.99,
         retailPrice: 19.99,
         images: [
@@ -893,8 +971,11 @@ export const productsData: Product[] = [
         id: 27,
         title: "Denim Overalls for Kids",
         descriptionSmall: "Stylish and durable denim overalls.",
-        descriptionLong:
-            "These classic denim overalls are perfect for kids, offering both style and comfort. Made with high-quality fabric and adjustable straps for the perfect fit.",
+        "descriptionLong": [
+            "These classic denim overalls offer kids style and comfort, made with high-quality fabric and adjustable straps for a perfect fit every day.",
+            "Designed for active kids, they feature durable denim and multiple pockets, blending practicality with a timeless look for casual wear or playtime.",
+            "Pre-washed for softness, these overalls ensure lasting comfort and sturdiness, making them ideal for outdoor adventures or everyday fun."
+        ],
         price: 29.99,
         retailPrice: 39.99,
         images: [
@@ -923,8 +1004,11 @@ export const productsData: Product[] = [
         id: 29,
         title: "Boys’ Cargo Pants",
         descriptionSmall: "Durable and stylish cargo pants for boys.",
-        descriptionLong:
-            "Made with soft yet durable fabric, these cargo pants are perfect for active kids. Features multiple pockets and an adjustable waistband for a snug fit.",
+        "descriptionLong": [
+            "Made with soft, durable fabric, these cargo pants are perfect for active boys, featuring multiple pockets and an adjustable waistband for comfort.",
+            "Designed for rough play, they offer a snug fit with reinforced stitching, ideal for outdoor adventures or casual everyday wear.",
+            "The versatile earth-tone shades and spacious pockets make these pants a stylish, practical choice for boys on the go."
+        ],
         price: 24.99,
         retailPrice: 34.99,
         images: [
@@ -953,8 +1037,11 @@ export const productsData: Product[] = [
         id: 30,
         title: "Girls’ Floral Dress",
         descriptionSmall: "Adorable floral dress for little girls.",
-        descriptionLong:
-            "This charming floral dress is lightweight, breathable, and perfect for any special occasion. Features a cute bow and ruffle details.",
+        "descriptionLong": [
+            "This charming floral dress is lightweight and breathable, featuring a cute bow and ruffle details, perfect for any special occasion or celebration.",
+            "Crafted with a soft cotton blend, it offers comfort and style, making it ideal for twirling and play on warm days.",
+            "The vibrant floral print and delicate design add elegance, ensuring your little girl shines at parties or family gatherings."
+        ],
         price: 27.99,
         retailPrice: 39.99,
         images: [
@@ -983,8 +1070,11 @@ export const productsData: Product[] = [
         id: 31,
         title: "Men’s Slim Fit Jeans",
         descriptionSmall: "Classic slim fit jeans for men.",
-        descriptionLong:
-            "These Levi’s slim fit jeans offer a tailored look with stretch denim for all-day comfort. Perfect for casual or semi-formal occasions.",
+        "descriptionLong": [
+            "These Levi’s slim fit jeans offer a tailored look with stretch denim, ensuring all-day comfort for casual or semi-formal occasions effortlessly.",
+            "Crafted with premium fabric, they provide flexibility and durability, blending a polished silhouette with Levi’s timeless style for any wardrobe.",
+            "The slim design and fade-resistant denim make these jeans a versatile choice, perfect for work, weekends, or nights out."
+        ],
         price: 49.99,
         retailPrice: 69.99,
         images: [
@@ -1012,8 +1102,11 @@ export const productsData: Product[] = [
         id: 32,
         title: "Women’s Running Shoes",
         descriptionSmall: "Lightweight running shoes for women.",
-        descriptionLong:
-            "Designed for performance, these Adidas running shoes provide excellent cushioning and support for your daily runs or workouts.",
+        "descriptionLong": [
+            "Designed for performance, these Adidas running shoes offer excellent cushioning and support, perfect for daily runs or intense workouts with style.",
+            "Featuring a breathable mesh upper and Boost midsole, they provide lightweight comfort and energy return, enhancing every stride effortlessly.",
+            "The durable rubber outsole ensures superior traction, making these shoes ideal for runners seeking both function and fashion daily."
+        ],
         price: 79.99,
         retailPrice: 99.99,
         images: [
@@ -1041,8 +1134,11 @@ export const productsData: Product[] = [
         id: 33,
         title: "Luxury Chronograph Watch",
         descriptionSmall: "Elegant chronograph watch for men.",
-        descriptionLong:
-            "This Rolex watch combines timeless design with precision engineering, featuring a stainless steel case and sapphire crystal.",
+        "descriptionLong": [
+            "This Rolex watch combines timeless design with precision engineering, featuring a stainless steel case and sapphire crystal for lasting elegance.",
+            "Built for sophistication, it offers chronograph functions and water resistance, making it a luxurious choice for formal or daily wear.",
+            "The polished finish and accurate movement ensure this heirloom piece stands out, perfect for those who value style and quality."
+        ],
         price: 8500.0,
         retailPrice: 9500.0,
         images: [
@@ -1070,8 +1166,11 @@ export const productsData: Product[] = [
         id: 34,
         title: "Women’s Silk Saree",
         descriptionSmall: "Traditional silk saree for women.",
-        descriptionLong:
-            "This Fabindia silk saree features intricate handwoven patterns, perfect for festive occasions or cultural events.",
+        "descriptionLong": [
+            "This Fabindia silk saree features intricate handwoven patterns, offering a luxurious feel and perfect elegance for festive occasions or cultural events.",
+            "Crafted from pure silk, it drapes beautifully with vibrant colors, showcasing traditional craftsmanship that enhances any special moment effortlessly.",
+            "The lightweight fabric and rich detailing make this saree a timeless choice, ideal for celebrations or cherished gatherings anywhere."
+        ],
         price: 89.99,
         retailPrice: 120.0,
         images: [
@@ -1099,8 +1198,11 @@ export const productsData: Product[] = [
         id: 35,
         title: "Men’s Casual Shirt",
         descriptionSmall: "Stylish casual shirt for men.",
-        descriptionLong:
-            "This Allen Solly shirt offers a relaxed fit with a modern design, ideal for everyday wear or casual outings.",
+        "descriptionLong": [
+            "This Allen Solly shirt offers a relaxed fit with a modern design, perfect for everyday wear or casual outings with effortless style.",
+            "Made from a breathable cotton blend, it ensures all-day comfort and versatility, ideal for laid-back days or informal settings.",
+            "The trendy cut and vibrant colors make this shirt a wardrobe essential, blending fashion with practicality for any occasion."
+        ],
         price: 34.99,
         retailPrice: 49.99,
         images: [
@@ -1128,8 +1230,11 @@ export const productsData: Product[] = [
         id: 36,
         title: "Designer Handbag",
         descriptionSmall: "Chic leather handbag for women.",
-        descriptionLong:
-            "This Gucci handbag is crafted from premium leather with gold-tone hardware, perfect for a sophisticated look.",
+        "descriptionLong": [
+            "This Gucci handbag is crafted from premium leather with gold-tone hardware, offering a chic design perfect for a sophisticated look daily.",
+            "Featuring multiple compartments and a detachable strap, it blends luxury with function, ideal for work or evening outings effortlessly.",
+            "The supple leather and sturdy build ensure lasting elegance, making this handbag a timeless addition to any stylish wardrobe."
+        ],
         price: 1200.0,
         retailPrice: 1500.0,
         images: [
@@ -1157,8 +1262,11 @@ export const productsData: Product[] = [
         id: 37,
         title: "Kids’ Sneakers",
         descriptionSmall: "Durable sneakers for kids.",
-        descriptionLong:
-            "These Nike sneakers are designed for active kids, with a lightweight build and cushioned sole for all-day play.",
+        "descriptionLong": [
+            "These Nike sneakers are designed for active kids, featuring a lightweight build and cushioned sole, perfect for all-day play or school.",
+            "With a breathable mesh upper and durable outsole, they offer comfort and support, ideal for outdoor adventures or daily wear.",
+            "The vibrant colors and sturdy design ensure these sneakers withstand rough play, keeping kids stylish and comfortable always."
+        ],
         price: 39.99,
         retailPrice: 55.0,
         images: [
@@ -1186,8 +1294,11 @@ export const productsData: Product[] = [
         id: 38,
         title: "Women’s Perfume",
         descriptionSmall: "Elegant floral fragrance.",
-        descriptionLong:
-            "This Chanel perfume offers a luxurious blend of floral and woody notes, perfect for any occasion.",
+        "descriptionLong": [
+            "This Chanel perfume offers a luxurious blend of floral and woody notes, perfect for any occasion with a timeless, elegant scent.",
+            "Featuring jasmine and rose top notes, it delivers a sophisticated aroma that lingers beautifully, ideal for day or night wear.",
+            "The sleek bottle houses a long-lasting formula, making this fragrance a must-have for those seeking refined luxury daily."
+        ],
         price: 129.99,
         retailPrice: 160.0,
         images: [
@@ -1215,8 +1326,11 @@ export const productsData: Product[] = [
         id: 39,
         title: "Men’s Sunglasses",
         descriptionSmall: "Stylish polarized sunglasses.",
-        descriptionLong:
-            "These Ray-Ban sunglasses feature polarized lenses and a sleek design, perfect for outdoor adventures.",
+        "descriptionLong": [
+            "These Ray-Ban sunglasses feature polarized lenses and a sleek design, offering style and protection, perfect for outdoor adventures or daily use.",
+            "With full UV protection and glare reduction, they ensure clear vision, making them ideal for driving or sunny days anywhere.",
+            "The lightweight frame and durable build provide all-day comfort, blending timeless fashion with functionality for any occasion."
+        ],
         price: 139.99,
         retailPrice: 179.99,
         images: [
@@ -1244,8 +1358,11 @@ export const productsData: Product[] = [
         id: 40,
         title: "Charm Bracelet",
         descriptionSmall: "Customizable charm bracelet.",
-        descriptionLong:
-            "This Pandora bracelet allows you to add personal charms, crafted from sterling silver for a timeless look.",
+        "descriptionLong": [
+            "This Pandora bracelet allows you to add personal charms, crafted from sterling silver for a timeless, elegant look suitable for any occasion.",
+            "Its adjustable design and polished finish offer comfort and style, making it perfect for daily wear or gifting someone special.",
+            "Built to last, this customizable piece blends durability with beauty, letting you create a unique story with every charm added."
+        ],
         price: 69.99,
         retailPrice: 89.99,
         images: [
@@ -1273,8 +1390,11 @@ export const productsData: Product[] = [
         id: 41,
         title: "Men’s Leather Watch",
         descriptionSmall: "Classic leather strap watch.",
-        descriptionLong:
-            "This Titan watch features a minimalist design with a genuine leather strap, ideal for formal or casual wear.",
+        "descriptionLong": [
+            "This Titan watch features a minimalist design with a genuine leather strap, ideal for formal or casual wear with timeless appeal.",
+            "Powered by quartz movement, it offers precise timekeeping and durability, perfect for elevating your style in any setting effortlessly.",
+            "The soft leather and sleek dial ensure comfort and sophistication, making this watch a versatile accessory for daily use."
+        ],
         price: 89.99,
         retailPrice: 110.0,
         images: [
@@ -1303,8 +1423,11 @@ export const productsData: Product[] = [
         id: 42,
         title: "Women’s Blazer",
         descriptionSmall: "Chic tailored blazer for women.",
-        descriptionLong:
-            "This Zara blazer offers a sharp, tailored fit, perfect for professional settings or stylish evenings out.",
+        "descriptionLong": [
+            "This Zara blazer offers a sharp, tailored fit, perfect for professional settings or stylish evenings out with a modern, confident look.",
+            "Crafted from a wool-blend fabric, it ensures comfort and structure, ideal for all-day wear without wrinkling or losing shape.",
+            "The versatile design and sleek lines make this blazer a wardrobe must-have, elevating any outfit effortlessly anywhere."
+        ],
         price: 59.99,
         retailPrice: 79.99,
         images: [
@@ -1333,8 +1456,11 @@ export const productsData: Product[] = [
         id: 43,
         title: "Men’s Designer Sunglasses",
         descriptionSmall: "Luxury sunglasses for men.",
-        descriptionLong:
-            "These Tom Ford sunglasses feature a bold frame and premium lenses, offering both style and protection.",
+        "descriptionLong": [
+            "These Tom Ford sunglasses feature a bold frame and premium lenses, offering both style and protection for a striking look daily.",
+            "With polarized lenses and UV coverage, they ensure clarity and safety, perfect for outdoor activities or bold fashion statements.",
+            "The sturdy yet lightweight design delivers luxury and comfort, making these sunglasses a standout accessory for any occasion."
+        ],
         price: 299.99,
         retailPrice: 350.0,
         images: [
@@ -1362,8 +1488,11 @@ export const productsData: Product[] = [
         id: 44,
         title: "Women’s Tote Bag",
         descriptionSmall: "Spacious tote bag for women.",
-        descriptionLong:
-            "This Michael Kors tote bag is made from premium leather, offering ample space and a chic design for daily use.",
+        "descriptionLong": [
+            "This Michael Kors tote bag is made from premium leather, offering ample space and a chic design for daily use or travel.",
+            "Featuring internal pockets and a zippered top, it blends style with practicality, perfect for work or weekend adventures effortlessly.",
+            "The durable leather and elegant look ensure this tote remains a timeless accessory, keeping you organized in sophisticated style."
+        ],
         price: 199.99,
         retailPrice: 250.0,
         images: [
@@ -1391,8 +1520,11 @@ export const productsData: Product[] = [
         id: 45,
         title: "Kids’ Ethnic Kurta",
         descriptionSmall: "Festive kurta for boys.",
-        descriptionLong:
-            "This Fabindia kurta is crafted from soft cotton, featuring traditional embroidery for special occasions.",
+        "descriptionLong": [
+            "This Fabindia kurta is crafted from soft cotton, featuring traditional embroidery, perfect for boys during special occasions or festive celebrations.",
+            "Lightweight and breathable, it offers all-day comfort with vibrant colors, making it ideal for cultural events or family gatherings.",
+            "The intricate detailing and durable fabric ensure this kurta stands out, blending style and tradition for young wearers."
+        ],
         price: 29.99,
         retailPrice: 39.99,
         images: [
@@ -1420,8 +1552,11 @@ export const productsData: Product[] = [
         id: 46,
         title: "Men’s Running Shoes",
         descriptionSmall: "High-performance running shoes.",
-        descriptionLong:
-            "These Nike shoes offer advanced cushioning and a lightweight design, ideal for serious runners.",
+        "descriptionLong": [
+            "These Nike shoes offer advanced cushioning and a lightweight design, ideal for serious runners seeking performance and comfort during every workout.",
+            "Featuring a breathable mesh upper and durable sole, they provide support and traction, perfect for long runs or varied terrains.",
+            "The sleek look and energy-return technology enhance your stride, making these shoes a top choice for active lifestyles."
+        ],
         price: 99.99,
         retailPrice: 130.0,
         images: [
@@ -1449,8 +1584,11 @@ export const productsData: Product[] = [
         id: 47,
         title: "Women’s Diamond Earrings",
         descriptionSmall: "Elegant diamond stud earrings.",
-        descriptionLong:
-            "These Pandora earrings feature sparkling diamonds set in sterling silver, perfect for any occasion.",
+        "descriptionLong": [
+            "These Pandora earrings feature sparkling diamonds set in sterling silver, offering a timeless elegance perfect for any occasion or outfit.",
+            "With brilliant-cut stones and a hypoallergenic finish, they ensure comfort and shine, ideal for daily wear or gifting someone special.",
+            "The lightweight design and durable craftsmanship make these studs a luxurious addition, enhancing your style effortlessly every day."
+        ],
         price: 149.99,
         retailPrice: 189.99,
         images: [
@@ -1479,8 +1617,11 @@ export const productsData: Product[] = [
         id: 48,
         title: "Men’s Formal Watch",
         descriptionSmall: "Sleek formal watch for men.",
-        descriptionLong:
-            "This Michael Kors watch features a stainless steel band and minimalist dial, ideal for business or formal settings.",
+        "descriptionLong": [
+            "This Michael Kors watch features a stainless steel band and minimalist dial, ideal for business or formal settings with sleek sophistication.",
+            "Powered by quartz movement, it offers precise timekeeping and durability, perfect for professionals seeking style and reliability daily.",
+            "The polished finish and comfortable fit make this watch a refined choice, elevating your look for any occasion effortlessly."
+        ],
         price: 179.99,
         retailPrice: 220.0,
         images: [
@@ -1508,8 +1649,11 @@ export const productsData: Product[] = [
         id: 49,
         title: "Women’s Casual Top",
         descriptionSmall: "Comfy casual top for women.",
-        descriptionLong:
-            "This Zara top is made from soft cotton, featuring a relaxed fit and trendy design for everyday wear.",
+        "descriptionLong": [
+            "This Zara top is made from soft cotton, featuring a relaxed fit and trendy design, perfect for everyday wear or casual outings.",
+            "The breathable fabric and modern cut offer all-day comfort, making it an ideal choice for laid-back days or errands.",
+            "With vibrant colors and a versatile style, this top is a wardrobe staple, blending fashion with ease effortlessly."
+        ],
         price: 24.99,
         retailPrice: 35.0,
         images: [
@@ -1537,8 +1681,11 @@ export const productsData: Product[] = [
         id: 50,
         title: "Men’s Leather Belt",
         descriptionSmall: "Classic leather belt for men.",
-        descriptionLong:
-            "This Gucci belt is crafted from genuine leather with a polished buckle, perfect for both formal and casual looks.",
+        "descriptionLong": [
+            "This Gucci belt is crafted from genuine leather with a polished buckle, perfect for both formal and casual looks with timeless style.",
+            "The premium leather offers durability and a rich patina, making it an adjustable, luxurious accessory for any wardrobe effortlessly.",
+            "Designed with sturdy construction and sleek elegance, this belt elevates your outfit, blending function with high-end fashion daily."
+        ],
         price: 249.99,
         retailPrice: 300.0,
         images: [

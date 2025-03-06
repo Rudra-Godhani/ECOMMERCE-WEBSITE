@@ -5,10 +5,20 @@ import "react-multi-carousel/lib/styles.css"; // Import carousel styles
 import heroFirst1 from "../../assets/hero-1.jpg";
 import heroFirst2 from "../../assets/carousal-3.jpg";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
 const slides = [
-    { image: heroFirst1, title: "NEW COLLECTION", subtitle: "We know how large objects will act, but things on a small scale." },
-    { image: heroFirst2, title: "SUMMER SPECIALS", subtitle: "Exclusive deals on the best styles of the season." },
+    {
+        image: heroFirst1,
+        title: "NEW COLLECTION",
+        subtitle:
+            "We know how large objects will act, but things on a small scale.",
+    },
+    {
+        image: heroFirst2,
+        title: "SUMMER SPECIALS",
+        subtitle: "Exclusive deals on the best styles of the season.",
+    },
 ];
 
 const responsive = {
@@ -31,7 +41,7 @@ const HeroFirst: React.FC = () => {
     const handleNext = () => {
         if (carouselRef.current) {
             carouselRef.current.next(); // Move to the next slide
-            setCurrentSlide((prev) => (prev) % slides.length); // Update state properly
+            setCurrentSlide((prev) => prev % slides.length); // Update state properly
         }
     };
 
@@ -66,12 +76,20 @@ const HeroFirst: React.FC = () => {
                                 gap: "35px",
                                 top: "50%",
                                 left: { xs: "50%", md: "15%" },
-                                transform: { xs: "translate(-50%, -50%)", md: "translateY(-50%)" },
+                                transform: {
+                                    xs: "translate(-50%, -50%)",
+                                    md: "translateY(-50%)",
+                                },
                                 width: { xs: "90%", md: "50%" },
                                 textAlign: { xs: "center", md: "left" },
                             }}
                         >
-                            <Typography variant="h5" fontSize="16px" fontWeight="700" color="white">
+                            <Typography
+                                variant="h5"
+                                fontSize="16px"
+                                fontWeight="700"
+                                color="white"
+                            >
                                 SUMMER 2024
                             </Typography>
                             <Typography
@@ -88,7 +106,10 @@ const HeroFirst: React.FC = () => {
                             <Stack
                                 sx={{
                                     textAlign: { xs: "center", md: "left" },
-                                    alignItems: { xs: "center", md: "flex-start" },
+                                    alignItems: {
+                                        xs: "center",
+                                        md: "flex-start",
+                                    },
                                     width: "100%",
                                     gap: "35px",
                                 }}
@@ -103,19 +124,24 @@ const HeroFirst: React.FC = () => {
                                 >
                                     {slide.subtitle}
                                 </Typography>
-                                <Button
-                                    sx={{
-                                        color: "#FFFFFF",
-                                        backgroundColor: "#2DC071",
-                                        p: "15px 40px",
-                                        whiteSpace: "nowrap",
-                                        minWidth: "fit-content",
-                                        width: "fit-content",
-                                        alignSelf: { xs: "center", md: "flex-start" },
-                                    }}
-                                >
-                                    SHOP NOW
-                                </Button>
+                                <NavLink to="/product/listing">
+                                    <Button
+                                        sx={{
+                                            color: "#FFFFFF",
+                                            backgroundColor: "#2DC071",
+                                            p: "15px 40px",
+                                            whiteSpace: "nowrap",
+                                            minWidth: "fit-content",
+                                            width: "fit-content",
+                                            alignSelf: {
+                                                xs: "center",
+                                                md: "flex-start",
+                                            },
+                                        }}
+                                    >
+                                        SHOP NOW
+                                    </Button>
+                                </NavLink>
                             </Stack>
                         </Stack>
                     </Box>
@@ -177,5 +203,3 @@ const HeroFirst: React.FC = () => {
 };
 
 export default HeroFirst;
-
-
