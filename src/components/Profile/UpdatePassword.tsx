@@ -7,7 +7,6 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { current } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 
 const UpdatePassword: React.FC = () => {

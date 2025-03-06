@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import Marquee from "react-fast-marquee";
 import faBrands1 from "../../assets/productDatail/fa-brands-1.svg";
@@ -7,7 +7,6 @@ import faBrands3 from "../../assets/productDatail/fa-brands-3.svg";
 import faBrands4 from "../../assets/productDatail/fa-brands-4.svg";
 import faBrands5 from "../../assets/productDatail/fa-brands-5.svg";
 import faBrands6 from "../../assets/productDatail/fa-brands-6.svg";
-import { Padding } from "@mui/icons-material";
 
 const BrandsStrip: React.FC = () => {
     const style = {

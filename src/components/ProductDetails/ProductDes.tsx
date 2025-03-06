@@ -90,7 +90,6 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
-import productDesImage from "../../assets/productDatail/productImage.svg";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Product } from "../../Data";
 

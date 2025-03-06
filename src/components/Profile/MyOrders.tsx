@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import React from "react";
 
-const MyOrders = () => {
+const MyOrders:React.FC = () => {
     return (
         <Stack>
             <Stack>

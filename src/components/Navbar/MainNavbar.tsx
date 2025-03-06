@@ -2,7 +2,6 @@ import {
     AppBar,
     Badge,
     Box,
-    Button,
     Drawer,
     IconButton,
     List,

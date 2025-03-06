@@ -1,6 +1,6 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import React from "react";
-import { featuredData, featuredPostData } from "../../Data";
+import { featuredPostData } from "../../Data";
 import { Link, NavLink } from "react-router-dom";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";

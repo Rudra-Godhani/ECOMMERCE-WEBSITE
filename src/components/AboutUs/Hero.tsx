@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import AboutUsHero from "../../assets/aboutUs/aboutUsHero.svg";

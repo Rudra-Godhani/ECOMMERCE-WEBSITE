@@ -2,8 +2,6 @@ import { ArrowForwardIos } from "@mui/icons-material";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Filters from "../ProductListing/Filters";
-import FilteredProducts from "../ProductListing/FilteredProducts";
 import ManageAccount from "./ManageAccount";
 import ProfileSettings from "./ProfileSettings";
 

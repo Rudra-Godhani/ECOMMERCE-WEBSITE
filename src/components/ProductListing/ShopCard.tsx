@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 interface ShopCardProps {
     data: {
@@ -9,7 +9,6 @@ interface ShopCardProps {
 }
 
 const ShopCard: React.FC<ShopCardProps> = ({ data }) => {
-    const theme = useTheme();
 
     return (
         <Box

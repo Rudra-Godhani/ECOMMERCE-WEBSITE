@@ -1,25 +1,14 @@
 import {
-    Avatar,
     Box,
-    Button,
     Drawer,
     IconButton,
-    InputAdornment,
-    List,
-    Menu,
-    MenuItem,
-    Stack,
-    TextField,
-    Typography,
 } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import MyProfile from "./MyProfile";
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 import MyOrders from "./MyOrders";
 import Logout from "./Logout";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import EastIcon from "@mui/icons-material/East";
 import ManageAccount from "./ManageAccount";
 

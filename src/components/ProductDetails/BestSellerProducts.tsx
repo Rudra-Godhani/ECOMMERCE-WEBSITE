@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { bestSellerProductsData, productsData } from '../../Data'
+import { productsData } from '../../Data'
 
 const BestSellerProducts: React.FC = () => {
     return (

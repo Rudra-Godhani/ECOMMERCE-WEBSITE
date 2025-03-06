@@ -15,7 +15,6 @@ import Filters from "./Filters";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { Link } from "react-router-dom";
-import { Product } from "../../Data";
 import StarIcon from "@mui/icons-material/Star";
 
 const ITEMS_PER_PAGE = 9;

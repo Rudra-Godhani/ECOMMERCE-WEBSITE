@@ -10,7 +10,7 @@ import item4 from "../../assets/featured/featured-4.svg"
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from "react-redux";
-import { increaseQuantity, decreaseQuantity, removeProductFromCart, CartItem } from "../../store/Slices/CartSlice";
+import { increaseQuantity, decreaseQuantity, removeProductFromCart } from "../../store/Slices/CartSlice";
 import { RootState } from "../../store/store";
 
 interface ProductData {

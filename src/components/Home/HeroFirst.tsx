@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css"; // Import carousel styles
+import "react-multi-carousel/lib/styles.css";
 import heroFirst1 from "../../assets/hero-1.jpg";
 import heroFirst2 from "../../assets/carousal-3.jpg";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";

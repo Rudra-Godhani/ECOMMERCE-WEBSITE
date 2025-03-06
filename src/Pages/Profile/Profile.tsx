@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Home/Footer";

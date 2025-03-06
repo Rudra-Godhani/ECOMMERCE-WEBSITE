@@ -5,17 +5,13 @@ import { Link, useParams } from "react-router-dom";
 import productDetail1 from "../../assets/productDatail/productDetail1.svg";
 import productDetail2 from "../../assets/productDatail/productDetail1.svg";
 import productDetail3 from "../../assets/productDatail/productDetail2.svg";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/Navbar/Navbar";
 import ProductDes from "../../components/ProductDetails/ProductDes";
 import BestSellerProducts from "../../components/ProductDetails/BestSellerProducts";
 import BrandsStrip from "../../components/ProductDetails/BrandsStrip";
-import CheckIcon from "@mui/icons-material/Check";
 import Footer from "../../components/Home/Footer";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addProductToCart,
@@ -30,8 +26,6 @@ import {
     removeFromWishlist,
 } from "../../store/Slices/WishListSlice";
 import { RootState } from "../../store/store";
-
-const colors: string[] = ["#23A6F0", "#23856D", "#E77C40", "#252B42"];
 
 const images = [productDetail1, productDetail2, productDetail3];
 const slideVariants = {

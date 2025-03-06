@@ -1,6 +1,4 @@
 import React from 'react'
-import { Box } from '@mui/material'
-import image1 from "../../assets/images/Banner/edi-1.svg"
 import Navbar from '../../components/Navbar/Navbar'
 import HeroFirst from '../../components/Home/HeroFirst'
 import Banner from '../../components/Home/Banner'

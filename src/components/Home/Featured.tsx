@@ -1,6 +1,6 @@
 import { Box, Container, Stack, Typography } from '@mui/material'
 import React from 'react'
-import { featuredData, productsData } from '../../Data'
+import { productsData } from '../../Data'
 import { Link } from 'react-router-dom'
 
 const Featured: React.FC = () => {

@@ -4,12 +4,8 @@ import React, { useState } from 'react'
 import { brands, categories } from '../../Data';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterAll, filterByBrands, filterByCategory, filterByPrice, resetFilter } from '../../store/Slices/FilterSlice';
-import { Category } from '@mui/icons-material';
 import { RootState } from '../../store/store';
 
-function valuetext(value: number) {
-    return `${value}°C`;
-}
 
 const minDistance = 10;
 

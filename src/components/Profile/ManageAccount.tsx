@@ -1,14 +1,10 @@
 import {
     Box,
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
     IconButton,
-    Slider,
     Stack,
     Typography,
 } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import WestIcon from "@mui/icons-material/West";
 
 const tabs: string[] = [
