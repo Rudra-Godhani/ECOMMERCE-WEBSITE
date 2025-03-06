@@ -136,7 +136,7 @@ const FavoriteProducts: React.FC = () => {
                         {
                           product.colors.map((color, index) => (
                             <Box
-                              key={color}
+                              key={index}
                               position="relative"
                               width={"30px"}
                               height={"30px"}

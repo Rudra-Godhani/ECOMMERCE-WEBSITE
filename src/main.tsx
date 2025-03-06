@@ -45,8 +45,8 @@ export const theme = createTheme({
         },
     },
     palette: {
-        white: {
-            main: "#ffffff",
+        common: {
+            white: "#ffffff",
         },
         secondary: {
             main: "#252B42",

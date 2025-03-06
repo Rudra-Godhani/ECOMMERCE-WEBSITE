@@ -321,9 +321,9 @@ const ProductDetails: React.FC = () => {
                                 direction={"row"}
                                 sx={{ pb: { xs: "58px", sm: "68px" } }}
                             >
-                                {product.colors.map((color, index) => (
+                                {product.colors.map((color,index) => (
                                     <Box
-                                        key={color}
+                                        key={index}
                                         position="relative"
                                         width={"30px"}
                                         height={"30px"}

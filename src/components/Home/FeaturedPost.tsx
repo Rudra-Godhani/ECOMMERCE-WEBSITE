@@ -94,7 +94,7 @@ const FeaturedPost: React.FC = () => {
                                     <Stack direction={"row"} spacing={1.3}>
                                         <NavLink
                                             to="/google"
-                                            style={({ isActive }) => ({
+                                            style={() => ({
                                                 textDecoration: "none",
                                             })}
                                         >
@@ -115,7 +115,7 @@ const FeaturedPost: React.FC = () => {
                                         </NavLink>
                                         <NavLink
                                             to="/trending"
-                                            style={({ isActive }) => ({
+                                            style={() => ({
                                                 textDecoration: "none",
                                             })}
                                         >
@@ -136,7 +136,7 @@ const FeaturedPost: React.FC = () => {
                                         </NavLink>
                                         <NavLink
                                             to="/new"
-                                            style={({ isActive }) => ({
+                                            style={() => ({
                                                 textDecoration: "none",
                                             })}
                                         >
@@ -191,8 +191,8 @@ const FeaturedPost: React.FC = () => {
                                             spacing={0.625}
                                         >
                                             <AccessAlarmIcon
-                                                fontSize="16px"
-                                                color="lightBlue"
+                                                fontSize="small"
+                                                htmlColor="lightBlue"
                                             />
                                             <Typography
                                                 variant="body2"
@@ -212,8 +212,8 @@ const FeaturedPost: React.FC = () => {
                                             spacing={0.625}
                                         >
                                             <ShowChartIcon
-                                                fontSize="16px"
-                                                color="darkGreen"
+                                                fontSize="small"
+                                                htmlColor="darkGreen"
                                             />
                                             <Typography
                                                 variant="body2"
@@ -239,7 +239,7 @@ const FeaturedPost: React.FC = () => {
                                             >
                                                 Learn More
                                             </Typography>
-                                            <ChevronRightIcon color="lightBlue" />
+                                            <ChevronRightIcon htmlColor="lightBlue" />
                                         </Stack>
                                     </Link>
                                 </Stack>

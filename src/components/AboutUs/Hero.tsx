@@ -1,10 +1,11 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import AboutUsHero from "../../assets/aboutUs/aboutUsHero.svg";
 
 const Hero: React.FC = () => {
+    const theme = useTheme();
     return (
         <Box width="100%" height="100%" position="relative">
             <Box sx={{

@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 
-const ReachesStripe = () => {
+const ReachesStripe: React.FC = () => {
     return (
         <Box>
             <Box sx={{display:"flex", flexDirection: {xs:"column",sm:"row"},justifyContent:"space-between", gap: {xs:"100px",sm:"30px"},p:{xs:"80px 40px",sm:"80px 20px"} }} maxWidth={"1050px"} mx="auto">

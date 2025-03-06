@@ -3,54 +3,11 @@ import { Box, Typography, Stack, TableContainer, Table, TableHead, TableRow, Tab
 import { Link } from "react-router-dom";
 import { ArrowForwardIos } from "@mui/icons-material";
 import Paper from '@mui/material/Paper';
-import item1 from "../../assets/featured/featured-1.svg"
-import item2 from "../../assets/featured/featured-2.svg"
-import item3 from "../../assets/featured/featured-3.svg"
-import item4 from "../../assets/featured/featured-4.svg"
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { useDispatch, useSelector } from "react-redux";
 import { increaseQuantity, decreaseQuantity, removeProductFromCart } from "../../store/Slices/CartSlice";
 import { RootState } from "../../store/store";
-
-interface ProductData {
-    img: string,
-    name: string,
-    color: string,
-    price: string,
-    Quantity: string
-}
-
-const rows: ProductData[] = [
-    {
-        img: item1,
-        name: "Yellow T-shirt",
-        color: "#23A6F0",
-        price: "$20",
-        Quantity: "1"
-    },
-    {
-        img: item2,
-        name: "White T-shirt",
-        color: "#23856D",
-        price: "$10",
-        Quantity: "2"
-    },
-    {
-        img: item3,
-        name: "Pink T-shirt",
-        color: "#E77C40",
-        price: "$30",
-        Quantity: "1"
-    },
-    {
-        img: item4,
-        name: "Brown Jacket",
-        color: "#252B42",
-        price: "$20",
-        Quantity: "1"
-    }
-];
 
 const Cart: React.FC = () => {
 

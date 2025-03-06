@@ -6,34 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterAll, filterByBrands, filterByCategory, filterByPrice, resetFilter } from '../../store/Slices/FilterSlice';
 import { RootState } from '../../store/store';
 
-
-const minDistance = 10;
-
 const Filters: React.FC = () => {
-    const [value2, setValue2] = React.useState<number[]>([20, 80]);
-
-    const handleChange2 = (
-        event: Event,
-        newValue: number | number[],
-        activeThumb: number,
-    ) => {
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-
-        if (newValue[1] - newValue[0] < minDistance) {
-            if (activeThumb === 0) {
-                const clamped = Math.min(newValue[0], 100 - minDistance);
-                setValue2([clamped, clamped + minDistance]);
-            } else {
-                const clamped = Math.max(newValue[1], minDistance);
-                setValue2([clamped - minDistance, clamped]);
-            }
-        } else {
-            setValue2(newValue as number[]);
-        }
-    };
-
     const dispatch = useDispatch();
     const handleFilterByCategory = (category: string) => {
         console.log("category:", category);

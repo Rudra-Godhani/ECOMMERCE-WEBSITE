@@ -120,6 +120,7 @@ const ProductDes: React.FC<ProductProps> = ({ product }) => {
                 <Stack direction={"row"} pb="20px">
                     {productDetails.map((item, index) => (
                         <Typography
+                            key={index}
                             variant="h6"
                             color="gray"
                             fontWeight={"700"}

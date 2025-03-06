@@ -1,4 +1,4 @@
-import { AppBar, Box, styled, Toolbar } from '@mui/material'
+import { Box, styled, Toolbar } from '@mui/material'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';

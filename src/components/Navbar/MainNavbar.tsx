@@ -64,10 +64,11 @@ const MainNavbar: React.FC = () => {
     const wishlist = useSelector((state: RootState) => state.wishlist);
 
     return (
-        <AppBar position="sticky" color="#ffffff">
+        <AppBar position="sticky" sx={{color:"#ffffff",backgroundColor:"#FFFFFF"}}>
             <StyledToolebar>
                 <Typography
                     variant="h3"
+                    color="secondary"
                     sx={{
                         fontSize: "1.5rem",
                         width: "187px",

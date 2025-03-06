@@ -32,7 +32,7 @@ const Banner: React.FC = () => {
               <Typography sx={{ position: "absolute", bottom: 25, left: 30, p: "12px 60px", backgroundColor: "#ffffff", color: "#252B42" }}>MEN</Typography>
             </Box>
 
-            <Box position={"relative"} width={"100%"} overflow={"hidden"} sx={{ height: { xs: "auto", sm: "auto" }, height: { xs: "500px", sm: "auto" } }}>
+            <Box position={"relative"} width={"100%"} overflow={"hidden"} sx={{ height: { xs: "500px", sm: "auto" } }}>
               <img src={edit2} alt="edit1" width="100%" height="100%" style={{ objectFit: "cover" }} />
               <Typography sx={{ position: "absolute", bottom: 25, left: 30, p: "12px 33px", backgroundColor: "#ffffff", color: "#252B42" }}>WOMEN</Typography>
             </Box>
