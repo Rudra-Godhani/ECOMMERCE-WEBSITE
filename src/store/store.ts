@@ -1,15 +1,3 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import cartReducer from "./Slices/CartSlice";
-
-// const store = configureStore({
-//     reducer: {
-//         cart: cartReducer,
-//     }
-// });
-
-// export default store;
-// export type RootState = ReturnType<typeof store.getState>;
-
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./Slices/CartSlice";
 import wishListReducer from "./Slices/WishListSlice";

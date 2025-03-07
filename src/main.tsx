@@ -8,6 +8,22 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
 
+declare module "@mui/material/styles" {
+    interface Palette {
+        gray: Palette["primary"];
+        lightBlue: Palette["primary"];
+        darkGreen: Palette["primary"];
+        lightGreen: Palette["primary"];
+    }
+
+    interface PaletteOptions {
+        gray?: PaletteOptions["primary"];
+        lightBlue?: PaletteOptions["primary"];
+        darkGreen?: PaletteOptions["primary"];
+        lightGreen?: PaletteOptions["primary"];
+    }
+}
+
 export const theme = createTheme({
     typography: {
         fontFamily: '"Montserrat", sans-serif',
@@ -60,17 +76,8 @@ export const theme = createTheme({
         darkGreen: {
             main: "#23856D",
         },
-        lightGreeb: {
+        lightGreen: {
             main: "#2DC071",
-        },
-        breakpoints: {
-            values: {
-                xs: 0,
-                sm: 600,
-                md: 960,
-                lg: 1280,
-                xl: 1920,
-            },
         },
     },
 });

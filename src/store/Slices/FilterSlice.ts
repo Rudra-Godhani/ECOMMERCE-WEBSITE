@@ -17,8 +17,8 @@ const initialState: FilterState = {
     selectedCategory: null,
     selectedBrands: [],
     showAll: true,
-    minPrice: 10, // Set the min price (as per UI)
-    maxPrice: 5000, // Set the max price (as per UI)
+    minPrice: 10,
+    maxPrice: 5000,
 };
 
 const filterSlice = createSlice({

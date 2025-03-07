@@ -61,14 +61,11 @@ const FavoriteProducts: React.FC = () => {
   };
 
   const handleFavorite = (product: Product) => {
-    console.log("wishlist:", wishlist);
     if (!wishlist.some((p: Product) => p.id === product.id)) {
-      console.log("added wishlist");
       dispatch(addToWishlist(product));
       toast.success("Product Added To WishList");
     }
     else {
-      console.log("removed wishlist");
       dispatch(removeFromWishlist(product.id));
       toast.error("Product Removed From WishList");
     }
