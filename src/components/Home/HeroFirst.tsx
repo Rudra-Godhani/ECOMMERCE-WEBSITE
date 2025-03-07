@@ -33,16 +33,26 @@ const HeroFirst: React.FC = () => {
 
     const handlePrev = () => {
         if (carouselRef.current) {
-            carouselRef.current.previous(); // Move to the previous slide
-            setCurrentSlide((prev) => (prev + slides.length) % slides.length); // Update state properly
+            carouselRef.current.previous(1);
+            setCurrentSlide(
+                (prev) => (prev -1 + slides.length) % slides.length
+            );
         }
     };
 
     const handleNext = () => {
         if (carouselRef.current) {
-            carouselRef.current.next(); // Move to the next slide
-            setCurrentSlide((prev) => prev % slides.length); // Update state properly
+            carouselRef.current.next(1);
+            setCurrentSlide((prev) => (prev + 1) % slides.length);
         }
+    };
+
+    const handleAfterChange = (
+        _previousSlide: number,
+        { currentSlide: nextSlide }: { currentSlide: number }
+    ) => {
+        // Update currentSlide based on the carousel's internal state after transition
+        setCurrentSlide(nextSlide % slides.length);
     };
 
     return (
@@ -56,7 +66,7 @@ const HeroFirst: React.FC = () => {
                 autoPlaySpeed={3000}
                 showDots={false}
                 arrows={false} // Hide default arrows
-                beforeChange={(nextSlide) => setCurrentSlide(nextSlide)} // Fix indicator blinking issue
+                afterChange={handleAfterChange} // Fix indicator blinking issue
             >
                 {slides.map((slide, index) => (
                     <Box

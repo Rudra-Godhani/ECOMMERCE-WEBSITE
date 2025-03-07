@@ -35,16 +35,26 @@ const HeroSecond: React.FC = () => {
 
     const goToNext = () => {
         if (carouselRef.current) {
-            carouselRef.current.next(); // Move to the next slide
-            setCurrentSlide((prev) => prev % slides.length); // Update state properly
+            carouselRef.current.next(1); // Move to the next slide
+            setCurrentSlide((prev) => (prev + 1) % slides.length); // Update state properly
         }
     };
 
     const goToPrev = () => {
         if (carouselRef.current) {
-            carouselRef.current.previous(); // Move to the previous slide
-            setCurrentSlide((prev) => (prev + slides.length) % slides.length); // Update state properly
+            carouselRef.current.previous(1); // Move to the previous slide
+            setCurrentSlide(
+                (prev) => (prev - 1 + slides.length) % slides.length
+            ); // Update state properly
         }
+    };
+
+    const handleAfterChange = (
+        _previousSlide: number,
+        { currentSlide: nextSlide }: { currentSlide: number }
+    ) => {
+        // Update currentSlide based on the carousel's internal state after transition
+        setCurrentSlide(nextSlide % slides.length);
     };
 
     return (
@@ -57,7 +67,7 @@ const HeroSecond: React.FC = () => {
                 autoPlaySpeed={3000}
                 arrows={false}
                 showDots={false}
-                beforeChange={(nextSlide) => setCurrentSlide(nextSlide)}
+                afterChange={handleAfterChange}
             >
                 {slides.map((slide, index) => (
                     <Box

@@ -38,7 +38,6 @@ const MobilePages = [
 ];
 
 const MainNavbar: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const StyledToolebar = styled(Toolbar)(({ theme }) => ({
         display: "flex",
         padding: "12px 0px 8px 0px",
@@ -64,7 +63,10 @@ const MainNavbar: React.FC = () => {
     const wishlist = useSelector((state: RootState) => state.wishlist);
 
     return (
-        <AppBar position="sticky" sx={{color:"#ffffff",backgroundColor:"#FFFFFF"}}>
+        <AppBar
+            position="sticky"
+            sx={{ color: "#ffffff", backgroundColor: "#FFFFFF" }}
+        >
             <StyledToolebar>
                 <Typography
                     variant="h3"
@@ -133,19 +135,17 @@ const MainNavbar: React.FC = () => {
                                 alignItems: "center",
                             }}
                         >
-                            <NavLink
-                                to={`${isLoggedIn ? "/profile" : "/login"} `}
-                            >
+                            <NavLink to={`${true ? "/profile" : "/login"} `}>
                                 <PermIdentityIcon
                                     fontSize="small"
                                     sx={{
                                         alignItems: "center",
-                                        mt:"6px"
+                                        mt: "6px",
                                     }}
                                     htmlColor="#23A6F0"
                                 />
                             </NavLink>
-                            {isLoggedIn ? (
+                            {true ? (
                                 <NavLink
                                     to="/profile"
                                     style={{
@@ -244,12 +244,8 @@ const MainNavbar: React.FC = () => {
                         justifyContent: "flex-end",
                     }}
                 >
-                    <IconButton
-                        size="large"
-                        onClick={handleDrawerOpen}
-                        color="inherit"
-                    >
-                        <MenuIcon />
+                    <IconButton size="large" onClick={handleDrawerOpen}>
+                        <MenuIcon htmlColor="#000000" />
                     </IconButton>
                 </Box>
             </StyledToolebar>
@@ -263,7 +259,7 @@ const MainNavbar: React.FC = () => {
                 <Box sx={{ width: 250, p: 2 }}>
                     {/* Close Button */}
                     <IconButton sx={{ mb: 2 }} onClick={handleDrawerClose}>
-                        <CloseIcon />
+                        <CloseIcon htmlColor="#000000" />
                     </IconButton>
 
                     {/* Drawer Menu List */}
@@ -271,7 +267,6 @@ const MainNavbar: React.FC = () => {
                         {MobilePages.map((page, index) => (
                             <ListItem
                                 key={index}
-                                button
                                 onClick={handleDrawerClose}
                                 sx={{
                                     display: "flex",
