@@ -1,8 +1,8 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { footerData } from '../../Data'
-import heroFirst1 from "../../assets/hero-1.jpg";
+import { footerData } from '../../data/footerData'
+import { heroFirst1 } from '../../assets'
 
 const Contact: React.FC = () => {
     return (

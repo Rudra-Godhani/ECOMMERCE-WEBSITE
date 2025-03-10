@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product, productsData } from "../../Data";
+import { Product,productsData } from "../../data/allProductsData";
 
 interface FilterState {
     allProducts: Product[];

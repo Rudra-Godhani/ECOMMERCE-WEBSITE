@@ -28,14 +28,6 @@ const pages = [
     { name: "About", link: "/about-us" },
     { name: "Contact", link: "/contact-us" },
 ];
-const MobilePages = [
-    { name: "Home", link: "/" },
-    { name: "Shop", link: "/product/listing" },
-    { name: "About", link: "/about-us" },
-    { name: "Contact", link: "/contact-us" },
-    { name: "Login", link: "/login" },
-    { name: "Signup", link: "/signup" },
-];
 
 const MainNavbar: React.FC = () => {
     const StyledToolebar = styled(Toolbar)(({ theme }) => ({
@@ -61,6 +53,20 @@ const MainNavbar: React.FC = () => {
 
     const cart = useSelector((state: RootState) => state.cart);
     const wishlist = useSelector((state: RootState) => state.wishlist);
+    const authData = useSelector((state: RootState) => state.auth);
+
+    const MobilePages = [
+        { name: "Home", link: "/" },
+        { name: "Shop", link: "/product/listing" },
+        { name: "About", link: "/about-us" },
+        { name: "Contact", link: "/contact-us" },
+        ...(authData.isLoggedIn
+            ? [{ name: "Profile", link: "/profile" }]
+            : [
+                  { name: "Login", link: "/login" },
+                  { name: "Signup", link: "/signup" },
+              ]),
+    ];
 
     return (
         <AppBar
@@ -135,7 +141,11 @@ const MainNavbar: React.FC = () => {
                                 alignItems: "center",
                             }}
                         >
-                            <NavLink to={`${true ? "/profile" : "/login"} `}>
+                            <NavLink
+                                to={`${
+                                    authData.isLoggedIn ? "/profile" : "/login"
+                                } `}
+                            >
                                 <PermIdentityIcon
                                     fontSize="small"
                                     sx={{
@@ -145,7 +155,7 @@ const MainNavbar: React.FC = () => {
                                     htmlColor="#23A6F0"
                                 />
                             </NavLink>
-                            {true ? (
+                            {authData.isLoggedIn ? (
                                 <NavLink
                                     to="/profile"
                                     style={{

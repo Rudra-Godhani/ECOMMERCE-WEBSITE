@@ -1,16 +1,14 @@
-import React from 'react'
-import Navbar from '../../components/Navbar/Navbar'
-import Cart from '../../components/ShoppingCart/Cart'
-import Footer from '../../components/Home/Footer'
+import React from "react";
+import CartData from "../../section/ShoppingCart/CartData";
+import CartTotal from "../../section/ShoppingCart/CartTotal";
 
 const ShoppingCart: React.FC = () => {
     return (
         <>
-            <Navbar />
-            <Cart />
-            <Footer />
+            <CartData />
+            <CartTotal />
         </>
-    )
-}
+    );
+};
 
-export default ShoppingCart
+export default ShoppingCart;
