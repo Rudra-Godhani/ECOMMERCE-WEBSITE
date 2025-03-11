@@ -50,8 +50,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 {selectedTab === "My Profile" && <MyProfile />}
                 {selectedTab === "Update Profile" && <UpdateProfile />}
                 {selectedTab === "Update Password" && <UpdatePassword />}
-                {selectedTab === "My Orders" && <MyOrders />}
-                {selectedTab === "Logout" && <Logout />}
+                {selectedTab === "My Orders" && <MyOrders />}   
             </Box>
             <Drawer
                 anchor="left"
