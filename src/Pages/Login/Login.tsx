@@ -13,9 +13,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { bgImage } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { login, resetErrorAndMesssage } from "../../store/Slices/authSlice";
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
+import { clearAllUserErrors, clearAllUserMessage, login } from "../../store/Slices/userSlice";
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -27,9 +27,11 @@ const Login: React.FC = () => {
         email: "",
         password: "",
     });
+    const { loading, isAuthenticated, error, message } = useSelector(
+        (state: RootState) => state.user
+    );
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const authData = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch<AppDispatch>();
 
     // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,22 +69,18 @@ const Login: React.FC = () => {
     };
 
     useEffect(() => {
-        if (authData.isLoggedIn) {
+        if (error) {
+            toast.error(error);
+            dispatch(clearAllUserErrors());
+        }
+        if (isAuthenticated) {
+            if(message){
+                toast.success(message);
+                dispatch(clearAllUserMessage());
+            }
             navigate("/");
         }
-    }, [authData.isLoggedIn, navigate]);
-
-    useEffect(() => {
-        if (authData.message) {
-            toast.success(authData.message);
-            dispatch(resetErrorAndMesssage());
-            navigate("/");
-        }
-        if (authData.error) {
-            toast.error(authData.error);
-            dispatch(resetErrorAndMesssage());
-        }
-    }, [authData, dispatch, navigate]);
+    }, [dispatch, error, loading, isAuthenticated, message]);
 
     return (
         <Box

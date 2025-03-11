@@ -1,9 +1,11 @@
 import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import WestIcon from "@mui/icons-material/West";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/Slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../../store/store";
+import { toast } from "react-toastify";
+import { clearAllUserErrors, clearAllUserMessage, logout } from "../../store/Slices/userSlice";
 
 const tabs: string[] = [
     "My Profile",
@@ -23,10 +25,26 @@ const ManageAccount: React.FC<ManageAccountProps> = ({
     setSelectedTab,
     toggleDrawer,
 }) => {
-    const dispatch = useDispatch();
+    const { loading, isAuthenticated, error, message } = useSelector(
+        (state: RootState) => state.user
+    );
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const handleLogout = () => {
         dispatch(logout());
     };
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            dispatch(clearAllUserErrors());
+        }
+        if(message){
+            toast.success(message);
+            dispatch(clearAllUserMessage());
+            navigate("/");
+        }
+    }, [dispatch, error, loading, isAuthenticated]);
 
     return (
         <Box px="20px">

@@ -53,14 +53,14 @@ const MainNavbar: React.FC = () => {
 
     const cart = useSelector((state: RootState) => state.cart);
     const wishlist = useSelector((state: RootState) => state.wishlist);
-    const authData = useSelector((state: RootState) => state.auth);
+    const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
     const MobilePages = [
         { name: "Home", link: "/" },
         { name: "Shop", link: "/product/listing" },
         { name: "About", link: "/about-us" },
         { name: "Contact", link: "/contact-us" },
-        ...(authData.isLoggedIn
+        ...(isAuthenticated
             ? [{ name: "Profile", link: "/profile" }]
             : [
                   { name: "Login", link: "/login" },
@@ -143,7 +143,7 @@ const MainNavbar: React.FC = () => {
                         >
                             <NavLink
                                 to={`${
-                                    authData.isLoggedIn ? "/profile" : "/login"
+                                    isAuthenticated ? "/profile" : "/login"
                                 } `}
                             >
                                 <PermIdentityIcon
@@ -155,7 +155,7 @@ const MainNavbar: React.FC = () => {
                                     htmlColor="#23A6F0"
                                 />
                             </NavLink>
-                            {authData.isLoggedIn ? (
+                            {isAuthenticated ? (
                                 <NavLink
                                     to="/profile"
                                     style={{

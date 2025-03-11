@@ -47,10 +47,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         });
         await userRepository.save(newUser);
 
+        const { password: _, ...userWithoutPassword } = newUser;
+
         res.status(201).json({
             success: true,
             message: "User Registered Successfully",
-            user: newUser,
+            user: userWithoutPassword,
         });
     } catch (error) {
         console.error("Error registering user:", error);
@@ -86,9 +88,12 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
             const secret = process.env.JWT_SECRET;
             if (!secret) {
-                throw new Error(
-                    "JWT_SECRET is not defined in environment variables."
-                );
+                res.status(400).json({
+                    success: false,
+                    message:
+                        "JWT_SECRET is not defined in environment variables",
+                });
+                return;
             }
 
             const token = jwt.sign(payload, secret, {
@@ -144,7 +149,7 @@ export const getAllUsers = async (
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Error fetching users",
+            message: "Failed fetching users",
         });
     }
 };
@@ -176,7 +181,24 @@ export const updateProfile = async (
     res: Response
 ): Promise<void> => {
     try {
-        console.log("data:", req.body);
+        const users = await userRepository.find();
+        console.log("users:", users);
+
+        const filteredUser = users.filter(
+            (user) => user.id !== (req.user as User).id
+        );
+
+        console.log("filteredUser:", filteredUser);
+
+        const emailExist = filteredUser.find((user) => user.email === req.body.email);
+        console.log("emailExist:", emailExist);
+        if (emailExist) {
+            res.status(400).json({
+                success: false,
+                message: "Email is already used",
+            });
+            return;
+        }
 
         const userNewData = {
             name: req.body.name,
@@ -189,7 +211,8 @@ export const updateProfile = async (
         if (req.files && req.files.profileImage) {
             const profileImage = req.files.profileImage;
             if (profileImage) {
-                const currentProfileImageId = (req.user as User).profileImage.public_id;
+                const currentProfileImageId = (req.user as User).profileImage
+                    .public_id;
                 if (currentProfileImageId) {
                     await cloudinary.uploader.destroy(currentProfileImageId);
                 }
@@ -222,7 +245,7 @@ export const updateProfile = async (
         res.status(200).json({
             success: true,
             user: updatedUser,
-            message: "Profile updated successfully.",
+            message: "Profile updated successfully",
         });
     } catch (error) {
         console.error("Error While Updating Profile:", error);
@@ -246,7 +269,7 @@ export const updatePassword = async (
         if (!user) {
             res.status(404).json({
                 success: false,
-                message: "User not found.",
+                message: "User not found",
             });
             return;
         }
@@ -259,7 +282,7 @@ export const updatePassword = async (
         if (!isPasswordMatched) {
             res.status(400).json({
                 success: false,
-                message: "Old password is incorrect.",
+                message: "Old password is incorrect",
             });
             return;
         }
@@ -269,7 +292,7 @@ export const updatePassword = async (
         await userRepository.save(user);
         res.status(200).json({
             success: true,
-            message: "Password updated successfully.",
+            message: "Password updated successfully",
         });
     } catch (error) {
         console.error("Error While Updating Password:", error);

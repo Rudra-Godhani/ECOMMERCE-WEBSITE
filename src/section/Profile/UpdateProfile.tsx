@@ -1,13 +1,32 @@
-import { Avatar, Button, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import {
+    Avatar,
+    Box,
+    Button,
+    IconButton,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import { profilePicture } from "../../assets";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { Edit } from "@mui/icons-material";
+import {
+    clearAllUpdateProfileErrorsAndMessage,
+    updateProfile,
+} from "../../store/Slices/updateProfile";
+import { toast } from "react-toastify";
+import { getUser } from "../../store/Slices/userSlice";
 
 const UpdateProfile: React.FC = () => {
+    const { user } = useSelector((state: RootState) => state.user);
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phoneNumber: "",
-        address: "",
+        name: user?.name || "",
+        email: user?.email || "",
+        phoneNumber: user?.phoneNumber || "",
+        address: user?.address || "",
+        profileImage: user?.profileImage.url || null,
     });
     const [errors, setErrors] = useState({
         name: "",
@@ -16,15 +35,37 @@ const UpdateProfile: React.FC = () => {
         address: "",
     });
 
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const { loading, error, isUpdated, message } = useSelector(
+        (state: RootState) => state.updateProfile
+    );
+    const dispatch = useDispatch<AppDispatch>();
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
         setErrors({ ...errors, [e.target.name]: "" });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData((prev) => ({
+                    ...prev,
+                    profileImage: reader.result as string,
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleEditClick = () => {
+        fileInputRef.current?.click();
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("submit");
 
         const validationErrors = {
             name: "",
@@ -43,7 +84,7 @@ const UpdateProfile: React.FC = () => {
         }
         if (!formData.phoneNumber) {
             validationErrors.phoneNumber = "PhoneNumber is required";
-        } else if (formData.phoneNumber.length < 10) {
+        } else if (formData.phoneNumber.toString().length < 10) {
             validationErrors.phoneNumber =
                 "PhoneNumber must be at least 10 characteres.";
         }
@@ -62,8 +103,38 @@ const UpdateProfile: React.FC = () => {
             return;
         }
 
-        alert("Form submitted successfully!");
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("phoneNumber", formData.phoneNumber?.toString());
+        formDataToSend.append("address", formData.address);
+        if (fileInputRef.current?.files?.[0]) {
+            formDataToSend.append(
+                "profileImage",
+                fileInputRef.current.files[0]
+            );
+        }
+
+        formDataToSend.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
+        dispatch(updateProfile(formDataToSend));
     };
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            dispatch(clearAllUpdateProfileErrorsAndMessage());
+        }
+        if (isUpdated) {
+            if (message) {
+                toast.success(message);
+            }
+            dispatch(getUser());
+            dispatch(clearAllUpdateProfileErrorsAndMessage());
+        }
+    }, [dispatch, loading, error, isUpdated, user]);
+
     return (
         <Stack>
             <Stack>
@@ -73,16 +144,52 @@ const UpdateProfile: React.FC = () => {
             </Stack>
             <form onSubmit={handleSubmit}>
                 <Stack gap={"20px"}>
-                    <Stack
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        pb={"20px"}
-                    >
-                        <Avatar
-                            alt="Remy Sharp"
-                            src={profilePicture}
-                            sx={{ width: "150px", height: "150px" }}
-                        />
+                    <Stack pb="20px" alignItems={"center"}>
+                        <Box position={"relative"}>
+                            <Avatar
+                                alt="Remy Sharp"
+                                src={user?.profileImage.url}
+                                sx={{
+                                    width: "150px",
+                                    height: "150px",
+                                    bgcolor: user?.profileImage?.url
+                                        ? "transparent"
+                                        : "#ccc",
+                                    fontSize: "80px",
+                                    color: "#fff",
+                                }}
+                            >
+                                {" "}
+                                {!user?.profileImage?.url &&
+                                    user?.name?.[0]?.toUpperCase()}
+                            </Avatar>
+                            <IconButton
+                                onClick={handleEditClick}
+                                sx={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    right: 20,
+                                    backgroundColor: "white",
+                                    border: "1px solid #ccc",
+                                    transform: "translate(20%, 20%)",
+                                    "&:hover": {
+                                        backgroundColor: "#f0f0f0",
+                                    },
+                                    width: "40px",
+                                    height: "40px",
+                                    boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                                }}
+                            >
+                                <Edit />
+                            </IconButton>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                style={{ display: "none" }}
+                                onChange={handleFileChange}
+                            />
+                        </Box>
                     </Stack>
                     <Stack gap={"15px"}>
                         <Typography variant="h4">Name</Typography>

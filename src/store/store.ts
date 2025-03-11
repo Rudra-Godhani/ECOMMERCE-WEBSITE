@@ -34,19 +34,21 @@
 // export default store;
 // export type RootState = ReturnType<typeof store.getState>;
 
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import cartReducer from "./Slices/CartSlice";
 import wishListReducer from "./Slices/WishListSlice";
 import filterReducer from "./Slices/FilterSlice";
 import authReducer from "./Slices/authSlice";
+import userReducer from "./Slices/userSlice";
+import updateProfileReducer from "./Slices/updateProfile";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
-import { combineReducers } from "redux";
+import { AnyAction, combineReducers } from "redux";
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["cart", "wishlist","auth"],
+    whitelist: ["cart", "wishlist","user"],
 };
 
 const rootReducer = combineReducers({
@@ -54,6 +56,8 @@ const rootReducer = combineReducers({
     wishlist: wishListReducer,
     filter: filterReducer,
     auth: authReducer,
+    user: userReducer,
+    updateProfile: updateProfileReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -69,4 +73,5 @@ const store = configureStore({
 export const persistor = persistStore(store);
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = ThunkDispatch<RootState, void, AnyAction>;
 

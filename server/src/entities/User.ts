@@ -22,13 +22,13 @@ export class User {
     @Column()
     password!: string;
 
-    @Column({ type: "bigint", default: 0 })
-    phoneNumber!: number;
+    @Column({type: "bigint", nullable: true })
+    phoneNumber!: string;
 
     @Column({ default: "" })
     address!: string;
 
-    @Column({type:"jsonb", default: { public_id: "", url: "" } })
+    @Column({ type: "jsonb", default: { public_id: "", url: "" } })
     profileImage!: {
         public_id: string;
         url: string;

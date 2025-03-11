@@ -13,9 +13,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { bgImage } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { resetErrorAndMesssage, signUp } from "../../store/Slices/authSlice";
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
+import {
+    clearAllUserErrors,
+    clearAllUserMessage,
+    register,
+} from "../../store/Slices/userSlice";
 
 const SignUp: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -29,19 +33,17 @@ const SignUp: React.FC = () => {
         email: "",
         password: "",
     });
+    const { loading, isAuthenticated, error, message } = useSelector(
+        (state: RootState) => state.user
+    );
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const authData = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch<AppDispatch>();
 
-    // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        // Clear errors when user starts typing
         setErrors({ ...errors, [e.target.name]: "" });
     };
 
-    // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -70,26 +72,23 @@ const SignUp: React.FC = () => {
             return;
         }
 
-        dispatch(signUp(formData));
+        dispatch(register(formData));
     };
 
     useEffect(() => {
-        if (authData.isLoggedIn) {
-            navigate("/");
+        if (error) {
+            toast.error(error);
+            dispatch(clearAllUserErrors());
         }
-    }, [authData.isLoggedIn, navigate]);
-
-    useEffect(() => {
-        if (authData.message) {
-            toast.success(authData.message);
-            dispatch(resetErrorAndMesssage());
+        if (message) {
+            toast.success(message);
+            dispatch(clearAllUserMessage());
             navigate("/login");
         }
-        if (authData.error) {
-            toast.error(authData.error);
-            dispatch(resetErrorAndMesssage());
+        if (isAuthenticated) {
+            navigate("/");
         }
-    }, [authData, dispatch, navigate]);
+    }, [dispatch, error, loading, isAuthenticated, message]);
 
     return (
         <Box
