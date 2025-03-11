@@ -13,14 +13,17 @@ const UpdatePassword: React.FC = () => {
     const [formData, setFormData] = useState({
         currentPassword: "",
         newPassword: "",
+        confirmPassword: "",
     });
     const [errors, setErrors] = useState({
         currentPassword: "",
         newPassword: "",
+        confirmPassword: "",
     });
 
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,6 +38,8 @@ const UpdatePassword: React.FC = () => {
         const validationErrors = {
             currentPassword: "",
             newPassword: "",
+            confirmPassword: "",
+            passwordMatch: "",
         };
 
         if (!formData.currentPassword) {
@@ -49,8 +54,23 @@ const UpdatePassword: React.FC = () => {
             validationErrors.newPassword =
                 "New Password must be at least 8 characters";
         }
+        if (!formData.confirmPassword) {
+            validationErrors.confirmPassword = "Confirm Password is required";
+        } else if (formData.confirmPassword.length < 8) {
+            validationErrors.confirmPassword =
+                "Confirm Password must be at least 8 characters";
+        }
+        if (formData.newPassword !== formData.currentPassword) {
+            validationErrors.passwordMatch =
+                "New password and confirm password not match";
+        }
 
-        if (validationErrors.currentPassword || validationErrors.newPassword) {
+        if (
+            validationErrors.currentPassword ||
+            validationErrors.newPassword ||
+            validationErrors.confirmPassword ||
+            validationErrors.passwordMatch
+        ) {
             setErrors(validationErrors);
             return;
         }
@@ -130,6 +150,43 @@ const UpdatePassword: React.FC = () => {
                                             edge="end"
                                         >
                                             {showNewPassword ? (
+                                                <VisibilityOff />
+                                            ) : (
+                                                <Visibility />
+                                            )}
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Stack>
+                    <Stack gap={"15px"}>
+                        <Typography variant="h4">New Password</Typography>
+                        <TextField
+                            label="ConfirmPassword"
+                            name="confirmPassword"
+                            type={!showConfirmPassword ? "text" : "password"}
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            error={!!errors.confirmPassword}
+                            helperText={errors.confirmPassword}
+                            InputLabelProps={{
+                                style: { fontSize: "15px" },
+                            }}
+                            fullWidth
+                            InputProps={{
+                                style: { fontSize: "15px" },
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={() =>
+                                                setShowConfirmPassword(
+                                                    !showConfirmPassword
+                                                )
+                                            }
+                                            edge="end"
+                                        >
+                                            {showConfirmPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />

@@ -35,6 +35,7 @@ const UpdateProfile: React.FC = () => {
         address: "",
     });
 
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { loading, error, isUpdated, message } = useSelector(
         (state: RootState) => state.updateProfile
@@ -49,14 +50,16 @@ const UpdateProfile: React.FC = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData((prev) => ({
-                    ...prev,
-                    profileImage: reader.result as string,
-                }));
-            };
-            reader.readAsDataURL(file);
+            const objectUrl = URL.createObjectURL(file);
+            setPreviewImage(objectUrl);
+            // const reader = new FileReader();
+            // reader.onloadend = () => {
+            //     setFormData((prev) => ({
+            //         ...prev,
+            //         profileImage: reader.result as string,
+            //     }));
+            // };
+            // reader.readAsDataURL(file);
         }
     };
 
@@ -135,6 +138,17 @@ const UpdateProfile: React.FC = () => {
         }
     }, [dispatch, loading, error, isUpdated, user]);
 
+    useEffect(() => {
+        setPreviewImage(user?.profileImage?.url || null);
+        setFormData({
+            name: user?.name || "",
+            email: user?.email || "",
+            phoneNumber: user?.phoneNumber || "",
+            address: user?.address || "",
+            profileImage: user?.profileImage?.url || null,
+        });
+    }, [user]);
+
     return (
         <Stack>
             <Stack>
@@ -147,8 +161,8 @@ const UpdateProfile: React.FC = () => {
                     <Stack pb="20px" alignItems={"center"}>
                         <Box position={"relative"}>
                             <Avatar
-                                alt="Remy Sharp"
-                                src={user?.profileImage.url}
+                                alt="Profile Picture"
+                                src={previewImage || user?.profileImage?.url}
                                 sx={{
                                     width: "150px",
                                     height: "150px",
