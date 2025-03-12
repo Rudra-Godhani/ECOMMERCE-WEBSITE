@@ -174,6 +174,7 @@ const Login: React.FC = () => {
                                 fontSize: "15px",
                                 ":hover": { backgroundColor: "#1A8CD8" },
                             }}
+                            disabled={loading}
                         >
                             Login
                         </Button>

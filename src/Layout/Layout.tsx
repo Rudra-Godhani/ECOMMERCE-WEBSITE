@@ -7,7 +7,6 @@ import Footer from "../components/Footer/Footer"; // Loading component for bette
 const Layout: React.FC = () => {
     const { pathname } = useLocation();
 
-    // Paths where Navbar & Footer should be hidden
     const hiddenLayoutPaths = ["/login", "/signup"];
     const hideLayout = hiddenLayoutPaths.includes(pathname);
 

@@ -7,7 +7,12 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { toast } from "react-toastify";
+import { clearAllUpdateProfileErrorsAndMessage, updatePassword } from "../../store/Slices/updateProfile";
+import { getUser } from "../../store/Slices/userSlice";
 
 const UpdatePassword: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -24,6 +29,11 @@ const UpdatePassword: React.FC = () => {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const { loading, error, isUpdated, message } = useSelector(
+        (state: RootState) => state.updateProfile
+    );
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,23 +70,41 @@ const UpdatePassword: React.FC = () => {
             validationErrors.confirmPassword =
                 "Confirm Password must be at least 8 characters";
         }
-        if (formData.newPassword !== formData.currentPassword) {
-            validationErrors.passwordMatch =
-                "New password and confirm password not match";
-        }
 
         if (
             validationErrors.currentPassword ||
             validationErrors.newPassword ||
-            validationErrors.confirmPassword ||
-            validationErrors.passwordMatch
+            validationErrors.confirmPassword
         ) {
             setErrors(validationErrors);
             return;
         }
 
-        alert("Form submitted successfully!");
+        if (formData.newPassword !== formData.confirmPassword) {
+            toast.error(
+                "newPassword and ConfirmPassword don't match.Please check and try again."
+            );
+            return;
+        }
+
+        dispatch(updatePassword(formData));
     };
+
+    useEffect(() => {
+        if(error){
+            toast.error(error);
+            dispatch(clearAllUpdateProfileErrorsAndMessage());
+        }
+        if(isUpdated){
+            if(message){
+                toast.success(message);
+            }
+            dispatch(getUser());
+            dispatch(clearAllUpdateProfileErrorsAndMessage());
+        }
+    },[dispatch,loading,error,isUpdated]);
+
+
     return (
         <Stack>
             <Stack>
@@ -208,6 +236,7 @@ const UpdatePassword: React.FC = () => {
                             width: "fit-content",
                             alignSelf: "flex-end",
                         }}
+                        disabled={loading}
                     >
                         Update Password
                     </Button>

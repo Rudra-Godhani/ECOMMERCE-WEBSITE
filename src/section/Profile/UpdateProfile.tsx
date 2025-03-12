@@ -292,6 +292,7 @@ const UpdateProfile: React.FC = () => {
                             width: "fit-content",
                             alignSelf: "flex-end",
                         }}
+                        disabled={loading}
                     >
                         Save Changes
                     </Button>

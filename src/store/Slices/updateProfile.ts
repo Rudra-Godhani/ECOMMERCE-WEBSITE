@@ -101,8 +101,9 @@ export const updateProfile =
     };
 
 interface PasswordData {
-    oldPassword: string;
+    currentPassword: string;
     newPassword: string;
+    confirmPassword: string;
 }
 
 export const updatePassword =
