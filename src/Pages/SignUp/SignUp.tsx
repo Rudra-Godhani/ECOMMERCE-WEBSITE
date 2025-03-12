@@ -115,7 +115,7 @@ const SignUp: React.FC = () => {
                 }}
             >
                 <form onSubmit={handleSubmit}>
-                    <Stack gap={"20px"}>
+                    <Stack gap={"25px"}>
                         <Typography
                             variant="h1"
                             color="secondary"

@@ -65,6 +65,48 @@ const updateProfileSlice = createSlice({
             state.error = action.payload.message;
             state.message = null;
         },
+        forgotPasswordRequest: (state) => {
+            state.loading = true;
+        },
+        forgotPasswordSuccess: (
+            state,
+            action: PayloadAction<{ message: string }>
+        ) => {
+            state.loading = false;
+            state.isUpdated = false;
+            state.error = null;
+            state.message = action.payload.message;
+        },
+        forgotPasswordFailed: (
+            state,
+            action: PayloadAction<{ message: string }>
+        ) => {
+            state.loading = false;
+            state.isUpdated = false;
+            state.error = action.payload.message;
+            state.message = null;
+        },
+        resetPasswordRequest: (state) => {
+            state.loading = true;
+        },
+        resetPasswordSuccess: (
+            state,
+            action: PayloadAction<{ message: string }>
+        ) => {
+            state.loading = false;
+            state.isUpdated = true;
+            state.error = null;
+            state.message = action.payload.message;
+        },
+        resetPasswordFailed: (
+            state,
+            action: PayloadAction<{ message: string }>
+        ) => {
+            state.loading = false;
+            state.isUpdated = false;
+            state.error = action.payload.message;
+            state.message = null;
+        },
         profileResetAfterUpdate(state) {
             state.error = null;
             state.isUpdated = false;
@@ -132,8 +174,69 @@ export const updatePassword =
         }
     };
 
-export const clearAllUpdateProfileErrorsAndMessage = () => (dispatch: AppDispatch) => {
-    dispatch(updateProfileSlice.actions.profileResetAfterUpdate());
-};
+export const forgotPassword =
+    (data: { email: string }) => async (dispatch: AppDispatch) => {
+        dispatch(updateProfileSlice.actions.forgotPasswordRequest());
+        try {
+            const response = await axios.post(
+                `${BASE_URL}/user/forgot-password`,
+                data,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            dispatch(
+                updateProfileSlice.actions.forgotPasswordSuccess(response.data)
+            );
+        } catch (error) {
+            const err = error as AxiosError<{ message: string }>;
+            dispatch(
+                updateProfileSlice.actions.forgotPasswordFailed({
+                    message: err.response?.data?.message || "An error occurred",
+                })
+            );
+        }
+    };
+
+interface ReserPasswordData {
+    passwordData: {
+        newPassword: string;
+        confirmPassword: string;
+    };
+    token: string;
+}
+
+export const resetPassword =
+    (data: ReserPasswordData) => async (dispatch: AppDispatch) => {
+        dispatch(updateProfileSlice.actions.resetPasswordRequest());
+        try {
+            const response = await axios.post(
+                `${BASE_URL}/user/reset-password/${data.token}`,
+                data.passwordData,
+                {
+                    withCredentials: true,
+                    headers: { "Content-Type": "application/json" },
+                }
+            );
+            dispatch(
+                updateProfileSlice.actions.resetPasswordSuccess(response.data)
+            );
+        } catch (error) {
+            const err = error as AxiosError<{ message: string }>;
+            dispatch(
+                updateProfileSlice.actions.resetPasswordFailed({
+                    message: err.response?.data?.message || "An error occurred",
+                })
+            );
+        }
+    };
+
+export const clearAllUpdateProfileErrorsAndMessage =
+    () => (dispatch: AppDispatch) => {
+        dispatch(updateProfileSlice.actions.profileResetAfterUpdate());
+    };
 
 export default updateProfileSlice.reducer;

@@ -14,6 +14,8 @@ import Profile from "./pages/Profile/Profile";
 import ScrollToTop from "./components/ScrollToTop";
 import Layout from "./Layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
     return (
@@ -25,6 +27,8 @@ function App() {
                     <Route path="contact-us" element={<ContactUs />} />
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
+                    <Route path="forgotPassword" element={<ForgotPassword />} />
+                    <Route path="resetPassword/:token" element={<ResetPassword />} />
                     <Route path="about-us" element={<AboutUs />} />
                     <Route
                         path="product/:id/detail"

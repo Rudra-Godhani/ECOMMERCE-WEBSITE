@@ -15,7 +15,11 @@ import { bgImage } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
-import { clearAllUserErrors, clearAllUserMessage, login } from "../../store/Slices/userSlice";
+import {
+    clearAllUserErrors,
+    clearAllUserMessage,
+    login,
+} from "../../store/Slices/userSlice";
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -74,7 +78,7 @@ const Login: React.FC = () => {
             dispatch(clearAllUserErrors());
         }
         if (isAuthenticated) {
-            if(message){
+            if (message) {
                 toast.success(message);
                 dispatch(clearAllUserMessage());
             }
@@ -107,7 +111,7 @@ const Login: React.FC = () => {
                 }}
             >
                 <form onSubmit={handleSubmit}>
-                    <Stack gap={"30px"}>
+                    <Stack gap={"25px"}>
                         <Typography
                             variant="h1"
                             color="secondary"
@@ -178,6 +182,14 @@ const Login: React.FC = () => {
                         >
                             Login
                         </Button>
+                        <Box textAlign={"center"} my={"-10px"}>
+                            <Link
+                                to="/forgotPassword"
+                                style={{ color: "#23A6F0", fontSize: "14px",textDecoration:"underline" }}
+                            >
+                                Forgot Password?
+                            </Link>
+                        </Box>
                         <Stack
                             justifyContent={"center"}
                             alignItems={"center"}

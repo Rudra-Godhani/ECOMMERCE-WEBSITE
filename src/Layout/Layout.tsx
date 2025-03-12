@@ -1,14 +1,22 @@
 import React, { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Box, CssBaseline, Container } from "@mui/material";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer"; // Loading component for better UX
 
 const Layout: React.FC = () => {
     const { pathname } = useLocation();
 
-    const hiddenLayoutPaths = ["/login", "/signup"];
-    const hideLayout = hiddenLayoutPaths.includes(pathname);
+    const hiddenLayoutPaths = [
+        "/login",
+        "/signup",
+        "/forgotPassword",
+        "/resetPassword/:token",
+    ];
+    const hideLayout = hiddenLayoutPaths.some((path) =>
+        path.includes(":")
+            ? pathname.startsWith(path.split(":")[0])
+            : pathname === path
+    );
 
     return (
         <>
