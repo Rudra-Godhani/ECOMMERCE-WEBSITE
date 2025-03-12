@@ -1,21 +1,21 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import ScrollToTop from "./components/ScrollToTop";
-import Layout from "./Layout/Layout.tsx";
-import Home from "./pages/Home/index.tsx";
-import ContactUs from "./pages/ContactUs/index.tsx";
-import Login from "./pages/Login/index.tsx";
-import SignUp from "./pages/SignUp/index.tsx";
-import ForgotPassword from "./pages/ForgotPassword/index.tsx";
-import ResetPassword from "./pages/ResetPassword/index.tsx";
-import AboutUs from "./pages/AboutUs/index.tsx";
-import ProductDetails from "./pages/ProductDetail/index.tsx";
-import ProductListing from "./pages/ProductListing/index.tsx";
-import Error from "./pages/Error/index.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import Profile from "./pages/Profile/index.tsx";
-import ShoppingCart from "./pages/ShoppingCart/index.tsx";
-import WishList from "./pages/WishList/index.tsx";
+import Layout from "./Layout/Layout";
+import Home from "./pages/Home/index";
+import ContactUs from "./pages/ContactUs/index";
+import Login from "./pages/Login/index";
+import SignUp from "./pages/SignUp/index";
+import ForgotPassword from "./pages/ForgotPassword/index";
+import ResetPassword from "./pages/ResetPassword/index";
+import AboutUs from "./pages/AboutUs/index";
+import ProductDetails from "./pages/ProductDetail/index";
+import ProductListing from "./pages/ProductListing/index";
+import Error from "./pages/Error/index";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile/index";
+import ShoppingCart from "./pages/ShoppingCart/index";
+import WishList from "./pages/WishList/index";
 
 function App() {
     return (
