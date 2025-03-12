@@ -1,7 +1,7 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer"; // Loading component for better UX
+import Footer from "../components/Footer/Footer";
 
 const Layout: React.FC = () => {
     const { pathname } = useLocation();

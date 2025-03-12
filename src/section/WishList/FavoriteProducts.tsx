@@ -6,10 +6,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { Product } from '../../Data';
 import { addProductToCart, CartItem, removeProductFromCart } from '../../store/Slices/CartSlice';
 import { toast } from 'react-toastify';
 import { addToWishlist, removeFromWishlist } from '../../store/Slices/WishListSlice';
+import { Product } from '../../data/allProductsData';
 
 const FavoriteProducts: React.FC = () => {
   const [selectedColors, setSelectedColors] = useState<{ [key: number]: string }>({});

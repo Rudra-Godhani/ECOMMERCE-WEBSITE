@@ -8,7 +8,6 @@ import MyProfile from "./MyProfile";
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 import MyOrders from "./MyOrders";
-import Logout from "./Logout";
 import EastIcon from "@mui/icons-material/East";
 import ManageAccount from "./ManageAccount";
 

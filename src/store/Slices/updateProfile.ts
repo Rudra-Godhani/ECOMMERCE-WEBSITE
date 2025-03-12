@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 import axios, { AxiosError } from "axios";
 import { AppDispatch } from "../store";
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;

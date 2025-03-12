@@ -11,7 +11,6 @@ import {
     CartItem,
     removeProductFromCart,
 } from "../../store/Slices/CartSlice";
-import { Product } from "../../Data";
 import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
@@ -19,6 +18,7 @@ import {
     removeFromWishlist,
 } from "../../store/Slices/WishListSlice";
 import { RootState } from "../../store/store";
+import { Product } from "../../data/allProductsData";
 
 const images = [productDetail1, productDetail2, productDetail3];
 const slideVariants = {
@@ -224,7 +224,7 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                 </Box>
 
                                 <Stack direction="row" gap="10px">
-                                    {product.images.map((img, imgIndex) => (
+                                    {product.images.map((img: string, imgIndex: number) => (
                                         <img
                                             key={imgIndex}
                                             src={img}
@@ -311,7 +311,7 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                 direction={"row"}
                                 sx={{ pb: { xs: "58px", sm: "68px" } }}
                             >
-                                {product.colors.map((color, index) => (
+                                {product.colors.map((color:string, index:number) => (
                                     <Box
                                         key={index}
                                         position="relative"

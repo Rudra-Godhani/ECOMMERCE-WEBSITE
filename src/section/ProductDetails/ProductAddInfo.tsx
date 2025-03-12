@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
-import { Product } from "../../Data";
+import { Product } from "../../data/allProductsData";
 
 interface ProductProps {
     product: Product;
