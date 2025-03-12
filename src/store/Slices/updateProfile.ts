@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import axios, { AxiosError } from "axios";
 import { AppDispatch } from "../store";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface AuthState {
     loading: boolean;
@@ -78,7 +79,7 @@ export const updateProfile =
         dispatch(updateProfileSlice.actions.updateProfileRequest());
         try {
             const response = await axios.put(
-                "http://localhost:5000/api/v1/user/update/profile",
+                `${BASE_URL}/user/update/profile`,
                 data,
                 {
                     withCredentials: true,
@@ -111,7 +112,7 @@ export const updatePassword =
         dispatch(updateProfileSlice.actions.updatePasswordRequest());
         try {
             const response = await axios.put(
-                "http://localhost:5000/api/v1/user/update/password",
+                `${BASE_URL}/user/update/password`,
                 data,
                 {
                     withCredentials: true,

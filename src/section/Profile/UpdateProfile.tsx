@@ -8,7 +8,6 @@ import {
     Typography,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { profilePicture } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { Edit } from "@mui/icons-material";
@@ -87,9 +86,9 @@ const UpdateProfile: React.FC = () => {
         }
         if (!formData.phoneNumber) {
             validationErrors.phoneNumber = "PhoneNumber is required";
-        } else if (formData.phoneNumber.toString().length < 10) {
+        } else if (formData.phoneNumber.toString().length !== 10) {
             validationErrors.phoneNumber =
-                "PhoneNumber must be at least 10 characteres.";
+                "PhoneNumber must be 10 characteres long.";
         }
         if (!formData.address) {
             validationErrors.address = "Address is required";

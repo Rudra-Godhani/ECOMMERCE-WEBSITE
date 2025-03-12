@@ -99,6 +99,11 @@ const UpdatePassword: React.FC = () => {
             if(message){
                 toast.success(message);
             }
+            setFormData({
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: "",
+            });
             dispatch(getUser());
             dispatch(clearAllUpdateProfileErrorsAndMessage());
         }
