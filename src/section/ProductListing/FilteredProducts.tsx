@@ -1,6 +1,7 @@
 import {
     Box,
     Button,
+    Card,
     Drawer,
     List,
     Menu,
@@ -217,37 +218,49 @@ const FilteredProducts: React.FC = () => {
                     )}
                     {currentProducts.length > 0 &&
                         currentProducts.map((item) => (
-                            <Box
+                            <Link
                                 key={item.id}
-                                sx={{ width: "100%", margin: "0 auto" }}
+                                to={`/product/${item.id}/detail`}
                             >
-                                <Box
+                                <Card
                                     sx={{
-                                        p: "0px 0px ",
                                         width: "100%",
-                                        height: "auto",
-                                        overflow: "hidden",
+                                        margin: "0 auto",
+                                        transition: "all 0.3s ease",
+                                        "&:hover": {
+                                            transform: "scale(1.02)", // Scale up by 5%
+                                            boxShadow:
+                                                "0px 8px 20px rgba(0,0,0,0.2)", // Add shadow on hover
+                                        },
                                     }}
                                 >
-                                    <img
-                                        src={item.images[0]}
-                                        alt={item.title}
-                                        style={{
-                                            objectFit: "cover",
+                                    <Box
+                                        sx={{
+                                            p: "0px 0px ",
                                             width: "100%",
-                                            height: "300px",
+                                            height: "auto",
+                                            overflow: "hidden",
                                         }}
-                                    />
-                                </Box>
-                                <Stack
-                                    sx={{
-                                        textAlign: "center",
-                                        pt: "25px",
-                                        pb: "35px",
-                                    }}
-                                    spacing={1.25}
-                                >
-                                    <Link to={`/product/${item.id}/detail`}>
+                                    >
+                                        <img
+                                            src={item.images[0]}
+                                            alt={item.title}
+                                            style={{
+                                                objectFit: "cover",
+                                                width: "100%",
+                                                height: "250px",
+                                            }}
+                                        />
+                                    </Box>
+                                    <Stack
+                                        sx={{
+                                            textAlign: "center",
+                                            pt: "25px",
+                                            pb: "35px",
+                                            px:"10px"
+                                        }}
+                                        spacing={1.25}
+                                    >
                                         <Typography
                                             variant="h5"
                                             color="secondary"
@@ -259,78 +272,80 @@ const FilteredProducts: React.FC = () => {
                                         >
                                             {item.title}
                                         </Typography>
-                                    </Link>
-                                    <Typography
-                                        variant="h3"
-                                        color="gray"
-                                        fontWeight={"400"}
-                                        fontSize={"14px"}
-                                        textOverflow="ellipsis"
-                                        whiteSpace="nowrap"
-                                        overflow="hidden"
-                                    >
-                                        {item.descriptionSmall}
-                                    </Typography>
-                                    <Stack
-                                        spacing={0.75}
-                                        sx={{
-                                            p: "5px 3px",
-                                            textAlign: "center",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                        }}
-                                        direction={"row"}
-                                    >
                                         <Typography
-                                            variant="h5"
-                                            color="#BDBDBD"
-                                            fontWeight={"700"}
-                                            fontSize={"16px"}
+                                            variant="h3"
+                                            color="gray"
+                                            fontWeight={"400"}
+                                            fontSize={"14px"}
+                                            textOverflow="ellipsis"
+                                            whiteSpace="nowrap"
+                                            overflow="hidden"
                                         >
-                                            ${item.price}
+                                            {item.descriptionSmall}
                                         </Typography>
-                                        <Typography
-                                            variant="h5"
-                                            color="darkGreen"
-                                            fontWeight={"700"}
-                                            fontSize={"16px"}
+                                        <Stack
+                                            spacing={0.75}
+                                            sx={{
+                                                p: "5px 3px",
+                                                textAlign: "center",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            direction={"row"}
                                         >
-                                            ${item.retailPrice}
-                                        </Typography>
+                                            <Typography
+                                                variant="h5"
+                                                color="#BDBDBD"
+                                                fontWeight={"700"}
+                                                fontSize={"16px"}
+                                            >
+                                                ${item.price}
+                                            </Typography>
+                                            <Typography
+                                                variant="h5"
+                                                color="darkGreen"
+                                                fontWeight={"700"}
+                                                fontSize={"16px"}
+                                            >
+                                                ${item.retailPrice}
+                                            </Typography>
+                                        </Stack>
+                                        <Stack
+                                            spacing={0.75}
+                                            sx={{
+                                                textAlign: "center",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            direction={"row"}
+                                        >
+                                            {item.colors.map((color) => (
+                                                <Box
+                                                    width={"16px"}
+                                                    height={"16px"}
+                                                    sx={{
+                                                        backgroundColor: color,
+                                                        borderRadius: "50%",
+                                                    }}
+                                                ></Box>
+                                            ))}
+                                        </Stack>
+                                        <Stack
+                                            sx={{
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            gap="5px"
+                                            direction={"row"}
+                                        >
+                                            <StarIcon htmlColor="#FAAF00" />
+                                            <Typography>
+                                                {item.rating}
+                                            </Typography>
+                                        </Stack>
                                     </Stack>
-                                    <Stack
-                                        spacing={0.75}
-                                        sx={{
-                                            textAlign: "center",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                        }}
-                                        direction={"row"}
-                                    >
-                                        {item.colors.map((color) => (
-                                            <Box
-                                                width={"16px"}
-                                                height={"16px"}
-                                                sx={{
-                                                    backgroundColor: color,
-                                                    borderRadius: "50%",
-                                                }}
-                                            ></Box>
-                                        ))}
-                                    </Stack>
-                                    <Stack
-                                        sx={{
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                        }}
-                                        gap="5px"
-                                        direction={"row"}
-                                    >
-                                        <StarIcon htmlColor="#FAAF00" />
-                                        <Typography>{item.rating}</Typography>
-                                    </Stack>
-                                </Stack>
-                            </Box>
+                                </Card>
+                            </Link>
                         ))}
                 </Box>
             </Box>

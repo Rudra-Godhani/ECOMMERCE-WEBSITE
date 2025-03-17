@@ -6,7 +6,7 @@ import Video from "../../section/AboutUs/Video";
 import TeamDetails from "../../section/AboutUs/TeamDetails";
 import TopCompanies from "../../section/AboutUs/TopCompanies";
 import BrandsStrip from "../../components/BrandsStrip";
-import Contact from "../../components/ContactUS/Contact";
+import Contact2 from "../../components/ContactUS/Contact2";
 
 const AboutUs: React.FC = () => {
     return (
@@ -18,7 +18,7 @@ const AboutUs: React.FC = () => {
             <TeamDetails />
             <TopCompanies />
             <BrandsStrip />
-            <Contact />
+            <Contact2 />
         </>
     );
 };

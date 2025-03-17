@@ -1,15 +1,16 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
-import { adBanner } from "../../assets/index";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { productsData } from "../../data/allProductsData";
 
 const AdBanner: React.FC = () => {
+    const product = productsData.find((item) => item.id === 17);
     return (
         <Box
             sx={{
                 maxWidth: "1300px",
                 mx: "auto",
-                pt: { xs: "120px", md: "0px" },
+                pt: { xs: "120px", sm: "60px" },
             }}
         >
             <Stack
@@ -32,10 +33,11 @@ const AdBanner: React.FC = () => {
                         width: { xs: "100%", sm: "50%" },
                         height: "auto",
                         overflow: "hidden",
+                        pt: { xs: "20px", sm: "0px" },
                     }}
                 >
                     <img
-                        src={adBanner}
+                        src={product?.images[0]}
                         alt=""
                         style={{
                             objectFit: "cover",
@@ -64,7 +66,7 @@ const AdBanner: React.FC = () => {
                             fontSize={"16px"}
                             color="#BDBDBD"
                         >
-                            SUMMER 2020
+                            SUMMER 2025
                         </Typography>
                         <Typography
                             variant="h2"
@@ -73,7 +75,7 @@ const AdBanner: React.FC = () => {
                             lineHeight="50px"
                             color="secondary"
                         >
-                            Part of the Neural Universe
+                            {product?.title}
                         </Typography>
                         <Typography
                             variant="h4"
@@ -82,19 +84,18 @@ const AdBanner: React.FC = () => {
                             lineHeight="30px"
                             color="gray"
                         >
-                            We know how large objects will act, but things on a
-                            small scale.
+                            {product?.descriptionSmall}
                         </Typography>
                         <Box
                             sx={{
                                 display: "flex",
                                 flexDirection: { xs: "column", sm: "row" },
                                 gap: { xs: "25px", sm: "10px" },
-                                justifyContent: "center",
-                                alignItems: "center",
+                                // justifyContent: "center",
+                                // alignItems: "center",
                             }}
                         >
-                            <NavLink to="/product/listing">
+                            <Link to={`/product/${product?.id}/detail`}>
                                 <Button
                                     sx={{
                                         color: "#FFFFFF",
@@ -105,8 +106,8 @@ const AdBanner: React.FC = () => {
                                 >
                                     BUY NOW
                                 </Button>
-                            </NavLink>
-                            <NavLink to="/about-us">
+                            </Link>
+                            <Link to={`/product/${product?.id}/detail`}>
                                 <Button
                                     variant="outlined"
                                     sx={{
@@ -119,7 +120,7 @@ const AdBanner: React.FC = () => {
                                 >
                                     Read More
                                 </Button>
-                            </NavLink>
+                            </Link>
                         </Box>
                     </Stack>
                 </Box>

@@ -12,7 +12,7 @@ import {
     Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -21,6 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import SearchBar from "../SearchBar";
 
 const pages = [
     { name: "Home", link: "/" },
@@ -41,7 +42,8 @@ const MainNavbar: React.FC = () => {
         },
     }));
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+    const [searchOpen, setSearchOpen] = useState<boolean>(false);
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -69,225 +71,54 @@ const MainNavbar: React.FC = () => {
     ];
 
     return (
-        <AppBar
-            position="sticky"
-            sx={{ color: "#ffffff", backgroundColor: "#FFFFFF" }}
-        >
-            <StyledToolebar>
-                <Typography
-                    variant="h3"
-                    color="secondary"
-                    sx={{
-                        fontSize: "1.5rem",
-                        width: "187px",
-                        padding: {
-                            xs: "13px 10px 13px 0",
-                            md: "13px 28px 13px 0",
-                        },
-                        cursor: "pointer",
-                        fontWeight: "700",
-                    }}
-                >
-                    Bandage
-                </Typography>
+        <>
+            <AppBar
+                position="sticky"
+                sx={{ top: 0, color: "#ffffff", backgroundColor: "#FFFFFF" }}
+            >
+                <StyledToolebar>
+                    <Link to="/">
+                        <Typography
+                            variant="h3"
+                            color="secondary"
+                            sx={{
+                                fontSize: "1.5rem",
+                                width: "187px",
+                                padding: {
+                                    xs: "13px 10px 13px 0",
+                                    md: "13px 28px 13px 0",
+                                },
+                                cursor: "pointer",
+                                fontWeight: "700",
+                            }}
+                        >
+                            PrimePicks
+                        </Typography>
+                    </Link>
 
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: { xs: "flex-end", md: "space-between" },
-                        alignItems: "center",
-                        width: "100%",
-                    }}
-                >
-                    {/* Desktop Navigation */}
-                    <Box
-                        sx={{
-                            gap: "15px",
-                            display: { xs: "none", md: "flex" },
-                        }}
-                    >
-                        {pages.map((page, index) => (
-                            <NavLink
-                                to={page.link}
-                                key={index}
-                                style={({ isActive }) => ({
-                                    color: isActive ? "#252B42" : "#737373",
-                                    fontWeight: isActive ? "700" : "normal",
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                    paddingBottom: "4px",
-                                    borderBottom: isActive
-                                        ? "2px solid #252B42"
-                                        : "none",
-                                })}
-                            >
-                                {page.name}
-                            </NavLink>
-                        ))}
-                    </Box>
-
-                    {/* Icons */}
                     <Box
                         sx={{
                             display: "flex",
+                            justifyContent: {
+                                xs: "flex-end",
+                                md: "space-between",
+                            },
                             alignItems: "center",
-                            color: "#23A6F0",
+                            width: "100%",
                         }}
                     >
+                        {/* Desktop Navigation */}
                         <Box
                             sx={{
+                                gap: "15px",
                                 display: { xs: "none", md: "flex" },
-                                margin: "0 15px",
-                                alignItems: "center",
                             }}
                         >
-                            <NavLink
-                                to={`${
-                                    isAuthenticated ? "/profile" : "/login"
-                                } `}
-                            >
-                                <PermIdentityIcon
-                                    fontSize="small"
-                                    sx={{
-                                        alignItems: "center",
-                                        mt: "6px",
-                                    }}
-                                    htmlColor="#23A6F0"
-                                />
-                            </NavLink>
-                            {isAuthenticated ? (
-                                <NavLink
-                                    to="/profile"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "#23A6F0",
-                                    }}
-                                >
-                                    Profile
-                                </NavLink>
-                            ) : (
-                                <>
-                                    <NavLink
-                                        to="/login"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#23A6F0",
-                                        }}
-                                    >
-                                        Login
-                                    </NavLink>{" "}
-                                    /
-                                    <NavLink
-                                        to="/signup"
-                                        style={{
-                                            textDecoration: "none",
-                                            color: "#23A6F0",
-                                        }}
-                                    >
-                                        Register
-                                    </NavLink>
-                                </>
-                            )}
-                        </Box>
-
-                        <SearchIcon
-                            fontSize="small"
-                            sx={{
-                                cursor: "pointer",
-                                m: { xs: "0 5px", md: "0 15px" },
-                            }}
-                        />
-                        <NavLink
-                            to="/shopping-cart"
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: "#23A6F0",
-                            }}
-                        >
-                            <Badge
-                                badgeContent={cart.length}
-                                color="success"
-                                sx={{ mr: "10px" }}
-                            >
-                                <ShoppingCartIcon
-                                    fontSize="small"
-                                    sx={{
-                                        cursor: "pointer",
-                                        m: "0px 5px 0px 15px",
-                                    }}
-                                />
-                            </Badge>
-                        </NavLink>
-                        <NavLink
-                            to="/wishlist"
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: "#23A6F0",
-                            }}
-                        >
-                            <Badge
-                                badgeContent={wishlist.length}
-                                color="success"
-                                sx={{ mr: "10px" }}
-                            >
-                                <FavoriteBorderIcon
-                                    fontSize="small"
-                                    sx={{
-                                        cursor: "pointer",
-                                        m: "0px 5px 0px 15px",
-                                    }}
-                                />
-                            </Badge>
-                        </NavLink>
-                    </Box>
-                </Box>
-
-                {/* Hamburger Icon for Mobile */}
-                <Box
-                    sx={{
-                        flexGrow: 1,
-                        display: { xs: "flex", md: "none" },
-                        justifyContent: "flex-end",
-                    }}
-                >
-                    <IconButton size="large" onClick={handleDrawerOpen}>
-                        <MenuIcon htmlColor="#000000" />
-                    </IconButton>
-                </Box>
-            </StyledToolebar>
-
-            {/* Drawer for Mobile Menu */}
-            <Drawer
-                anchor="right"
-                open={drawerOpen}
-                onClose={handleDrawerClose}
-            >
-                <Box sx={{ width: 250, p: 2 }}>
-                    {/* Close Button */}
-                    <IconButton sx={{ mb: 2 }} onClick={handleDrawerClose}>
-                        <CloseIcon htmlColor="#000000" />
-                    </IconButton>
-
-                    {/* Drawer Menu List */}
-                    <List>
-                        {MobilePages.map((page, index) => (
-                            <ListItem
-                                key={index}
-                                onClick={handleDrawerClose}
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
+                            {pages.map((page, index) => (
                                 <NavLink
                                     to={page.link}
+                                    key={index}
                                     style={({ isActive }) => ({
-                                        display: "block",
                                         color: isActive ? "#252B42" : "#737373",
                                         fontWeight: isActive ? "700" : "normal",
                                         textDecoration: "none",
@@ -296,24 +127,211 @@ const MainNavbar: React.FC = () => {
                                         borderBottom: isActive
                                             ? "2px solid #252B42"
                                             : "none",
-                                        textAlign: "center",
                                     })}
                                 >
-                                    <ListItemText
-                                        primary={page.name}
-                                        primaryTypographyProps={{
-                                            sx: {
-                                                fontSize: "20px",
-                                            },
+                                    {page.name}
+                                </NavLink>
+                            ))}
+                        </Box>
+
+                        {/* Icons */}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                color: "#23A6F0",
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: { xs: "none", md: "flex" },
+                                    margin: "0 15px",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <NavLink
+                                    to={`${
+                                        isAuthenticated ? "/profile" : "/login"
+                                    } `}
+                                >
+                                    <PermIdentityIcon
+                                        fontSize="small"
+                                        sx={{
+                                            alignItems: "center",
+                                            mt: "6px",
                                         }}
+                                        htmlColor="#23A6F0"
                                     />
                                 </NavLink>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-            </Drawer>
-        </AppBar>
+                                {isAuthenticated ? (
+                                    <NavLink
+                                        to="/profile"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#23A6F0",
+                                        }}
+                                    >
+                                        Profile
+                                    </NavLink>
+                                ) : (
+                                    <>
+                                        <NavLink
+                                            to="/login"
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#23A6F0",
+                                            }}
+                                        >
+                                            Login
+                                        </NavLink>{" "}
+                                        /
+                                        <NavLink
+                                            to="/signup"
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#23A6F0",
+                                            }}
+                                        >
+                                            Register
+                                        </NavLink>
+                                    </>
+                                )}
+                            </Box>
+                            <IconButton
+                                onClick={() => setSearchOpen((prev) => !prev)}
+                            >
+                                <SearchIcon
+                                    // fontSize="small"
+                                    htmlColor="#23A6F0"
+                                    // sx={{
+                                    //     cursor: "pointer",
+                                    //     // m: { xs: "0 5px", md: "0 15px" },
+                                    // }}
+                                />
+                            </IconButton>
+                            <NavLink
+                                to="/shopping-cart"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    color: "#23A6F0",
+                                }}
+                            >
+                                <Badge
+                                    badgeContent={cart.length}
+                                    color="success"
+                                    sx={{ mr: "10px" }}
+                                >
+                                    <ShoppingCartIcon
+                                        // fontSize="small"
+                                        sx={{
+                                            cursor: "pointer",
+                                            m: "0px 5px 0px 15px",
+                                        }}
+                                    />
+                                </Badge>
+                            </NavLink>
+                            <NavLink
+                                to="/wishlist"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    color: "#23A6F0",
+                                }}
+                            >
+                                <Badge
+                                    badgeContent={wishlist.length}
+                                    color="success"
+                                    sx={{ mr: "10px" }}
+                                >
+                                    <FavoriteBorderIcon
+                                        sx={{
+                                            cursor: "pointer",
+                                            m: "0px 5px 0px 15px",
+                                            // m: "5px",
+                                        }}
+                                    />
+                                </Badge>
+                            </NavLink>
+                        </Box>
+                    </Box>
+
+                    {/* Hamburger Icon for Mobile */}
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "flex", md: "none" },
+                            justifyContent: "flex-end",
+                        }}
+                    >
+                        <IconButton size="large" onClick={handleDrawerOpen}>
+                            <MenuIcon htmlColor="#000000" />
+                        </IconButton>
+                    </Box>
+                </StyledToolebar>
+
+                {/* Drawer for Mobile Menu */}
+                <Drawer
+                    anchor="right"
+                    open={drawerOpen}
+                    onClose={handleDrawerClose}
+                >
+                    <Box sx={{ width: 250, p: 2 }}>
+                        {/* Close Button */}
+                        <IconButton sx={{ mb: 2 }} onClick={handleDrawerClose}>
+                            <CloseIcon htmlColor="#000000" />
+                        </IconButton>
+
+                        {/* Drawer Menu List */}
+                        <List>
+                            {MobilePages.map((page, index) => (
+                                <ListItem
+                                    key={index}
+                                    onClick={handleDrawerClose}
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <NavLink
+                                        to={page.link}
+                                        style={({ isActive }) => ({
+                                            display: "block",
+                                            color: isActive
+                                                ? "#252B42"
+                                                : "#737373",
+                                            fontWeight: isActive
+                                                ? "700"
+                                                : "normal",
+                                            textDecoration: "none",
+                                            cursor: "pointer",
+                                            paddingBottom: "4px",
+                                            borderBottom: isActive
+                                                ? "2px solid #252B42"
+                                                : "none",
+                                            textAlign: "center",
+                                        })}
+                                    >
+                                        <ListItemText
+                                            primary={page.name}
+                                            primaryTypographyProps={{
+                                                sx: {
+                                                    fontSize: "20px",
+                                                },
+                                            }}
+                                        />
+                                    </NavLink>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+            </AppBar>
+            {<SearchBar isOpen={searchOpen} />}
+        </>
     );
 };
 

@@ -7,18 +7,17 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { decreaseQuantity, increaseQuantity, removeProductFromCart } from '../../store/Slices/CartSlice';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const CartData: React.FC = () => {
     const cartData = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
     const incQuantity = (id: number) => {
-        console.log("add++", id);
         dispatch(increaseQuantity(id));
     };
 
     const decQuantity = (id: number) => {
-        console.log("dec--", id);
         dispatch(decreaseQuantity(id));
     };
   return (
@@ -229,7 +228,11 @@ const CartData: React.FC = () => {
                                                       decQuantity(item.id)
                                                   }
                                               >
-                                                  <RemoveIcon fontSize="small" />
+                                                {
+                                                    item.quantity === 1 
+                                                    ? <DeleteOutlineIcon fontSize='small'/>
+                                                    :<RemoveIcon fontSize="small" />
+                                                }
                                               </Box>
                                               <Typography
                                                   sx={{

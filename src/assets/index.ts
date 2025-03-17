@@ -35,6 +35,7 @@ import aboutUsHero from "./svg/aboutUs/aboutUsHero.svg";
 import teamMember1 from "./svg/aboutUs/team-1-user-1.svg";
 import teamMember2 from "./svg/aboutUs/team-1-user-2.svg";
 import teamMember3 from "./svg/aboutUs/team-1-user-3.svg";
+import perfumeImage from "./images/home/perfume.avif"; 
 
 export {
     adBanner,
@@ -74,4 +75,5 @@ export {
     teamMember1,
     teamMember2,
     teamMember3,
+    perfumeImage
 };

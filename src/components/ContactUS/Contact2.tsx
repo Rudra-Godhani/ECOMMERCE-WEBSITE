@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { footerData } from '../../data/footerData'
 import { heroFirst1 } from '../../assets'
 
-const Contact: React.FC = () => {
+const Contact2: React.FC = () => {
     return (
         <Box
             sx={{
@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
                 <Stack gap="35px" sx={{ width: { sm: "100%", md: "497px" }, textAlign: { xs: "center", md: "start" }, pb: { xs: "50px", md: "0" }, pl: { md: "40px", lg: "0" } }}>
                     <Typography variant='h2' fontSize={"40px"} fontWeight={"700"} color='white'>CONTACT US</Typography>
                     <Typography variant='body2' fontSize={"14px"} fontWeight={"400"} color='white' sx={{ width: { xs: "70%", md: "70%" }, mx: { xs: "auto", md: "0px" } }}>Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics </Typography>
-                    <Link to="https://mail.google.com/mail/?view=cm&fs=1&to=rudragodhani04@gmail.com" target="_blank">
+                    <Link to="/contact-us">
                         <Button
                             sx={{
                                 color: "#FFFFFF",
@@ -80,4 +80,4 @@ const Contact: React.FC = () => {
     )
 }
 
-export default Contact
+export default Contact2

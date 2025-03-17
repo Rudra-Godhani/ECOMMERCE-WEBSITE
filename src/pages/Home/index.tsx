@@ -11,9 +11,9 @@ const Home: React.FC = () => {
         <>
             <HeroFirst />
             <Banner />
-            <Featured />
+            <Featured/>
             <HeroSecond />
-            <AdBanner />
+            <AdBanner/>
             <FeaturedPost />
         </>
     );

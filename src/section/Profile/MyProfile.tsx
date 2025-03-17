@@ -79,7 +79,7 @@ const MyProfile: React.FC = () => {
                         fullWidth
                     />
                 </Stack>
-                {user?.phoneNumber != null && (
+                {user?.phoneNumber !== null && (
                     <Stack gap={"15px"}>
                         <Typography variant="h4">Phone Number</Typography>
                         <TextField
@@ -100,7 +100,7 @@ const MyProfile: React.FC = () => {
                         />
                     </Stack>
                 )}
-                {user?.address !== "" && (
+                {user?.address !== null && (
                     <Stack gap={"15px"}>
                         <Typography variant="h4">Address</Typography>
                         <TextField

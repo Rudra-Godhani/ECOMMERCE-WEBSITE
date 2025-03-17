@@ -4,10 +4,10 @@ import MainNavbar from './MainNavbar';
 
 const Navbar: React.FC = () => {
   return (
-    <div>
+    <>
       <SocialNavbar />
       <MainNavbar />
-    </div>
+    </>
   )
 }
 

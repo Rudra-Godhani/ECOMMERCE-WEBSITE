@@ -10,6 +10,7 @@ import {
     Link,
 } from "@mui/material";
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
     return (
@@ -27,15 +28,17 @@ const Footer: React.FC = () => {
                             alignItems: { xs: "flex-start", sm: "center" },
                         }}
                     >
-                        <Typography
-                            variant="h6"
-                            fontWeight={700}
-                            fontSize={"24px"}
-                            sx={{ cursor: "pointer" }}
-                            color="secondary"
-                        >
-                            Bandage
-                        </Typography>
+                        <NavLink to="/">
+                            <Typography
+                                variant="h6"
+                                fontWeight={700}
+                                fontSize={"24px"}
+                                sx={{ cursor: "pointer" }}
+                                color="secondary"
+                            >
+                                PrimePicks
+                            </Typography>
+                        </NavLink>
                         <Box ml={"-10px"}>
                             <IconButton>
                                 <Facebook htmlColor="lightBlue" />

@@ -8,7 +8,7 @@ interface User {
     name: string;
     email: string;
     password: string;
-    phoneNumber: number;
+    phoneNumber: string;
     address: string;
     profileImage: {
         public_id: string;

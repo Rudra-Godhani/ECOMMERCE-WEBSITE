@@ -1,7 +1,7 @@
 import { Box, Card, Stack, Typography } from "@mui/material";
 import React from "react";
 import { featuredPostData } from "../../data/featuredPostData";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -39,9 +39,8 @@ const FeaturedPost: React.FC = () => {
                     >
                         Featured Posts
                     </Typography>
-                    <Typography variant="body2" color="gray" fontWeight={"400"}>
-                        Problems trying to resolve the conflict between the two
-                        major realms of Classical physics: Newtonian mechanics
+                    <Typography variant="h6" color="gray">
+                        Stay updated with the latest trends and insights.
                     </Typography>
                 </Stack>
 
@@ -60,7 +59,7 @@ const FeaturedPost: React.FC = () => {
                     {featuredPostData.map((item, index) => (
                         <Box
                             key={index}
-                            sx={{ width: "100%", margin: "0 auto" }}
+                            sx={{ width: "100%", margin: "0 auto"}}
                         >
                             <Box
                                 sx={{
@@ -92,69 +91,45 @@ const FeaturedPost: React.FC = () => {
                             >
                                 <Stack sx={{ p: "35px 25px", gap: "10px" }}>
                                     <Stack direction={"row"} spacing={1.3}>
-                                        <NavLink
-                                            to="/google"
-                                            style={() => ({
-                                                textDecoration: "none",
-                                            })}
-                                        >
-                                            {({ isActive }) => (
-                                                <Typography
-                                                    variant="body2"
-                                                    sx={{
-                                                        color: isActive
-                                                            ? "#8EC2F2"
-                                                            : "#737373", // Active color applied here
-                                                    }}
-                                                    fontWeight={400}
-                                                    fontSize="12px"
-                                                >
-                                                    Google
-                                                </Typography>
-                                            )}
-                                        </NavLink>
-                                        <NavLink
-                                            to="/trending"
-                                            style={() => ({
-                                                textDecoration: "none",
-                                            })}
-                                        >
-                                            {({ isActive }) => (
-                                                <Typography
-                                                    variant="body2"
-                                                    sx={{
-                                                        color: isActive
-                                                            ? "#8EC2F2"
-                                                            : "#737373", // Active color applied here
-                                                    }}
-                                                    fontWeight={400}
-                                                    fontSize="12px"
-                                                >
-                                                    Trending
-                                                </Typography>
-                                            )}
-                                        </NavLink>
-                                        <NavLink
-                                            to="/new"
-                                            style={() => ({
-                                                textDecoration: "none",
-                                            })}
-                                        >
-                                            {({ isActive }) => (
-                                                <Typography
-                                                    variant="body2"
-                                                    sx={{
-                                                        color: isActive
-                                                            ? "#8EC2F2"
-                                                            : "#737373", // Active color applied here
-                                                    }}
-                                                    fontWeight={400}
-                                                    fontSize="12px"
-                                                >
-                                                    New
-                                                </Typography>
-                                            )}
-                                        </NavLink>
+                                        <Link to="/">
+                                            <Typography
+                                                variant="body1"
+                                                color="gray"
+                                                sx={{
+                                                    "&:hover": {
+                                                        color: "#23A6F0",
+                                                    },
+                                                }}
+                                            >
+                                                Google
+                                            </Typography>
+                                        </Link>
+                                        <Link to="/">
+                                            <Typography
+                                                variant="body1"
+                                                color="gray"
+                                                sx={{
+                                                    "&:hover": {
+                                                        color: "#23A6F0",
+                                                    },
+                                                }}
+                                            >
+                                                Trending
+                                            </Typography>
+                                        </Link>
+                                        <Link to="/">
+                                            <Typography
+                                                variant="body1"
+                                                color="gray"
+                                                sx={{
+                                                    "&:hover": {
+                                                        color: "#23A6F0",
+                                                    },
+                                                }}
+                                            >
+                                                New
+                                            </Typography>
+                                        </Link>
                                     </Stack>
                                     <Typography
                                         variant="h4"

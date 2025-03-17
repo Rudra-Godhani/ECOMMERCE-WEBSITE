@@ -28,16 +28,21 @@ function App() {
                     <Route path="login" element={<Login />} />
                     <Route path="signup" element={<SignUp />} />
                     <Route path="forgotPassword" element={<ForgotPassword />} />
-                    <Route path="resetPassword/:token" element={<ResetPassword />} />
+                    <Route
+                        path="resetPassword/:token"
+                        element={<ResetPassword />}
+                    />
                     <Route path="about-us" element={<AboutUs />} />
-                    <Route
-                        path="product/:id/detail"
-                        element={<ProductDetails />}
-                    />
-                    <Route
-                        path="product/listing"
-                        element={<ProductListing />}
-                    />
+                    <Route path="product">
+                        <Route
+                            path="listing"
+                            element={<ProductListing />}
+                        ></Route>
+                        <Route
+                            path=":id/detail"
+                            element={<ProductDetails />}
+                        ></Route>
+                    </Route>
                     <Route path="*" element={<Error />} />
 
                     <Route element={<ProtectedRoute />}>

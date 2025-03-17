@@ -38,8 +38,12 @@ const cartSlice = createSlice({
             const existingProduct = state.find(
                 (item) => item.id === action.payload
             );
+            console.log(existingProduct?.quantity);
             if (existingProduct && existingProduct.quantity > 1) {
                 existingProduct.quantity -= 1;
+                console.log(existingProduct?.quantity);
+            } else {
+                return state.filter((item) => item.id !== action.payload);
             }
         },
     },

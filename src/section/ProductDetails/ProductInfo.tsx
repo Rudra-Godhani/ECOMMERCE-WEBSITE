@@ -1,10 +1,8 @@
 import { Box, Button, Rating, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { ArrowForwardIos } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { productDetail1, productDetail2, productDetail3 } from "../../assets";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addProductToCart,
@@ -19,22 +17,7 @@ import {
 } from "../../store/Slices/WishListSlice";
 import { RootState } from "../../store/store";
 import { Product } from "../../data/allProductsData";
-
-const images = [productDetail1, productDetail2, productDetail3];
-const slideVariants = {
-    enter: (direction: number) => ({
-        x: direction > 0 ? "100%" : "-100%", // New slide enters from correct side
-        opacity: 0,
-    }),
-    center: {
-        x: 0, // Center the current image
-        opacity: 1,
-    },
-    exit: (direction: number) => ({
-        x: direction > 0 ? "-100%" : "100%", // Current slide exits in opposite direction
-        opacity: 0,
-    }),
-};
+import ProductImageSlider from "./ProductImageSlider";
 
 interface ProductProps {
     product: Product;
@@ -49,19 +32,7 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
         );
     }
 
-    const [index, setIndex] = useState(0);
-    const [direction, setDirection] = useState(1);
     const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-
-    const nextSlide = () => {
-        setDirection(1);
-        setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    };
-
-    const prevSlide = () => {
-        setDirection(-1);
-        setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    };
 
     const dispatch = useDispatch();
     const cart = useSelector((state: RootState) => state.cart);
@@ -72,8 +43,6 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
             dispatch(removeProductFromCart(product.id));
             toast.error("Product Removed From Cart");
         } else {
-            console.log("Adding product to cart...");
-
             const cartItem: CartItem = {
                 id: product.id,
                 title: product.title,
@@ -94,10 +63,9 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
     };
 
     const handleFavorite = (product: Product) => {
-        console.log("wishlist:", wishlist);
+        const productToAdd = { ...product, selectedColor };
         if (!wishlist.some((p: Product) => p.id === product.id)) {
-            console.log("added wishlist");
-            dispatch(addToWishlist(product));
+            dispatch(addToWishlist(productToAdd));
             toast.success("Product Added To WishList");
         } else {
             console.log("removed wishlist");
@@ -105,6 +73,10 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
             toast.error("Product Removed From WishList");
         }
     };
+
+    useEffect(() => {
+        setSelectedColor(product.colors[0]);
+    }, [product]);
     return (
         <Box>
             <Box sx={{ backgroundColor: "#FAFAFA" }}>
@@ -149,106 +121,13 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                             mx: "auto",
                         }}
                     >
-                        <Box
-                            sx={{
-                                p: "0px 0px ",
-                                width: { xs: "100%", md: "100%" },
-                                height: "auto",
-                                overflow: "hidden",
-                            }}
-                        >
-                            <Stack gap={"20px"}>
-                                <Box
-                                    position="relative"
-                                    width="100%"
-                                    height="500px"
-                                    overflow="hidden"
-                                >
-                                    <AnimatePresence
-                                        custom={direction}
-                                        mode="popLayout"
-                                    >
-                                        <motion.img
-                                            key={index}
-                                            src={product.images[index]}
-                                            alt={`Slide ${index}`}
-                                            style={{
-                                                position: "absolute",
-                                                width: "100%",
-                                                height: "100%",
-                                                display: "block",
-                                                objectFit: "cover",
-                                            }}
-                                            variants={slideVariants}
-                                            initial="enter"
-                                            animate="center"
-                                            exit="exit"
-                                            custom={direction}
-                                            transition={{ duration: 0.5 }}
-                                        />
-                                    </AnimatePresence>
-
-                                    {/* Previous Button */}
-                                    <Button
-                                        sx={{
-                                            position: "absolute",
-                                            top: "50%",
-                                            left: "10px",
-                                            transform: "translateY(-50%)",
-                                            color: "white",
-                                        }}
-                                        onClick={prevSlide}
-                                    >
-                                        <ArrowBackIos
-                                            fontSize="large"
-                                            htmlColor="#FFFFFF"
-                                        />
-                                    </Button>
-
-                                    {/* Next Button */}
-                                    <Button
-                                        sx={{
-                                            position: "absolute",
-                                            top: "50%",
-                                            right: "10px",
-                                            transform: "translateY(-50%)",
-                                            color: "white",
-                                        }}
-                                        onClick={nextSlide}
-                                    >
-                                        <ArrowForwardIos
-                                            fontSize="large"
-                                            htmlColor="#FFFFFF"
-                                        />
-                                    </Button>
-                                </Box>
-
-                                <Stack direction="row" gap="10px">
-                                    {product.images.map((img: string, imgIndex: number) => (
-                                        <img
-                                            key={imgIndex}
-                                            src={img}
-                                            alt={`Thumbnail ${imgIndex}`}
-                                            style={{
-                                                objectFit: "cover",
-                                                width: "100px",
-                                                height: "75px",
-                                                cursor: "pointer",
-                                                border:
-                                                    imgIndex === index
-                                                        ? "2px solid #252B42"
-                                                        : "none",
-                                            }}
-                                            onClick={() => setIndex(imgIndex)}
-                                        />
-                                    ))}
-                                </Stack>
-                            </Stack>
-                        </Box>
+                        <ProductImageSlider product={product} />
 
                         <Stack
-                            p="24px"
-                            sx={{ width: { xs: "100%", sm: "50%", md: "60%" } }}
+                            sx={{
+                                width: { xs: "100%", sm: "50%", md: "60%" },
+                                p: { xs: "12px", sm: "24px" },
+                            }}
                             height={"100%"}
                         >
                             <Typography
@@ -311,48 +190,50 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                 direction={"row"}
                                 sx={{ pb: { xs: "58px", sm: "68px" } }}
                             >
-                                {product.colors.map((color:string, index:number) => (
-                                    <Box
-                                        key={index}
-                                        position="relative"
-                                        width={"30px"}
-                                        height={"30px"}
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                        }}
-                                        onClick={() => setSelectedColor(color)}
-                                    >
-                                        {selectedColor === color && (
+                                {product.colors.map(
+                                    (color: string, index: number) => (
+                                        <Box
+                                            key={index}
+                                            position="relative"
+                                            width={"30px"}
+                                            height={"30px"}
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                            onClick={() =>
+                                                setSelectedColor(color)
+                                            }
+                                        >
+                                            {selectedColor === color && (
+                                                <Box
+                                                    sx={{
+                                                        position: "absolute",
+                                                        width: "40px",
+                                                        height: "40px",
+                                                        borderRadius: "50%",
+                                                        border: "3px solid #7fff00",
+                                                    }}
+                                                />
+                                            )}
                                             <Box
                                                 sx={{
-                                                    position: "absolute",
-                                                    width: "40px",
-                                                    height: "40px",
+                                                    backgroundColor: color,
+                                                    width: "100%",
+                                                    height: "100%",
                                                     borderRadius: "50%",
-                                                    border: "3px solid #7fff00",
                                                 }}
-                                            />
-                                        )}
-                                        <Box
-                                            sx={{
-                                                backgroundColor: color,
-                                                width: "100%",
-                                                height: "100%",
-                                                borderRadius: "50%",
-                                            }}
-                                        ></Box>
-                                    </Box>
-                                ))}
+                                            ></Box>
+                                        </Box>
+                                    )
+                                )}
                             </Stack>
                             <Stack
                                 sx={{
                                     gap: { xs: "10px", sm: "5px", md: "10px" },
                                     flexDirection: {
-                                        xs: "column",
-                                        sm: "row",
-                                        md: "row",
+                                        xs: "row",
                                     },
                                 }}
                             >
@@ -360,7 +241,7 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                     sx={{
                                         color: "#FAFAFA",
                                         backgroundColor: "#23A6F0",
-                                        p: { md: "10px 10px", lg: "10px 20px" },
+                                        p: { xs: "10px 10px", sm: "10px 20px" },
                                         whiteSpace: "nowrap",
                                         minWidth: "fit-content",
                                         width: "fit-content",
@@ -373,7 +254,7 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                     {cart.some(
                                         (p: CartItem) => p.id === product.id
                                     )
-                                        ? "Remove Item"
+                                        ? "Remove From Cart"
                                         : "Add to Cart"}
                                 </Button>
                                 <Box

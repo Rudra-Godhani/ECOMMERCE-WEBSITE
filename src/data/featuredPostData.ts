@@ -11,26 +11,26 @@ interface FeaturedPostData {
 export const featuredPostData: FeaturedPostData[] = [
     {
         img: featuredPost1,
-        title: "Loudest à la Madison #1 (L'integral)",
+        title: "Colorful Streets: A Vibrant Journey",
         description:
-            "We focus on ergonomics and meeting you where you work.It's only a keystroke away.",
-        date: "22 April 2021",
-        comments: "10",
+            "Explore lively streets filled with color and creativity — a true feast for the eyes!",
+        date: "22 April 2023",
+        comments: "20",
     },
     {
         img: featuredPost2,
-        title: "Loudest à la Madison #1 (L'integral)",
+        title: "The Charm of Vintage Vibes and Bold Colors",
         description:
-            "We focus on ergonomics and meeting you where you work.It's only a keystroke away.",
-        date: "22 April 2021",
-        comments: "10",
+            "From retro cars to vibrant homes, discover design like never before.",
+        date: "15 march 2024",
+        comments: "15",
     },
     {
         img: featuredPost3,
-        title: "Loudest à la Madison #1 (L'integral)",
+        title: "A Splash of Creativity: The Umbrella Art Experience",
         description:
-            "We focus on ergonomics and meeting you where you work.It's only a keystroke away.",
-        date: "22 April 2021",
-        comments: "10",
+            "Brighten your day with these colorful visuals that blend art, design, and culture.",
+        date: "25 june 2024",
+        comments: "24",
     },
 ];

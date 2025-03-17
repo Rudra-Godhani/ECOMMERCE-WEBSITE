@@ -30,7 +30,7 @@ const Video: React.FC = () => {
                         objectFit: "cover",
                     }}
                     controls
-                    autoPlay
+                    autoPlay    
                     muted
                     loop
                 >

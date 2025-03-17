@@ -23,7 +23,7 @@ const UpdateProfile: React.FC = () => {
     const [formData, setFormData] = useState({
         name: user?.name || "",
         email: user?.email || "",
-        phoneNumber: user?.phoneNumber || "",
+        phoneNumber: user?.phoneNumber ?? "",
         address: user?.address || "",
         profileImage: user?.profileImage.url || null,
     });
@@ -108,7 +108,7 @@ const UpdateProfile: React.FC = () => {
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
-        formDataToSend.append("phoneNumber", formData.phoneNumber?.toString());
+        formDataToSend.append("phoneNumber", formData.phoneNumber);
         formDataToSend.append("address", formData.address);
         if (fileInputRef.current?.files?.[0]) {
             formDataToSend.append(

@@ -1,10 +1,10 @@
 import React from "react";
-import Contact from "../../components/ContactUS/Contact";
+import Contact1 from "../../components/ContactUS/Contact1";
 
 const ContactUs: React.FC = () => {
     return (
         <>
-            <Contact />
+            <Contact1 />
         </>
     );
 };

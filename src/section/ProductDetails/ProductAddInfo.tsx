@@ -36,7 +36,7 @@ const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
                             fontWeight={"700"}
                             sx={{
                                 p: {
-                                    xs: "24px 2.5px 15px",
+                                    xs: "24px 2.5px 10px",
                                     sm: "24px 24px 15px 24px",
                                 },
                                 fontSize: { xs: "12px", sm: "14px" },

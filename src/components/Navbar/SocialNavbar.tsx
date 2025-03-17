@@ -47,7 +47,7 @@ const SocialNavbar: React.FC = () => {
                               },
                           }}
                       />
-                      <Text>(225) 555-0118</Text>
+                      <Text>1800 200220</Text>
                   </Wrapper>
                   <Wrapper sx={{ gap: "5px", padding: "10px" }}>
                       <MailOutlineIcon
@@ -60,7 +60,7 @@ const SocialNavbar: React.FC = () => {
                               },
                           }}
                       />
-                      <Text>michelle.rivera@example.com</Text>
+                      <Text>primepicks.shop@pp.com</Text>
                   </Wrapper>
               </Wrapper>
 
