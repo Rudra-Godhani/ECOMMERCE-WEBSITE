@@ -289,7 +289,7 @@ const HeroFirst: React.FC = () => {
                 arrows={false} // Hide default arrows
                 afterChange={handleAfterChange} // Fix indicator blinking issue
             >
-                {products.map((product, index) => (
+                {products.map((product) => (
                     <Box
                         key={product?.id}
                         sx={{
