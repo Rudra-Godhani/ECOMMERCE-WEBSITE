@@ -147,30 +147,17 @@ const Featured: React.FC = () => {
                                         }}
                                         direction={"row"}
                                     >
-                                        <Box
-                                            width={"16px"}
-                                            height={"16px"}
-                                            sx={{
-                                                backgroundColor: "#23856D",
-                                                borderRadius: "50%",
-                                            }}
-                                        ></Box>
-                                        <Box
-                                            width={"16px"}
-                                            height={"16px"}
-                                            sx={{
-                                                backgroundColor: "#E77C40",
-                                                borderRadius: "50%",
-                                            }}
-                                        ></Box>
-                                        <Box
-                                            width={"16px"}
-                                            height={"16px"}
-                                            sx={{
-                                                backgroundColor: "#252B42",
-                                                borderRadius: "50%",
-                                            }}
-                                        ></Box>
+                                        {product.colors.map((color) => (
+                                            <Box
+                                                width={"25px"}
+                                                height={"25px"}
+                                                sx={{
+                                                    backgroundColor: color,
+                                                    borderRadius: "50%",
+                                                    border:"2px solid rgb(184, 180, 180)"
+                                                }}
+                                            ></Box>
+                                        ))}
                                     </Stack>
                                 </Stack>
                             </Card>

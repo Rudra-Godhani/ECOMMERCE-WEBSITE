@@ -257,7 +257,7 @@ const FilteredProducts: React.FC = () => {
                                             textAlign: "center",
                                             pt: "25px",
                                             pb: "35px",
-                                            px:"10px"
+                                            px: "10px",
                                         }}
                                         spacing={1.25}
                                     >
@@ -321,11 +321,12 @@ const FilteredProducts: React.FC = () => {
                                         >
                                             {item.colors.map((color) => (
                                                 <Box
-                                                    width={"16px"}
-                                                    height={"16px"}
+                                                    width={"25px"}
+                                                    height={"25px"}
                                                     sx={{
                                                         backgroundColor: color,
                                                         borderRadius: "50%",
+                                                        border: "2px solid rgb(184, 180, 180)",
                                                     }}
                                                 ></Box>
                                             ))}

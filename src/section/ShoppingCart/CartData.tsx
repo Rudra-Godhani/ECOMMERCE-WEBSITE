@@ -202,15 +202,16 @@ const CartData: React.FC = () => {
                                       <TableCell align="center">
                                           <Box
                                               display="flex"
-                                              justifyContent="center"
+                                               justifyContent="center"
                                           >
                                               <Box
-                                                  width={"16px"}
-                                                  height={"16px"}
+                                                  width={"25px"}
+                                                  height={"25px"}
                                                   sx={{
                                                       backgroundColor:
                                                           item.color,
                                                       borderRadius: "50%",
+                                                      border: "2px solid rgb(184, 180, 180)",
                                                   }}
                                               ></Box>
                                           </Box>
@@ -228,11 +229,11 @@ const CartData: React.FC = () => {
                                                       decQuantity(item.id)
                                                   }
                                               >
-                                                {
-                                                    item.quantity === 1 
-                                                    ? <DeleteOutlineIcon fontSize='small'/>
-                                                    :<RemoveIcon fontSize="small" />
-                                                }
+                                                  {item.quantity === 1 ? (
+                                                      <DeleteOutlineIcon fontSize="small" />
+                                                  ) : (
+                                                      <RemoveIcon fontSize="small" />
+                                                  )}
                                               </Box>
                                               <Typography
                                                   sx={{
