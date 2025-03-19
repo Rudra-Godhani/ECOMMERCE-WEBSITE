@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import {
     clearAllUpdateProfileErrorsAndMessage,
     resetPassword,
-} from "../../store/Slices/updateProfile";
+} from "../../store/Slices/updateProfileSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 

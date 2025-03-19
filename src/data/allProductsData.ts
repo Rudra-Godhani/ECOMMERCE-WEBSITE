@@ -28,7 +28,7 @@ export const categories: string[] = [
 ];
 
 export interface Product {
-    id: number;
+    id: string;
     title: string;
     descriptionSmall: string;
     descriptionLong: string[];
@@ -47,7 +47,7 @@ export interface Product {
 
 export const productsData: Product[] = [
     {
-        id: 1,
+        id: "1",
         title: "Nike Air Max 270",
         descriptionSmall: "Stylish and comfortable running shoes.",
         descriptionLong: [
@@ -82,7 +82,7 @@ export const productsData: Product[] = [
             "The Nike Air Max 270 is inspired by two iconic Air Max models: the Air Max 180 and Air Max 93. The shoe boasts the largest Air heel unit ever seen in a Nike sneaker, ensuring unparalleled comfort. The upper is crafted from lightweight mesh, making it breathable and perfect for all-day wear. Whether you're running, walking, or just making a style statement, the Air Max 270 delivers exceptional performance and aesthetics. The rubber outsole provides great traction, making it suitable for various surfaces.",
     },
     {
-        id: 2,
+        id: "2",
         title: "Rolex Submariner",
         descriptionSmall: "Luxury diving watch with timeless design.",
         descriptionLong: [
@@ -117,7 +117,7 @@ export const productsData: Product[] = [
             "The Rolex Submariner is one of the most recognizable timepieces in the world. Originally introduced in 1953, it has evolved into a symbol of luxury and precision. The watch is water-resistant up to 300 meters, featuring a unidirectional rotatable bezel with a ceramic insert for measuring diving time. The luminescent markers ensure visibility in low-light conditions. Crafted from Oystersteel, the case is corrosion-resistant, maintaining its shine for years. The automatic movement, powered by Rolex's Caliber 3235, guarantees reliability and accuracy. Whether for deep-sea exploration or an elegant evening out, the Submariner is the perfect companion.",
     },
     {
-        id: 3,
+        id: "3",
         title: "Gucci GG Marmont Handbag",
         descriptionSmall: "Elegant leather handbag with GG logo.",
         descriptionLong: [
@@ -152,7 +152,7 @@ export const productsData: Product[] = [
             "The Gucci GG Marmont handbag is a timeless piece that exudes sophistication and elegance. The quilted chevron leather with the GG logo creates a striking aesthetic. Designed with an adjustable chain strap, the handbag can be worn as a shoulder bag or a crossbody. The interior features a microfiber lining with a suede-like finish, providing a luxurious touch. The secure flap closure ensures safety for your essentials. Perfect for day-to-night styling, this handbag is an ideal investment for fashion-forward individuals.",
     },
     {
-        id: 4,
+        id: "4",
         title: "Chanel No. 5 Perfume",
         descriptionSmall: "Classic fragrance for women.",
         descriptionLong: [
@@ -187,7 +187,7 @@ export const productsData: Product[] = [
             "Chanel No. 5 is one of the most iconic perfumes ever created. Launched in 1921, it features a complex blend of floral and aldehydic notes, creating a sophisticated and long-lasting scent. The fragrance opens with fresh citrus, followed by jasmine and rose, with a warm, musky base. The elegant glass bottle design enhances its timeless appeal.",
     },
     {
-        id: 5,
+        id: "5",
         title: "Levi’s 501 Original Fit Jeans",
         descriptionSmall: "Iconic denim jeans with a classic fit.",
         descriptionLong: [
@@ -222,7 +222,7 @@ export const productsData: Product[] = [
             "The Levi’s 501 Original Fit Jeans are a staple in men's fashion. Introduced in 1873, these jeans offer a regular fit with a straight leg and a button fly. Crafted from high-quality denim, they provide durability and comfort. The versatile design makes them ideal for casual or semi-formal outfits.",
     },
     {
-        id: 6,
+        id: "6",
         title: "Zara Floral Summer Dress",
         descriptionSmall: "Elegant floral dress for summer.",
         descriptionLong: [
@@ -257,7 +257,7 @@ export const productsData: Product[] = [
             "The Zara Floral Summer Dress is designed for comfort and elegance. Made from breathable fabric, this dress features a flattering A-line silhouette with floral prints. The lightweight material makes it ideal for warm weather, while the vibrant colors add a stylish touch.",
     },
     {
-        id: 7,
+        id: "7",
         title: "Adidas Ultraboost 22",
         descriptionSmall: "High-performance running shoes.",
         descriptionLong: [
@@ -292,7 +292,7 @@ export const productsData: Product[] = [
             "The Adidas Ultraboost 22 is designed for runners who seek comfort and performance. Featuring Boost cushioning technology, these shoes provide energy return with every step. The Primeknit upper adapts to foot movement, ensuring a snug fit. The Continental rubber outsole delivers exceptional grip on various surfaces.",
     },
     {
-        id: 8,
+        id: "8",
         title: "Cartier Love Bracelet",
         descriptionSmall: "Elegant gold bracelet with screw motif.",
         descriptionLong: [
@@ -327,7 +327,7 @@ export const productsData: Product[] = [
             "The Cartier Love Bracelet was introduced in 1969 and remains one of the most iconic jewelry pieces. Featuring a distinctive screw motif, it's designed to symbolize everlasting love. Crafted in 18K gold, it includes a special screwdriver to lock and unlock the bracelet.",
     },
     {
-        id: 9,
+        id: "9",
         title: "Ray-Ban Aviator Sunglasses",
         descriptionSmall: "Classic metal frame sunglasses.",
         descriptionLong: [
@@ -362,7 +362,7 @@ export const productsData: Product[] = [
             "Originally developed for U.S. aviators in 1937, Ray-Ban Aviators are known for their lightweight metal frame and glare-reducing lenses. These sunglasses provide 100% UV protection and are perfect for outdoor activities.",
     },
     {
-        id: 10,
+        id: "10",
         title: "Michael Kors Jet Set Tote",
         descriptionSmall: "Elegant designer handbag.",
         descriptionLong: [
@@ -397,7 +397,7 @@ export const productsData: Product[] = [
             "The Michael Kors Jet Set Tote is crafted from saffiano leather for durability and elegance. Featuring multiple compartments and a structured design, it’s ideal for both work and casual outings.",
     },
     {
-        id: 11,
+        id: "11",
         title: "Armani Exchange Chronograph Watch",
         descriptionSmall: "Sleek and stylish men's watch.",
         descriptionLong: [
@@ -432,7 +432,7 @@ export const productsData: Product[] = [
             "The Armani Exchange Chronograph Watch is designed for the modern man. It features precise quartz movement, a water-resistant design, and a stylish stainless steel case, making it suitable for any occasion.",
     },
     {
-        id: 12,
+        id: "12",
         title: "Nike Air Force 1",
         descriptionSmall: "Iconic low-top sneakers.",
         descriptionLong: [
@@ -467,7 +467,7 @@ export const productsData: Product[] = [
             "The Nike Air Max 270 is inspired by two iconic Air Max models: the Air Max 180 and Air Max 93. The shoe boasts the largest Air heel unit ever seen in a Nike sneaker, ensuring unparalleled comfort. The upper is crafted from lightweight mesh, making it breathable and perfect for all-day wear. Whether you're running, walking, or just making a style statement, the Air Max 270 delivers exceptional performance and aesthetics. The rubber outsole provides great traction, making it suitable for various surfaces.",
     },
     {
-        id: 13,
+        id: "13",
         title: "Fossil Leather Wallet",
         descriptionSmall: "Genuine leather wallet for men.",
         descriptionLong: [
@@ -502,7 +502,7 @@ export const productsData: Product[] = [
             "The Fossil leather wallet is a perfect blend of style, functionality, and durability. Crafted from 100% genuine leather, it boasts a sleek and timeless design that complements any outfit. Designed with multiple card slots, an ID window, and a spacious cash compartment, it ensures you have ample storage for all your essentials. The wallet is also equipped with RFID-blocking technology, protecting your cards from unauthorized scanning and keeping your personal information secure. High-quality stitching enhances its durability, making it a long-lasting accessory.",
     },
     {
-        id: 14,
+        id: "14",
         title: "Tissot PRX Automatic Watch",
         descriptionSmall: "Elegant Swiss automatic watch.",
         descriptionLong: [
@@ -537,7 +537,7 @@ export const productsData: Product[] = [
             "The Tissot PRX Automatic Watch is a masterpiece of Swiss craftsmanship, combining vintage aesthetics with modern technology. Featuring a sleek stainless steel bracelet and case, it offers a refined yet sporty look suitable for both casual and formal occasions. The scratch-resistant sapphire crystal ensures durability and clarity, while the automatic movement provides precise timekeeping without the need for a battery. With a power reserve of up to 80 hours, this watch delivers exceptional performance.",
     },
     {
-        id: 15,
+        id: "15",
         title: "Tom Ford Oud Wood Perfume",
         descriptionSmall: "Luxury fragrance for men.",
         descriptionLong: [
@@ -572,7 +572,7 @@ export const productsData: Product[] = [
             "Tom Ford Oud Wood is a luxurious and sophisticated fragrance that exudes elegance and mystery. Crafted with rare and exotic ingredients, this scent is centered around the deep, smoky richness of oud, one of the most coveted perfume elements in the world. Complemented by creamy sandalwood and warm vanilla, it creates a perfectly balanced blend of woody and spicy accords. Hints of cardamom, amber, and tonka bean add depth, making it an alluring and long-lasting fragrance ideal for evening wear and special occasions.",
     },
     {
-        id: 16,
+        id: "16",
         title: "Pandora Rose Gold Charm Bracelet",
         descriptionSmall: "Elegant rose gold bracelet.",
         descriptionLong: [
@@ -607,7 +607,7 @@ export const productsData: Product[] = [
             "The Pandora Rose Gold Charm Bracelet is a stunning piece of jewelry that combines elegance with personalization. Crafted from high-quality rose gold-plated metal, it offers a warm, romantic glow that complements any style. Designed to be both timeless and versatile, this bracelet serves as the perfect foundation for your charm collection, allowing you to express your personality and cherished memories through Pandora’s wide range of charms.",
     },
     {
-        id: 17,
+        id: "17",
         title: "Tommy Hilfiger Men's Polo Shirt",
         descriptionSmall: "Classic polo shirt with a timeless design.",
         descriptionLong: [
@@ -642,7 +642,7 @@ export const productsData: Product[] = [
             "The Tommy Hilfiger Men's Polo Shirt is a wardrobe essential that blends classic style with everyday comfort. Crafted from soft, breathable cotton fabric, it ensures a lightweight and comfortable fit, making it perfect for casual outings, work, or weekend wear. The polo features a ribbed collar and cuffs, a two-button placket for an adjustable fit, and the brand’s iconic logo embroidery on the chest, adding a touch of signature style.",
     },
     {
-        id: 18,
+        id: "18",
         title: "Michael Kors Leather Handbag",
         descriptionSmall: "Elegant and spacious handbag.",
         descriptionLong: [
@@ -677,7 +677,7 @@ export const productsData: Product[] = [
             "The Michael Kors Leather Handbag is a perfect blend of sophistication, functionality, and luxury. Crafted from high-quality genuine leather, it boasts a sleek and timeless design that complements any outfit, from casual to formal. The spacious interior provides ample room for all your essentials, featuring multiple compartments and pockets for effortless organization.",
     },
     {
-        id: 19,
+        id: "19",
         title: "Armani Exchange Chronograph Watch",
         descriptionSmall: "Stylish watch with a modern design.",
         descriptionLong: [
@@ -712,7 +712,7 @@ export const productsData: Product[] = [
             "The Armani Exchange Chronograph Watch is a perfect blend of modern style and precision engineering. Designed for the contemporary man, it features a sleek stainless steel case that exudes sophistication and durability. The watch is equipped with multiple sub-dials, offering precise chronograph functionality for measuring elapsed time, making it both stylish and practical.",
     },
     {
-        id: 20,
+        id: "20",
         title: "MAC Matte Lipstick",
         descriptionSmall: "Long-lasting matte lipstick.",
         descriptionLong: [
@@ -747,7 +747,7 @@ export const productsData: Product[] = [
             "The MAC Matte Lipstick is a must-have beauty essential, offering intense, highly pigmented color with a smooth, velvety finish. Designed for all-day wear, its long-lasting formula glides effortlessly onto the lips, providing full coverage with just one swipe. Unlike many matte lipsticks, this formula is non-drying, ensuring a comfortable feel while maintaining a flawless, shine-free look.",
     },
     {
-        id: 21,
+        id: "21",
         title: "Adidas Superstar Sneakers",
         descriptionSmall: "Iconic sneakers with a classic shell toe.",
         descriptionLong: [
@@ -782,7 +782,7 @@ export const productsData: Product[] = [
             "The Adidas Superstar Sneakers are a true icon in streetwear and sneaker culture, blending timeless style with everyday comfort. Featuring a premium leather upper, they provide durability and a sleek, polished look that pairs effortlessly with any outfit. The signature rubber shell toe adds both protection and a distinctive design element that has made these sneakers legendary for decades.",
     },
     {
-        id: 22,
+        id: "22",
         title: "H&M Kids' Winter Jacket",
         descriptionSmall: "Warm and cozy jacket for kids.",
         descriptionLong: [
@@ -817,7 +817,7 @@ export const productsData: Product[] = [
             "The H&M Kids' Winter Jacket is designed to keep your little one warm, cozy, and stylish during the colder months. Made with high-quality, insulated materials, it provides excellent warmth without feeling bulky. The soft, fleece-lined interior ensures maximum comfort, while the water-resistant outer layer helps protect against light rain and snow. ",
     },
     {
-        id: 23,
+        id: "23",
         title: "Gucci Gold Bracelet",
         descriptionSmall: "Luxury bracelet with an elegant design.",
         descriptionLong: [
@@ -852,7 +852,7 @@ export const productsData: Product[] = [
             "The Gucci Gold Bracelet is a timeless statement piece that embodies elegance, luxury, and exquisite craftsmanship. Made from fine gold, this bracelet showcases an intricate design that reflects Gucci’s signature attention to detail and sophistication. Whether worn alone for a minimalist touch or layered with other jewelry for a bold statement, it adds a refined charm to any outfit",
     },
     {
-        id: 24,
+        id: "24",
         title: "Levi’s Women's Skinny Jeans",
         descriptionSmall: "Trendy and comfortable skinny jeans.",
         descriptionLong: [
@@ -887,7 +887,7 @@ export const productsData: Product[] = [
             "The Levi’s Women’s Skinny Jeans offer the perfect blend of style, comfort, and versatility. Made from high-quality, stretchable denim, they provide a flattering fit that hugs your curves while allowing for effortless movement. Designed for all-day wear, these jeans feature a mid-rise or high-rise waist for a sleek silhouette and a classic five-pocket design for a timeless appeal.",
     },
     {
-        id: 25,
+        id: "25",
         title: "Versace Eros Perfume",
         descriptionSmall: "Bold and captivating men's fragrance.",
         descriptionLong: [
@@ -922,7 +922,7 @@ export const productsData: Product[] = [
             "Versace Eros is a bold and captivating fragrance that embodies confidence, passion, and masculinity. This fresh and woody scent opens with invigorating notes of mint, green apple, and lemon, creating an energizing first impression. The heart of the fragrance features warm hints of tonka bean, ambroxan, and geranium, adding depth and sensuality.",
     },
     {
-        id: 26,
+        id: "26",
         title: "Cotton Kids T-Shirt",
         descriptionSmall: "Soft and breathable cotton t-shirt for kids.",
         descriptionLong: [
@@ -955,7 +955,7 @@ export const productsData: Product[] = [
             "Made from 100% high-quality cotton, this t-shirt provides all-day comfort and durability. Perfect for school, play, or casual outings. The lightweight fabric ensures breathability, keeping your child cool even during active play. Its vibrant colors stay bright after multiple washes, thanks to the fade-resistant dye used in production. Machine washable and designed to withstand rough-and-tumble adventures.",
     },
     {
-        id: 27,
+        id: "27",
         title: "Denim Overalls for Kids",
         descriptionSmall: "Stylish and durable denim overalls.",
         descriptionLong: [
@@ -988,7 +988,7 @@ export const productsData: Product[] = [
             "Made with 100% denim cotton, these overalls feature adjustable straps and multiple pockets for added functionality. Ideal for outdoor activities and casual wear. The durable denim is pre-washed for a soft feel right out of the box, while reinforced stitching ensures longevity even with frequent use. Easy to clean and designed to maintain its shape and color over time.",
     },
     {
-        id: 29,
+        id: "29",
         title: "Boys’ Cargo Pants",
         descriptionSmall: "Durable and stylish cargo pants for boys.",
         descriptionLong: [
@@ -1021,7 +1021,7 @@ export const productsData: Product[] = [
             "These cargo pants are made with premium cotton fabric, reinforced stitching for durability, and feature an elastic waistband for a secure fit. Ideal for casual and outdoor wear. The soft yet sturdy material ensures all-day comfort, while the multiple pockets provide ample storage for small treasures or essentials. Designed to withstand active lifestyles, the pants maintain their shape and color even after repeated washes. Machine washable and available in versatile earth-tone shades.",
     },
     {
-        id: 30,
+        id: "30",
         title: "Girls’ Floral Dress",
         descriptionSmall: "Adorable floral dress for little girls.",
         descriptionLong: [
@@ -1054,7 +1054,7 @@ export const productsData: Product[] = [
             "Made with a soft and breathable cotton blend, this floral dress is designed for both comfort and style. Available in multiple sizes for toddlers and young girls. The lightweight fabric flows beautifully, making it ideal for twirling and play, while the delicate floral print adds a touch of elegance to any occasion. The ruffle details and bow are securely stitched for durability, and the dress is machine washable for easy care.",
     },
     {
-        id: 31,
+        id: "31",
         title: "Men’s Slim Fit Jeans",
         descriptionSmall: "Classic slim fit jeans for men.",
         descriptionLong: [
@@ -1086,7 +1086,7 @@ export const productsData: Product[] = [
             "Crafted from premium denim with a hint of stretch, these Levi’s slim fit jeans provide a tailored silhouette without sacrificing comfort. The durable fabric is designed for all-day wear, offering flexibility for movement while maintaining a polished look. Ideal for casual outings or semi-formal events, these jeans resist wear and tear thanks to reinforced stitching. Machine washable, fade-resistant, and available in various sizes to suit every style.",
     },
     {
-        id: 32,
+        id: "32",
         title: "Women’s Running Shoes",
         descriptionSmall: "Lightweight running shoes for women.",
         descriptionLong: [
@@ -1118,7 +1118,7 @@ export const productsData: Product[] = [
             "Designed for performance, these Adidas running shoes feature a breathable mesh upper and a responsive Boost midsole for unparalleled comfort and energy return. Perfect for daily runs or intense workouts, the lightweight construction reduces fatigue, while the cushioned sole absorbs impact to protect your joints. The durable rubber outsole ensures excellent traction on various surfaces, and the shoes are available in multiple sizes to fit every runner’s needs.",
     },
     {
-        id: 33,
+        id: "33",
         title: "Luxury Chronograph Watch",
         descriptionSmall: "Elegant chronograph watch for men.",
         descriptionLong: [
@@ -1150,7 +1150,7 @@ export const productsData: Product[] = [
             "This Rolex chronograph watch is a blend of timeless elegance and cutting-edge precision, featuring a stainless steel case and scratch-resistant sapphire crystal. Water-resistant up to 100 meters, it’s built for both style and durability. The intricate chronograph functions offer unmatched accuracy, while the polished finish elevates any outfit. Comes with a 5-year warranty and is designed to be a heirloom piece for generations.",
     },
     {
-        id: 34,
+        id: "34",
         title: "Women’s Silk Saree",
         descriptionSmall: "Traditional silk saree for women.",
         descriptionLong: [
@@ -1182,7 +1182,7 @@ export const productsData: Product[] = [
             "Made from 100% pure silk, this Fabindia saree showcases intricate handwoven patterns that highlight traditional craftsmanship. Perfect for festive occasions or cultural events, its lightweight fabric drapes effortlessly, offering both elegance and comfort. The rich, vibrant colors resist fading, ensuring a lasting impression, while the soft texture feels luxurious against the skin. Dry clean only to maintain its pristine quality.",
     },
     {
-        id: 35,
+        id: "35",
         title: "Men’s Casual Shirt",
         descriptionSmall: "Stylish casual shirt for men.",
         descriptionLong: [
@@ -1214,7 +1214,7 @@ export const productsData: Product[] = [
             "This Allen Solly casual shirt is crafted from a cotton-polyester blend, offering a relaxed fit with a modern twist for everyday versatility. Ideal for casual outings or laid-back office days, the breathable fabric ensures all-day comfort, while the tailored design keeps you looking sharp. The colors stay vibrant after multiple washes, and the shirt is machine washable for easy maintenance.",
     },
     {
-        id: 36,
+        id: "36",
         title: "Designer Handbag",
         descriptionSmall: "Chic leather handbag for women.",
         descriptionLong: [
@@ -1246,7 +1246,7 @@ export const productsData: Product[] = [
             "This Gucci handbag is crafted from premium leather, featuring gold-tone hardware for a sophisticated finish. With multiple compartments and a detachable shoulder strap, it’s as functional as it is stylish, perfect for work or evenings out. The supple leather ages beautifully, developing a unique patina over time, while the sturdy construction ensures durability. A timeless accessory designed to elevate any wardrobe.",
     },
     {
-        id: 37,
+        id: "37",
         title: "Kids’ Sneakers",
         descriptionSmall: "Durable sneakers for kids.",
         descriptionLong: [
@@ -1278,7 +1278,7 @@ export const productsData: Product[] = [
             "These Nike sneakers are designed for active kids, featuring a breathable mesh upper and a cushioned rubber outsole for all-day comfort and support. The lightweight build allows for unrestricted movement, while the durable materials withstand rough play. Perfect for school or outdoor adventures, these sneakers offer excellent traction and vibrant colors that kids love. Easy to clean and built to last.",
     },
     {
-        id: 38,
+        id: "38",
         title: "Women’s Perfume",
         descriptionSmall: "Elegant floral fragrance.",
         descriptionLong: [
@@ -1310,7 +1310,7 @@ export const productsData: Product[] = [
             "This Chanel perfume is a luxurious 50ml blend of floral and woody notes, with top notes of jasmine and rose for an elegant, timeless scent. Designed for all-day wear, its long-lasting formula lingers beautifully without overpowering, making it perfect for any occasion. The sophisticated fragrance is housed in a sleek bottle, offering a touch of luxury with every spritz. A must-have for fragrance lovers.",
     },
     {
-        id: 39,
+        id: "39",
         title: "Men’s Sunglasses",
         descriptionSmall: "Stylish polarized sunglasses.",
         descriptionLong: [
@@ -1342,7 +1342,7 @@ export const productsData: Product[] = [
             "These Ray-Ban sunglasses feature polarized, scratch-resistant lenses with full UV protection, ensuring crystal-clear vision and eye safety. Perfect for outdoor adventures or daily wear, the sleek design complements any style, while the lightweight frame offers all-day comfort. Built to last, these sunglasses resist wear and tear, making them a reliable choice for any season.",
     },
     {
-        id: 40,
+        id: "40",
         title: "Charm Bracelet",
         descriptionSmall: "Customizable charm bracelet.",
         descriptionLong: [
@@ -1374,7 +1374,7 @@ export const productsData: Product[] = [
             "This Pandora charm bracelet is crafted from sterling silver, offering a customizable and timeless accessory for any jewelry lover. Its adjustable length ensures a perfect fit, while the durable design withstands daily wear. Add personal charms (sold separately) to tell your story, and enjoy the polished finish that retains its shine over time. A versatile piece that’s both elegant and meaningful.",
     },
     {
-        id: 41,
+        id: "41",
         title: "Men’s Leather Watch",
         descriptionSmall: "Classic leather strap watch.",
         descriptionLong: [
@@ -1407,7 +1407,7 @@ export const productsData: Product[] = [
             "This Titan watch combines minimalist elegance with reliable functionality, featuring a genuine leather strap and quartz movement for precise timekeeping. Water-resistant up to 50 meters, it’s built to withstand daily wear while maintaining its classic appeal. The soft leather molds comfortably to the wrist over time, and the sleek dial offers a sophisticated touch for both formal and casual settings. A durable, stylish accessory designed to last.",
     },
     {
-        id: 42,
+        id: "42",
         title: "Women’s Blazer",
         descriptionSmall: "Chic tailored blazer for women.",
         descriptionLong: [
@@ -1440,7 +1440,7 @@ export const productsData: Product[] = [
             "This Zara blazer is crafted from a premium wool-blend fabric, offering a sharp, tailored fit that exudes confidence and style. Perfect for professional settings or chic evenings out, its structured design enhances your silhouette without compromising comfort. The fabric resists wrinkling, ensuring a polished look all day, while the versatile colors pair effortlessly with any outfit. Dry clean recommended to preserve its pristine quality.",
     },
     {
-        id: 43,
+        id: "43",
         title: "Men’s Designer Sunglasses",
         descriptionSmall: "Luxury sunglasses for men.",
         descriptionLong: [
@@ -1472,7 +1472,7 @@ export const productsData: Product[] = [
             "These Tom Ford sunglasses feature polarized lenses with full UV protection, paired with a bold, premium frame for a striking look. Designed for both style and function, they offer exceptional clarity and eye protection in any light condition. The lightweight yet sturdy construction ensures all-day comfort, while the luxurious design elevates your everyday wear. A high-end accessory built to impress and endure.",
     },
     {
-        id: 44,
+        id: "44",
         title: "Women’s Tote Bag",
         descriptionSmall: "Spacious tote bag for women.",
         descriptionLong: [
@@ -1504,7 +1504,7 @@ export const productsData: Product[] = [
             "This Michael Kors tote bag is crafted from premium leather, featuring internal pockets and a zippered top for secure, spacious storage. Ideal for daily use, its chic design seamlessly transitions from work to weekend adventures. The supple leather offers a luxurious feel that improves with age, while the sturdy construction ensures long-lasting durability. A versatile, elegant accessory designed to keep you organized in style.",
     },
     {
-        id: 45,
+        id: "45",
         title: "Kids’ Ethnic Kurta",
         descriptionSmall: "Festive kurta for boys.",
         descriptionLong: [
@@ -1536,7 +1536,7 @@ export const productsData: Product[] = [
             "This Fabindia kurta is made from 100% soft cotton, adorned with traditional embroidery that adds a festive flair for boys aged 2-10. Perfect for special occasions, its breathable fabric ensures all-day comfort, while the vibrant colors and intricate detailing make it a standout piece. Lightweight and easy to wear, this kurta maintains its shape and softness even after multiple washes, offering both style and practicality.",
     },
     {
-        id: 46,
+        id: "46",
         title: "Men’s Running Shoes",
         descriptionSmall: "High-performance running shoes.",
         descriptionLong: [
@@ -1568,7 +1568,7 @@ export const productsData: Product[] = [
             "These Nike running shoes feature a breathable mesh upper and a durable rubber sole, delivering advanced cushioning and a lightweight feel for serious runners. Designed for high performance, they provide exceptional support and energy return, reducing fatigue during long runs. The rugged outsole ensures superior traction on various terrains, while the sleek design adds a stylish edge. Built to last and enhance every stride.",
     },
     {
-        id: 47,
+        id: "47",
         title: "Women’s Diamond Earrings",
         descriptionSmall: "Elegant diamond stud earrings.",
         descriptionLong: [
@@ -1601,7 +1601,7 @@ export const productsData: Product[] = [
             "These Pandora earrings feature 0.2-carat sparkling diamonds set in hypoallergenic sterling silver, offering elegance for any occasion. The brilliant-cut stones catch the light effortlessly, adding a touch of luxury to your look, while the lightweight design ensures comfort throughout the day. Perfect for gifting or cherishing yourself, these studs are crafted to maintain their shine and withstand daily wear.",
     },
     {
-        id: 48,
+        id: "48",
         title: "Men’s Formal Watch",
         descriptionSmall: "Sleek formal watch for men.",
         descriptionLong: [
@@ -1633,7 +1633,7 @@ export const productsData: Product[] = [
             "This Michael Kors formal watch features a stainless steel band and a minimalist dial, delivering a sleek, sophisticated look for business or formal settings. Water-resistant up to 50 meters and powered by quartz movement, it offers reliable precision and durability. The polished finish resists scratches, while the comfortable band ensures a secure fit all day. A refined accessory designed to elevate your professional style.",
     },
     {
-        id: 49,
+        id: "49",
         title: "Women’s Casual Top",
         descriptionSmall: "Comfy casual top for women.",
         descriptionLong: [
@@ -1665,7 +1665,7 @@ export const productsData: Product[] = [
             "This Zara casual top is crafted from 100% soft cotton, offering a relaxed fit and trendy design perfect for everyday wear. The breathable fabric keeps you comfortable all day, while the vibrant colors and modern cut add a stylish flair to your wardrobe. Machine washable and designed to resist shrinking or fading, this top is a versatile essential for effortless, laid-back looks.",
     },
     {
-        id: 50,
+        id: "50",
         title: "Men’s Leather Belt",
         descriptionSmall: "Classic leather belt for men.",
         descriptionLong: [

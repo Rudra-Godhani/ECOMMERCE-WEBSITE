@@ -1,25 +1,12 @@
 // import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
-// import React, { useState } from "react";
+// import React, {  useState } from "react";
 // import Carousel from "react-multi-carousel";
 // import "react-multi-carousel/lib/styles.css";
-// import { heroFirst1, heroFirst2 } from "../../assets";
 // import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 // import { NavLink } from "react-router-dom";
 // import { productsData } from "../../data/allProductsData";
-
-// // const slides = [
-// //     {
-// //         image: heroFirst1,
-// //         title: "NEW COLLECTION",
-// //         subtitle:
-// //             "We know how large objects will act, but things on a small scale.",
-// //     },
-// //     {
-// //         image: heroFirst2,
-// //         title: "SUMMER SPECIALS",
-// //         subtitle: "Exclusive deals on the best styles of the season.",
-// //     },
-// // ];
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../store/store";
 
 // const responsive = {
 //     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
@@ -28,8 +15,15 @@
 // };
 
 // const HeroFirst: React.FC = () => {
-//     const products = productsData.slice(0, 2);
-//     console.log(products);
+
+//     const { loading, products: backendProductsData, error, message } = useSelector(
+//         (state: RootState) => state.product
+//     );
+
+//     const products = [
+//         productsData.find((item) => item.id === 33),
+//         productsData.find((item) => item.id === 32),
+//     ];
 //     const [currentSlide, setCurrentSlide] = useState(0);
 //     const carouselRef = React.useRef<Carousel | null>(null);
 
@@ -37,7 +31,7 @@
 //         if (carouselRef.current) {
 //             carouselRef.current.previous(1);
 //             setCurrentSlide(
-//                 (prev) => (prev - 1 + slides.length) % slides.length
+//                 (prev) => (prev - 1 + products.length) % products.length
 //             );
 //         }
 //     };
@@ -45,7 +39,7 @@
 //     const handleNext = () => {
 //         if (carouselRef.current) {
 //             carouselRef.current.next(1);
-//             setCurrentSlide((prev) => (prev + 1) % slides.length);
+//             setCurrentSlide((prev) => (prev + 1) % products.length);
 //         }
 //     };
 
@@ -54,7 +48,7 @@
 //         { currentSlide: nextSlide }: { currentSlide: number }
 //     ) => {
 //         // Update currentSlide based on the carousel's internal state after transition
-//         setCurrentSlide(nextSlide % slides.length);
+//         setCurrentSlide(nextSlide % products.length);
 //     };
 
 //     return (
@@ -70,11 +64,11 @@
 //                 arrows={false} // Hide default arrows
 //                 afterChange={handleAfterChange} // Fix indicator blinking issue
 //             >
-//                 {slides.map((slide, index) => (
+//                 {products.map((product) => (
 //                     <Box
-//                         key={index}
+//                         key={product?.id}
 //                         sx={{
-//                             backgroundImage: `url(${slide.image})`,
+//                             backgroundImage: `url(${product?.images[1]})`,
 //                             backgroundSize: "cover",
 //                             backgroundPosition: "center",
 //                             width: "100%",
@@ -82,9 +76,21 @@
 //                             position: "relative",
 //                         }}
 //                     >
+//                         <Box
+//                             sx={{
+//                                 position: "absolute",
+//                                 top: 0,
+//                                 left: 0,
+//                                 width: "100%",
+//                                 height: "100%",
+//                                 backgroundColor: "rgba(0, 0, 0, 0.5)",
+//                                 zIndex: 1,
+//                             }}
+//                         />
 //                         <Stack
 //                             sx={{
 //                                 position: "absolute",
+//                                 zIndex: 1000,
 //                                 gap: "35px",
 //                                 top: "50%",
 //                                 left: { xs: "50%", md: "15%" },
@@ -96,14 +102,14 @@
 //                                 textAlign: { xs: "center", md: "left" },
 //                             }}
 //                         >
-//                             <Typography
+//                             {/* <Typography
 //                                 variant="h5"
 //                                 fontSize="16px"
 //                                 fontWeight="700"
 //                                 color="white"
 //                             >
 //                                 SUMMER 2024
-//                             </Typography>
+//                             </Typography> */}
 //                             <Typography
 //                                 variant="h1"
 //                                 sx={{
@@ -113,7 +119,7 @@
 //                                     color: "#FFFFFF",
 //                                 }}
 //                             >
-//                                 {slide.title}
+//                                 {product?.title}
 //                             </Typography>
 //                             <Stack
 //                                 sx={{
@@ -134,9 +140,9 @@
 //                                     color="#FAFAFA"
 //                                     width={{ xs: "80%", md: "60%" }}
 //                                 >
-//                                     {slide.subtitle}
+//                                     {product?.descriptionSmall}
 //                                 </Typography>
-//                                 <NavLink to="/product/listing">
+//                                 <NavLink to={`/product/${product?.id}/detail`}>
 //                                     <Button
 //                                         sx={{
 //                                             color: "#FFFFFF",
@@ -170,7 +176,7 @@
 //                     display: "flex",
 //                 }}
 //             >
-//                 {slides.map((_, index) => (
+//                 {products.map((_, index) => (
 //                     <Box
 //                         key={index}
 //                         sx={{
@@ -216,27 +222,23 @@
 
 // export default HeroFirst;
 
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    IconButton,
+    keyframes,
+    Skeleton,
+    Stack,
+    styled,
+    Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
-import { productsData } from "../../data/allProductsData";
-
-// const slides = [
-//     {
-//         image: heroFirst1,
-//         title: "NEW COLLECTION",
-//         subtitle:
-//             "We know how large objects will act, but things on a small scale.",
-//     },
-//     {
-//         image: heroFirst2,
-//         title: "SUMMER SPECIALS",
-//         subtitle: "Exclusive deals on the best styles of the season.",
-//     },
-// ];
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const responsive = {
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
@@ -245,10 +247,12 @@ const responsive = {
 };
 
 const HeroFirst: React.FC = () => {
-    const products = [
-        productsData.find((item) => item.id === 33),
-        productsData.find((item) => item.id === 32),
-    ];
+    const { loading, products: productsData } = useSelector(
+        (state: RootState) => state.product
+    );
+
+    const products = (productsData ?? []).slice(10,12);
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = React.useRef<Carousel | null>(null);
 
@@ -272,175 +276,184 @@ const HeroFirst: React.FC = () => {
         _previousSlide: number,
         { currentSlide: nextSlide }: { currentSlide: number }
     ) => {
-        // Update currentSlide based on the carousel's internal state after transition
         setCurrentSlide(nextSlide % products.length);
     };
 
     return (
         <Box width="100%" height="716px" position="relative">
-            {/* React Multi Carousel */}
-            <Carousel
-                ref={carouselRef}
-                responsive={responsive}
-                infinite
-                autoPlay
-                autoPlaySpeed={3000}
-                showDots={false}
-                arrows={false} // Hide default arrows
-                afterChange={handleAfterChange} // Fix indicator blinking issue
-            >
-                {products.map((product) => (
-                    <Box
-                        key={product?.id}
-                        sx={{
-                            backgroundImage: `url(${product?.images[1]})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            width: "100%",
-                            height: "716px",
-                            position: "relative",
-                        }}
-                    >
+            {loading ? (
+                // Shimmer effect while loading
+                <Skeleton
+                    variant="rectangular"
+                    width="100%"
+                    height="716px"
+                    animation="wave"
+                />
+            ) : (
+                <Carousel
+                    ref={carouselRef}
+                    responsive={responsive}
+                    infinite
+                    autoPlay
+                    autoPlaySpeed={3000}
+                    showDots={false}
+                    arrows={false}
+                    afterChange={handleAfterChange}
+                >
+                    {products.map((product) => (
                         <Box
+                            key={product?.id}
                             sx={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
+                                backgroundImage: `url(${product?.images[1]})`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
                                 width: "100%",
-                                height: "100%",
-                                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                zIndex: 1,
-                            }}
-                        />
-                        <Stack
-                            sx={{
-                                position: "absolute",
-                                zIndex: 1000,
-                                gap: "35px",
-                                top: "50%",
-                                left: { xs: "50%", md: "15%" },
-                                transform: {
-                                    xs: "translate(-50%, -50%)",
-                                    md: "translateY(-50%)",
-                                },
-                                width: { xs: "90%", md: "50%" },
-                                textAlign: { xs: "center", md: "left" },
+                                height: "716px",
+                                position: "relative",
                             }}
                         >
-                            {/* <Typography
-                                variant="h5"
-                                fontSize="16px"
-                                fontWeight="700"
-                                color="white"
-                            >
-                                SUMMER 2024
-                            </Typography> */}
-                            <Typography
-                                variant="h1"
+                            {/* Overlay */}
+                            <Box
                                 sx={{
-                                    fontSize: { xs: "40px", md: "58px" },
-                                    fontWeight: "700",
-                                    lineHeight: { xs: "50px", md: "80px" },
-                                    color: "#FFFFFF",
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    height: "100%",
+                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                    zIndex: 1,
                                 }}
-                            >
-                                {product?.title}
-                            </Typography>
+                            />
                             <Stack
                                 sx={{
-                                    textAlign: { xs: "center", md: "left" },
-                                    alignItems: {
-                                        xs: "center",
-                                        md: "flex-start",
-                                    },
-                                    width: "100%",
+                                    position: "absolute",
+                                    zIndex: 1000,
                                     gap: "35px",
+                                    top: "50%",
+                                    left: { xs: "50%", md: "15%" },
+                                    transform: {
+                                        xs: "translate(-50%, -50%)",
+                                        md: "translateY(-50%)",
+                                    },
+                                    width: { xs: "90%", md: "50%" },
+                                    textAlign: { xs: "center", md: "left" },
                                 }}
                             >
                                 <Typography
-                                    variant="h4"
-                                    fontSize="20px"
-                                    fontWeight="400"
-                                    lineHeight="30px"
-                                    color="#FAFAFA"
-                                    width={{ xs: "80%", md: "60%" }}
+                                    variant="h1"
+                                    sx={{
+                                        fontSize: { xs: "40px", md: "58px" },
+                                        fontWeight: "700",
+                                        lineHeight: { xs: "50px", md: "80px" },
+                                        color: "#FFFFFF",
+                                    }}
                                 >
-                                    {product?.descriptionSmall}
+                                    {product?.title}
                                 </Typography>
-                                <NavLink to={`/product/${product?.id}/detail`}>
-                                    <Button
-                                        sx={{
-                                            color: "#FFFFFF",
-                                            backgroundColor: "#2DC071",
-                                            p: "15px 40px",
-                                            whiteSpace: "nowrap",
-                                            minWidth: "fit-content",
-                                            width: "fit-content",
-                                            alignSelf: {
-                                                xs: "center",
-                                                md: "flex-start",
-                                            },
-                                        }}
+                                <Stack
+                                    sx={{
+                                        textAlign: { xs: "center", md: "left" },
+                                        alignItems: {
+                                            xs: "center",
+                                            md: "flex-start",
+                                        },
+                                        width: "100%",
+                                        gap: "35px",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h4"
+                                        fontSize="20px"
+                                        fontWeight="400"
+                                        lineHeight="30px"
+                                        color="#FAFAFA"
+                                        width={{ xs: "80%", md: "60%" }}
                                     >
-                                        SHOP NOW
-                                    </Button>
-                                </NavLink>
+                                        {product?.descriptionSmall}
+                                    </Typography>
+                                    <NavLink
+                                        to={`/product/${product?.id}/detail`}
+                                    >
+                                        <Button
+                                            sx={{
+                                                color: "#FFFFFF",
+                                                backgroundColor: "#2DC071",
+                                                p: "15px 40px",
+                                                whiteSpace: "nowrap",
+                                                minWidth: "fit-content",
+                                                width: "fit-content",
+                                                alignSelf: {
+                                                    xs: "center",
+                                                    md: "flex-start",
+                                                },
+                                            }}
+                                        >
+                                            SHOP NOW
+                                        </Button>
+                                    </NavLink>
+                                </Stack>
                             </Stack>
-                        </Stack>
-                    </Box>
-                ))}
-            </Carousel>
+                        </Box>
+                    ))}
+                </Carousel>
+            )}
 
             {/* Custom Indicator - Horizontal Lines */}
-            <Box
-                sx={{
-                    position: "absolute",
-                    bottom: "20px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    display: "flex",
-                }}
-            >
-                {products.map((_, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            width: "62px",
-                            height: "10px",
-                            backgroundColor: "#FFFFFF",
-                            opacity: currentSlide === index ? 1 : 0.5,
-                            transition: "opacity 0.5s ease-in-out",
-                        }}
-                    />
-                ))}
-            </Box>
+            {!loading && (
+                <Box
+                    sx={{
+                        position: "absolute",
+                        bottom: "20px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        display: "flex",
+                    }}
+                >
+                    {products.map((_, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                width: "62px",
+                                height: "10px",
+                                backgroundColor: "#FFFFFF",
+                                opacity: currentSlide === index ? 1 : 0.5,
+                                transition: "opacity 0.5s ease-in-out",
+                            }}
+                        />
+                    ))}
+                </Box>
+            )}
 
             {/* Navigation Buttons */}
-            <IconButton
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "2%",
-                    transform: "translateY(-50%)",
-                    color: "#FFFFFF",
-                }}
-                onClick={handlePrev}
-            >
-                <ArrowBackIos fontSize="large" />
-            </IconButton>
+            {!loading && (
+                <>
+                    <IconButton
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "2%",
+                            transform: "translateY(-50%)",
+                            color: "#FFFFFF",
+                        }}
+                        onClick={handlePrev}
+                    >
+                        <ArrowBackIos fontSize="large" />
+                    </IconButton>
 
-            <IconButton
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "2%",
-                    transform: "translateY(-50%)",
-                    color: "#FFFFFF",
-                }}
-                onClick={handleNext}
-            >
-                <ArrowForwardIos fontSize="large" />
-            </IconButton>
+                    <IconButton
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            right: "2%",
+                            transform: "translateY(-50%)",
+                            color: "#FFFFFF",
+                        }}
+                        onClick={handleNext}
+                    >
+                        <ArrowForwardIos fontSize="large" />
+                    </IconButton>
+                </>
+            )}
         </Box>
     );
 };

@@ -6,12 +6,22 @@ import { useParams } from "react-router-dom";
 import ProductInfo from "../../section/ProductDetails/ProductInfo";
 import { productsData } from "../../data/allProductsData";
 import { Box, Typography } from "@mui/material";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 const ProductDetails: React.FC = () => {
     const { id } = useParams();
     console.log(id);
 
-    const product = productsData.find((product) => product.id === Number(id));
+    const { products: backendProductsData } = useSelector(
+        (state: RootState) => state.product
+    );
+
+    console.log(backendProductsData);
+
+    const product = backendProductsData && backendProductsData.find((product) => product.id === id);
+
+    console.log(product);
 
     if (!product) {
         return (

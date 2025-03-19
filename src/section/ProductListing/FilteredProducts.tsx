@@ -25,12 +25,18 @@ const FilteredProducts: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedSort, setSelectedSort] = useState<string>("Popularity");
 
-    const open = Boolean(anchorEl);
-    const filteredProductsData = useSelector(
-        (state: RootState) => state.filter.filteredProducts
+    const { loading, products: filteredProductsData } = useSelector(
+        (state: RootState) => state.product
     );
-    const sortedProducts = [...filteredProductsData];
-    const totalPages = Math.ceil(filteredProductsData.length / ITEMS_PER_PAGE);
+    
+        // const products = (productsData ?? []).slice(30, 32);
+
+    const open = Boolean(anchorEl);
+    // const filteredProductsData = useSelector(
+    //     (state: RootState) => state.filter.filteredProducts
+    // );
+    const sortedProducts = [...(filteredProductsData ?? [])];
+    const totalPages = Math.ceil((filteredProductsData ?? []).length / ITEMS_PER_PAGE);
     if (selectedSort === "Popularity") {
         sortedProducts.sort((a, b) => b.rating - a.rating);
     } else if (selectedSort === "Price: Low to High") {

@@ -331,42 +331,42 @@ const FavoriteProducts: React.FC = () => {
                             }}
                         >
                             {wishListData.map((product) => (
-                                <Box
+                                <Link
                                     key={product.id}
-                                    sx={{
-                                        width: "300px",
-                                        margin: "0 auto",
-                                        backgroundColor: "#FFFFFF",
-                                    }}
+                                    to={`/product/${product.id}/detail`}
                                 >
                                     <Box
                                         sx={{
-                                            p: "0px 0px ",
-                                            width: "100%",
-                                            height: "auto",
-                                            overflow: "hidden",
+                                            width: "300px",
+                                            margin: "0 auto",
+                                            backgroundColor: "#FFFFFF",
                                         }}
                                     >
-                                        <img
-                                            src={product.images[0]}
-                                            alt={product.title}
-                                            style={{
-                                                objectFit: "cover",
+                                        <Box
+                                            sx={{
+                                                p: "0px 0px ",
                                                 width: "100%",
-                                                height: "300px",
+                                                height: "auto",
+                                                overflow: "hidden",
                                             }}
-                                        />
-                                    </Box>
-                                    <Stack
-                                        sx={{
-                                            textAlign: "center",
-                                            pt: "25px",
-                                            pb: "35px",
-                                        }}
-                                        spacing={1.25}
-                                    >
-                                        <Link
-                                            to={`/product/${product.id}/detail`}
+                                        >
+                                            <img
+                                                src={product.images[0]}
+                                                alt={product.title}
+                                                style={{
+                                                    objectFit: "cover",
+                                                    width: "100%",
+                                                    height: "300px",
+                                                }}
+                                            />
+                                        </Box>
+                                        <Stack
+                                            sx={{
+                                                textAlign: "center",
+                                                pt: "25px",
+                                                pb: "35px",
+                                            }}
+                                            spacing={1.25}
                                         >
                                             <Typography
                                                 variant="h5"
@@ -376,124 +376,128 @@ const FavoriteProducts: React.FC = () => {
                                             >
                                                 {product.title}
                                             </Typography>
-                                        </Link>
-                                        <Typography
-                                            variant="h3"
-                                            color="gray"
-                                            fontWeight={"400"}
-                                            fontSize={"14px"}
-                                        >
-                                            {product.descriptionSmall}
-                                        </Typography>
-                                        <Stack
-                                            spacing={0.75}
-                                            sx={{
-                                                p: "5px 3px",
-                                                textAlign: "center",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                            }}
-                                            direction={"row"}
-                                        >
                                             <Typography
-                                                variant="h5"
-                                                color="#BDBDBD"
-                                                fontWeight={"700"}
-                                                fontSize={"16px"}
+                                                variant="h3"
+                                                color="gray"
+                                                fontWeight={"400"}
+                                                fontSize={"14px"}
                                             >
-                                                ${product.price}
+                                                {product.descriptionSmall}
                                             </Typography>
-                                            <Typography
-                                                variant="h5"
-                                                color="darkGreen"
-                                                fontWeight={"700"}
-                                                fontSize={"16px"}
-                                            >
-                                                ${product.retailPrice}
-                                            </Typography>
-                                        </Stack>
-                                        <Stack
-                                            spacing={1.25}
-                                            direction={"row"}
-                                            sx={{
-                                                pb: "20px",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Box
-                                                width={"30px"}
-                                                height={"30px"}
+                                            <Stack
+                                                spacing={0.75}
                                                 sx={{
-                                                    backgroundColor: product.selectedColor,
-                                                    borderRadius: "50%",
+                                                    p: "5px 3px",
+                                                    textAlign: "center",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
                                                 }}
-                                            ></Box>
-                                        </Stack>
-                                        <Stack
-                                            sx={{
-                                                gap: {
-                                                    xs: "10px",
-                                                    sm: "5px",
-                                                    md: "10px",
-                                                },
-                                                flexDirection: "row",
-                                                justifyContent: "center",
-                                            }}
-                                        >
-                                            <Button
+                                                direction={"row"}
+                                            >
+                                                <Typography
+                                                    variant="h5"
+                                                    color="#BDBDBD"
+                                                    fontWeight={"700"}
+                                                    fontSize={"16px"}
+                                                >
+                                                    ${product.price}
+                                                </Typography>
+                                                <Typography
+                                                    variant="h5"
+                                                    color="darkGreen"
+                                                    fontWeight={"700"}
+                                                    fontSize={"16px"}
+                                                >
+                                                    ${product.retailPrice}
+                                                </Typography>
+                                            </Stack>
+                                            <Stack
+                                                spacing={1.25}
+                                                direction={"row"}
                                                 sx={{
-                                                    color: "#FAFAFA",
-                                                    backgroundColor: "#23A6F0",
-                                                    p: {
-                                                        md: "10px 10px",
-                                                        lg: "10px 20px",
+                                                    pb: "20px",
+                                                    justifyContent: "center",
+                                                }}
+                                            >
+                                                <Box
+                                                    width={"30px"}
+                                                    height={"30px"}
+                                                    sx={{
+                                                        backgroundColor:
+                                                            product.selectedColor,
+                                                        borderRadius: "50%",
+                                                    }}
+                                                ></Box>
+                                            </Stack>
+                                            <Stack
+                                                sx={{
+                                                    gap: {
+                                                        xs: "10px",
+                                                        sm: "5px",
+                                                        md: "10px",
                                                     },
-                                                    whiteSpace: "nowrap",
-                                                    minWidth: "fit-content",
-                                                    width: "fit-content",
-                                                    alignSelf: "flex-start",
+                                                    flexDirection: "row",
+                                                    justifyContent: "center",
                                                 }}
-                                                onClick={() =>
-                                                    handleAddRemoveProduct(
-                                                        product
+                                            >
+                                                <Button
+                                                    sx={{
+                                                        color: "#FAFAFA",
+                                                        backgroundColor:
+                                                            "#23A6F0",
+                                                        p: {
+                                                            md: "10px 10px",
+                                                            lg: "10px 20px",
+                                                        },
+                                                        whiteSpace: "nowrap",
+                                                        minWidth: "fit-content",
+                                                        width: "fit-content",
+                                                        alignSelf: "flex-start",
+                                                    }}
+                                                    onClick={() =>
+                                                        handleAddRemoveProduct(
+                                                            product
+                                                        )
+                                                    }
+                                                >
+                                                    {cart.some(
+                                                        (p: CartItem) =>
+                                                            p.id === product.id
                                                     )
-                                                }
-                                            >
-                                                {cart.some(
-                                                    (p: CartItem) =>
-                                                        p.id === product.id
-                                                )
-                                                    ? "Remove Item"
-                                                    : "Add to Cart"}
-                                            </Button>
-                                            <Box
-                                                key="favorite-icon"
-                                                width={"40px"}
-                                                height={"40px"}
-                                                border={"1px solid #E8E8E8"}
-                                                borderRadius={"50%"}
-                                                alignItems={"center"}
-                                                justifyContent={"center"}
-                                                display={"flex"}
-                                                onClick={() =>
-                                                    handleFavorite(product)
-                                                }
-                                            >
-                                                {wishlist.some(
-                                                    (p: Product) =>
-                                                        p.id === product.id
-                                                ) ? (
-                                                    <FavoriteIcon
-                                                        fontSize="medium"
-                                                        sx={{ color: "red" }}
-                                                    />
-                                                ) : (
-                                                    <FavoriteBorderIcon fontSize="medium" />
-                                                )}
-                                            </Box>
+                                                        ? "Remove Item"
+                                                        : "Add to Cart"}
+                                                </Button>
+                                                <Box
+                                                    key="favorite-icon"
+                                                    width={"40px"}
+                                                    height={"40px"}
+                                                    border={"1px solid #E8E8E8"}
+                                                    borderRadius={"50%"}
+                                                    alignItems={"center"}
+                                                    justifyContent={"center"}
+                                                    display={"flex"}
+                                                    onClick={() =>
+                                                        handleFavorite(product)
+                                                    }
+                                                >
+                                                    {wishlist.some(
+                                                        (p: Product) =>
+                                                            p.id === product.id
+                                                    ) ? (
+                                                        <FavoriteIcon
+                                                            fontSize="medium"
+                                                            sx={{
+                                                                color: "red",
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <FavoriteBorderIcon fontSize="medium" />
+                                                    )}
+                                                </Box>
+                                            </Stack>
                                         </Stack>
-                                    </Stack>
-                                </Box>
+                                    </Box>
+                                </Link>
                             ))}
                         </Box>
                     </Box>

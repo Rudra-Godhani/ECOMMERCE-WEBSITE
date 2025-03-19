@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
-import { clearAllUpdateProfileErrorsAndMessage, updatePassword } from "../../store/Slices/updateProfile";
+import { clearAllUpdateProfileErrorsAndMessage, updatePassword } from "../../store/Slices/updateProfileSlice";
 import { getUser } from "../../store/Slices/userSlice";
 
 const UpdatePassword: React.FC = () => {

@@ -16,8 +16,32 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile/index";
 import ShoppingCart from "./pages/ShoppingCart/index";
 import WishList from "./pages/WishList/index";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store/store";
+import { useEffect } from "react";
+import { clearAllErrorsAndMessages, getAllProducts } from "./store/Slices/productSlice";
+import { toast } from "react-toastify";
 
-function App() {
+const App: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { loading, error, message } = useSelector(
+        (state: RootState) => state.product
+    );
+
+    useEffect(() => {
+        dispatch(getAllProducts());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+        if (message) {
+            toast.success(message);
+        }
+        dispatch(clearAllErrorsAndMessages());
+    }, [dispatch, loading, error, message]);
+
     return (
         <>
             <ScrollToTop />
@@ -57,6 +81,6 @@ function App() {
             </Routes>
         </>
     );
-}
+};
 
 export default App;

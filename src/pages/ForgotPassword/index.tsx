@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import {
     clearAllUpdateProfileErrorsAndMessage,
     forgotPassword,
-} from "../../store/Slices/updateProfile";
+} from "../../store/Slices/updateProfileSlice";
 
 const ForgotPassword: React.FC = () => {
     const [email, setEmail] = useState<string>("");

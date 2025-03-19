@@ -14,7 +14,7 @@ import { Edit } from "@mui/icons-material";
 import {
     clearAllUpdateProfileErrorsAndMessage,
     updateProfile,
-} from "../../store/Slices/updateProfile";
+} from "../../store/Slices/updateProfileSlice";
 import { toast } from "react-toastify";
 import { getUser } from "../../store/Slices/userSlice";
 

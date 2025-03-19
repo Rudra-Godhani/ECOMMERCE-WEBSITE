@@ -1,7 +1,7 @@
 import { Box, Button, Rating, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,6 +24,7 @@ interface ProductProps {
 }
 
 const ProductInfo: React.FC<ProductProps> = ({ product }) => {
+
     if (!product) {
         return (
             <Typography variant="h4" color="error">

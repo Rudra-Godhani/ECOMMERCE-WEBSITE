@@ -1,10 +1,16 @@
 import { Avatar, Stack, TextField, Typography } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { getUser } from "../../store/Slices/userSlice";
 
 const MyProfile: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.user);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getUser());
+    },[dispatch])
 
     return (
         <Stack>
