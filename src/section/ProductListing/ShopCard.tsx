@@ -9,11 +9,10 @@ interface ShopCardProps {
 }
 
 const ShopCard: React.FC<ShopCardProps> = ({ data }) => {
-
     return (
         <Box
             sx={{
-                mx:"auto",
+                mx: "auto",
                 position: "relative",
                 width: "100%",
                 maxWidth: "250px",
@@ -47,7 +46,12 @@ const ShopCard: React.FC<ShopCardProps> = ({ data }) => {
                     color="white"
                     pb="5px"
                     sx={{
-                        fontSize: { xs: "14px", sm: "16px", md: "18px", lg: "20px" },
+                        fontSize: {
+                            xs: "14px",
+                            sm: "16px",
+                            md: "18px",
+                            lg: "20px",
+                        },
                     }}
                 >
                     {data.heading.toUpperCase()}
