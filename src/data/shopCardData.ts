@@ -19,18 +19,18 @@ interface ShopCardItems {
 export const shopCardItems: ShopCardItems[] = [
     {
         id: 1,
-        image: mensClothing,
-        heading: "MEN'S CLOTHING",
+        image: beauty,
+        heading: "Beauty",
     },
     {
         id: 2,
-        image: womensClothing,
-        heading: "WOMEN'S CLOTHING",
+        image: jewellery,
+        heading: "Jewellery",
     },
     {
         id: 3,
-        image: footwear,
-        heading: "Footwear",
+        image: mensClothing,
+        heading: "Men’s Clothing",
     },
     {
         id: 4,
@@ -39,23 +39,23 @@ export const shopCardItems: ShopCardItems[] = [
     },
     {
         id: 5,
-        image: beauty,
-        heading: "Beauty",
+        image: womensClothing,
+        heading: "Women’s Clothing",
     },
     {
         id: 6,
-        image: kidsCLothing,
-        heading: "KIDS' CLOTHING",
-    },
-    {
-        id: 7,
         image: handbags,
         heading: "Handbags",
     },
     {
+        id: 7,
+        image: footwear,
+        heading: "Footwear",
+    },
+    {
         id: 8,
-        image: jewellery,
-        heading: "Jewellery",
+        image: kidsCLothing,
+        heading: "Kid’s clothing",
     },
     {
         id: 9,
