@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import ShopCarousel from "../../section/ProductListing/ShopCarousel";
 import Products from "../../section/ProductListing/Products";
 
 const ProductListing: React.FC = () => {
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
     return (
         <>
-            <ShopCarousel />
-            <Products />
+            <ShopCarousel setSelectedCategory={setSelectedCategory}/>
+            <Products selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
         </>
     );
 };
