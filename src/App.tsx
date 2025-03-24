@@ -19,7 +19,11 @@ import WishList from "./pages/WishList/index";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
 import { useEffect } from "react";
-import { clearAllErrorsAndMessages, getAllProducts } from "./store/Slices/productSlice";
+import {
+    clearAllErrorsAndMessages,
+    getAllProducts,
+    getSearchedProducts,
+} from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
 
 const App: React.FC = () => {
@@ -41,6 +45,10 @@ const App: React.FC = () => {
         }
         dispatch(clearAllErrorsAndMessages());
     }, [dispatch, loading, error, message]);
+
+    useEffect(() => {
+        dispatch(getSearchedProducts("gold"));
+    }, [dispatch]);
 
     return (
         <>
