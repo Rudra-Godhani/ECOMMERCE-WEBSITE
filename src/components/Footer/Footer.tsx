@@ -131,7 +131,7 @@ const Footer: React.FC = () => {
                             xs={12}
                             sm={6}
                             md={4}
-                            sx={{ "@media (max-width:400px)": { xs: 12 } }}
+                            sx={{ "@media (maxWidth:400px)": { xs: 12 } }}
                         >
                             <Typography
                                 variant="h5"
