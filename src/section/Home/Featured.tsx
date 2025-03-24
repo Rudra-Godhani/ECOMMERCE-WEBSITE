@@ -195,11 +195,11 @@ import { RootState } from "../../store/store";
 const Featured: React.FC = () => {
     const {
         loading,
-        products: backendProductsData,
+        products,
     } = useSelector((state: RootState) => state.product);
 
-    const randomProducts = backendProductsData
-        ? [...backendProductsData].sort(() => Math.random() - 0.5).slice(0, 8)
+    const randomProducts = products
+        ? [...products].sort(() => Math.random() - 0.5).slice(0, 8)
         : [];
 
     return (
@@ -365,7 +365,7 @@ const Featured: React.FC = () => {
                                           >
                                               {product.title}
                                           </Typography>
-                                          <Stack direction="row" spacing={0.75}>
+                                          <Stack direction="row" spacing={0.75} justifyContent={"center"}>
                                               <Typography
                                                   variant="h5"
                                                   color="#BDBDBD"
@@ -383,7 +383,7 @@ const Featured: React.FC = () => {
                                                   ${product.retailPrice}
                                               </Typography>
                                           </Stack>
-                                          <Stack direction="row" spacing={0.75}>
+                                          <Stack direction="row" spacing={0.75} justifyContent={"center"}>
                                               {product.colors.map(
                                                   (color, index) => (
                                                       <Box
