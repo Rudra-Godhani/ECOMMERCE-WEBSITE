@@ -1,6 +1,7 @@
 import { Box, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
     isOpen: boolean;
@@ -13,10 +14,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ isOpen }) => {
         setSearchText(e.target.value);
     };
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log("submitted searchText: ", searchText);
-        setSearchText("");
+        navigate("/product/listing", { state: { searchText } });
     };
 
     return (
