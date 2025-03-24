@@ -13,11 +13,11 @@ const CartData: React.FC = () => {
     const cartData = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
-    const incQuantity = (id: number) => {
+    const incQuantity = (id: string) => {
         dispatch(increaseQuantity(id));
     };
 
-    const decQuantity = (id: number) => {
+    const decQuantity = (id: string) => {
         dispatch(decreaseQuantity(id));
     };
   return (
