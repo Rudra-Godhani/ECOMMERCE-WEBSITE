@@ -4,7 +4,6 @@ import BrandsStrip from "../../components/BrandsStrip";
 import ProductAddInfo from "../../section/ProductDetails/ProductAddInfo";
 import { useParams } from "react-router-dom";
 import ProductInfo from "../../section/ProductDetails/ProductInfo";
-import { productsData } from "../../data/allProductsData";
 import { Box, Typography } from "@mui/material";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
