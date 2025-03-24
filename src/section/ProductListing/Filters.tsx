@@ -1,144 +1,3 @@
-// import { Box, Checkbox, FormControlLabel, FormGroup, Slider, Stack, Typography } from '@mui/material'
-// import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-// import React, { useState } from 'react'
-// import { brands,categories } from '../../data/allProductsData';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { filterAll, filterByBrands, filterByCategory, filterByPrice, resetFilter } from '../../store/Slices/FilterSlice';
-// import { RootState } from '../../store/store';
-
-// const Filters: React.FC = () => {
-//     const dispatch = useDispatch();
-//     const handleFilterByCategory = (category: string) => {
-//         console.log("category:", category);
-//         dispatch(filterByCategory({ category }));
-//     }
-
-//     const minPrice = useSelector((state: RootState) => state.filter.minPrice);
-//     const maxPrice = useSelector((state: RootState) => state.filter.maxPrice);
-//     const [value, setValue] = React.useState<number[]>([minPrice, maxPrice]);
-
-//     const handleChange = (_event: Event, newValue: number | number[]) => {
-//         if (Array.isArray(newValue)) {
-//             setValue(newValue);
-//             dispatch(filterByPrice({ minPrice: newValue[0], maxPrice: newValue[1] }));
-//         }
-//     };
-
-//     const selectedBrands = useSelector((state: RootState) => state.filter.selectedBrands);
-//     const selectedCategory = useSelector((state: RootState) => state.filter.selectedCategory);
-//     const [checkedBrands, setCheckedBrands] = useState<string[]>(selectedBrands);
-
-//     const isAllChecked = checkedBrands.length === 0; // If no brands selected, treat as "All"
-
-//     // 🔹 Handle "All Brands" checkbox click
-//     const handleAllChange = () => {
-//         setCheckedBrands([]);
-//         dispatch(filterAll()); // Show all products or all products within category
-//     };
-
-//     // 🔹 Handle individual brand checkbox click
-//     const handleBrandChange = (brand: string) => {
-//         let updatedBrands;
-
-//         if (checkedBrands.includes(brand)) {
-//             // If brand is already checked, remove it
-//             updatedBrands = checkedBrands.filter((b) => b !== brand);
-//         } else {
-//             // Otherwise, add the brand
-//             updatedBrands = [...checkedBrands, brand];
-//         }
-
-//         setCheckedBrands(updatedBrands);
-//         dispatch(filterByBrands({ brands: updatedBrands }));
-//     };
-
-//     return (
-//         <Box px="20px">
-//             <Typography variant='h3' fontWeight={"700"} color='#000000' pb="20px">Filter by</Typography>
-//             <Box>
-//                 <Stack>
-//                     <Stack pb="12px" direction={"row"} marginLeft={"-8px"}>
-//                         <KeyboardArrowLeftIcon />
-//                         <Box onClick={() => { dispatch(resetFilter()) }} sx={{ cursor: "pointer" }}>
-//                             <Typography variant='h6' fontWeight="700" color='#000000'>All Categories</Typography>
-//                         </Box>
-//                     </Stack>
-//                     <Box display={"flex"} flexDirection={"column"} gap="12px">
-//                         {
-//                             categories.map((category, index) => (
-//                                 <Box key={index} sx={{
-//                                     cursor: "pointer",
-//                                 }}
-//                                 >
-//                                     <Typography variant='h6' color='#000000' sx={{
-//                                         "&:hover": {
-//                                             fontWeight: "700"
-//                                         },
-//                                         fontWeight: selectedCategory === category ? "700" : "400"
-//                                     }} onClick={() => handleFilterByCategory(category)} >{category}</Typography>
-//                                 </Box>
-//                             ))
-//                         }
-//                     </Box>
-//                 </Stack>
-//             </Box>
-//             <Box>
-//                 <Stack>
-//                     <Typography variant='h6' fontWeight={"700"} color='#000000' pt={"30px"} pb={"12px"}>Price</Typography>
-//                     <Slider
-//                         value={value}
-//                         onChange={handleChange}
-//                         valueLabelDisplay="auto"
-//                         min={10}
-//                         max={5000}
-//                         disableSwap
-//                     />
-//                     <Stack direction="row" justifyContent="space-between">
-//                         <Typography variant="body1" fontWeight="500" color="#000000">
-//                             ${value[0]}
-//                         </Typography>
-//                         <Typography variant="body1" fontWeight="500" color="#000000">
-//                             ${value[1]}
-//                         </Typography>
-//                     </Stack>
-//                 </Stack>
-//             </Box>
-//             <Box>
-//                 <Stack>
-//                     <Typography variant='h6' fontWeight={"700"} color='#000000' pt={"30px"} pb={"12px"}>Brands</Typography>
-//                     <FormGroup>
-//                         <FormControlLabel
-//                             control={
-//                                 <Checkbox
-//                                 checked={isAllChecked} onChange={handleAllChange}
-//                                 />
-//                             }
-//                             label={<Typography variant="h6" color="#000000">All</Typography>}
-//                         />
-//                         {
-//                             brands.map((brand, index) => (
-//                                 <FormControlLabel
-//                                     key={index}
-//                                     control={<Checkbox
-//                                         checked={checkedBrands.includes(brand)}
-//                                         onChange={() => handleBrandChange(brand)}
-//                                     />}
-//                                     label={<Typography variant='h6' color="#000000">
-//                                         {brand}
-//                                     </Typography>}
-//                                 />
-//                             ))
-//                         }
-
-//                     </FormGroup>
-//                 </Stack>
-//             </Box>
-//         </Box >
-//     )
-// }
-
-// export default Filters
-
 import {
     Box,
     Checkbox,
@@ -151,29 +10,40 @@ import {
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import React, { useEffect, useState } from "react";
 import { brands, categories } from "../../data/allProductsData";
-import { useDispatch, useSelector } from "react-redux";
-import {
-    filterAll,
-    filterByBrands,
-    filterByCategory,
-    filterByPrice,
-    resetFilter,
-} from "../../store/Slices/FilterSlice";
-import { AppDispatch, RootState } from "../../store/store";
-import { getFilteredProducts } from "../../store/Slices/productSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { getFilteredProducts, getSearchedProducts } from "../../store/Slices/productSlice";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { debounce } from "lodash";
 
 interface FiltersProps {
-    selectedSort?: string; // Pass from FilteredProducts
+    selectedSort: string;
+    sortBy: Map<string, string>;
+    selectedCategory: string;
+    setSelectedCategory: (category: string) => void;
 }
 
-const Filters: React.FC<FiltersProps> = ({ selectedSort }) => {
-    console.log("updated filter");
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
+const Filters: React.FC<FiltersProps> = ({
+    sortBy,
+    selectedSort,
+    selectedCategory,
+    setSelectedCategory,
+}) => {
     const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-    const [minPrice, setMinPrice] = useState<number>(10);
+    const [minPrice, setMinPrice] = useState<number>(0);
     const [maxPrice, setMaxPrice] = useState<number>(5000);
     const [value, setValue] = useState<number[]>([minPrice, maxPrice]);
     const dispatch = useDispatch<AppDispatch>();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
+    const { searchText } = location.state || {};
+
+    console.log("searchText: ", searchText);
+    searchParams.set("q", searchText);
+    useEffect(() => {
+        dispatch(getSearchedProducts(searchText));
+    },[dispatch,searchText]);
 
     useEffect(() => {
         setValue([minPrice, maxPrice]);
@@ -203,27 +73,50 @@ const Filters: React.FC<FiltersProps> = ({ selectedSort }) => {
     };
 
     const handleAllBrandsChange = () => {
-        setSelectedBrand([]); // Reset brands to empty array
+        setSelectedBrand([]);
     };
 
     useEffect(() => {
-        // if (
-        //     !selectedCategory &&
-        //     selectedBrand.length === 0 &&
-        //     minPrice === 10 &&
-        //     maxPrice === 5000
-        // ) {
-        //     return; // Avoid unnecessary API call if no filters are applied
-        // }
-
         const filterData = {
-            category: selectedCategory || "",
-            brand: selectedBrand.length > 0 ? selectedBrand.join(",") : "",
+            category: selectedCategory,
+            brand: selectedBrand.join(","),
             minprice: minPrice,
             maxprice: maxPrice,
-            sortby: selectedSort || "popularity_high_to_low",
+            sortby: sortBy.get(selectedSort) || "popularity_high_to_low",
         };
-        dispatch(getFilteredProducts(filterData));
+        const queryParams: { [key: string]: string } = {
+            minprice: filterData.minprice.toString(),
+            maxprice: filterData.maxprice.toString(),
+            sortby: filterData.sortby,
+        };
+        if (filterData.category) {
+            queryParams.category = filterData.category;
+        }
+        if (filterData.brand) {
+            queryParams.brand = filterData.brand;
+        }
+        const fetchProducts = () => {
+            setSearchParams(queryParams);
+            dispatch(getFilteredProducts(filterData));
+        };
+
+        const isPriceChange = [minPrice, maxPrice].some(
+            (value) => value !== 0 && value !== 5000
+        );
+
+        if (isPriceChange) {
+            console.log(
+                "------------------------- debounce called: -----------------------------"
+            );
+            const debouncedFetch = debounce(fetchProducts, 500);
+            debouncedFetch();
+            return () => debouncedFetch.cancel();
+        } else {
+            console.log(
+                "-------------------------------- without debounce called: ----------------------------------"
+            );
+            fetchProducts();
+        }
     }, [
         dispatch,
         selectedCategory,
@@ -306,7 +199,7 @@ const Filters: React.FC<FiltersProps> = ({ selectedSort }) => {
                         value={value}
                         onChange={handleChange}
                         valueLabelDisplay="auto"
-                        min={10}
+                        min={0}
                         max={5000}
                         disableSwap
                     />
