@@ -28,11 +28,6 @@ const SignUp: React.FC = () => {
         password: "",
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
     const { loading, isAuthenticated, error, message } = useSelector(
         (state: RootState) => state.user
     );
@@ -41,37 +36,10 @@ const SignUp: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        setErrors({ ...errors, [e.target.name]: "" });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = { name: "", email: "", password: "" };
-
-        if (!formData.name) validationErrors.name = "Username is required";
-        if (!formData.email) {
-            validationErrors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            validationErrors.email = "Enter a valid email";
-        }
-        if (!formData.password) {
-            validationErrors.password = "Password is required";
-        } else if (formData.password.length < 8) {
-            validationErrors.password =
-                "Password must be at least 8 characters";
-        }
-
-        // If there are errors, update state and stop submission
-        if (
-            validationErrors.name ||
-            validationErrors.email ||
-            validationErrors.password
-        ) {
-            setErrors(validationErrors);
-            return;
-        }
-
         dispatch(register(formData));
     };
 
@@ -128,8 +96,6 @@ const SignUp: React.FC = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            error={!!errors.name}
-                            helperText={errors.name}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -141,11 +107,8 @@ const SignUp: React.FC = () => {
                         <TextField
                             label="Email"
                             name="email"
-                            type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            error={!!errors.email}
-                            helperText={errors.email}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -160,8 +123,6 @@ const SignUp: React.FC = () => {
                             type={!showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={handleChange}
-                            error={!!errors.password}
-                            helperText={errors.password}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
