@@ -27,12 +27,6 @@ const UpdateProfile: React.FC = () => {
         address: user?.address || "",
         profileImage: user?.profileImage.url || null,
     });
-    const [errors, setErrors] = useState({
-        name: "",
-        email: "",
-        phoneNumber: "",
-        address: "",
-    });
 
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -43,7 +37,6 @@ const UpdateProfile: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        setErrors({ ...errors, [e.target.name]: "" });
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,42 +61,6 @@ const UpdateProfile: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = {
-            name: "",
-            email: "",
-            phoneNumber: "",
-            address: "",
-        };
-
-        if (!formData.name) {
-            validationErrors.name = "Name is required";
-        }
-        if (!formData.email) {
-            validationErrors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            validationErrors.email = "Enter a valid email";
-        }
-        if (!formData.phoneNumber) {
-            validationErrors.phoneNumber = "PhoneNumber is required";
-        } else if (formData.phoneNumber.toString().length !== 10) {
-            validationErrors.phoneNumber =
-                "PhoneNumber must be 10 characteres long.";
-        }
-        if (!formData.address) {
-            validationErrors.address = "Address is required";
-        }
-
-        // If there are errors, update state and stop submission
-        if (
-            validationErrors.name ||
-            validationErrors.email ||
-            validationErrors.phoneNumber ||
-            validationErrors.address
-        ) {
-            setErrors(validationErrors);
-            return;
-        }
 
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
@@ -209,11 +166,8 @@ const UpdateProfile: React.FC = () => {
                         <TextField
                             label="Name"
                             name="name"
-                            type="text"
                             value={formData.name}
                             onChange={handleChange}
-                            error={!!errors.name}
-                            helperText={errors.name}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -228,11 +182,8 @@ const UpdateProfile: React.FC = () => {
                         <TextField
                             label="Email"
                             name="email"
-                            type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            error={!!errors.email}
-                            helperText={errors.email}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -250,8 +201,6 @@ const UpdateProfile: React.FC = () => {
                             type="number"
                             value={formData.phoneNumber}
                             onChange={handleChange}
-                            error={!!errors.phoneNumber}
-                            helperText={errors.phoneNumber}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -266,11 +215,8 @@ const UpdateProfile: React.FC = () => {
                         <TextField
                             label="Address"
                             name="address"
-                            type="text"
                             value={formData.address}
                             onChange={handleChange}
-                            error={!!errors.address}
-                            helperText={errors.address}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
