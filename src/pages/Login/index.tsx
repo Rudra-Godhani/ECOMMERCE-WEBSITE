@@ -27,48 +27,18 @@ const Login: React.FC = () => {
         password: "",
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-    });
     const { loading, isAuthenticated, error, message } = useSelector(
         (state: RootState) => state.user
     );
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
-    // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        // Clear errors when user starts typing
-        setErrors({ ...errors, [e.target.name]: "" });
     };
 
-    // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = { email: "", password: "" };
-
-        if (!formData.email) {
-            validationErrors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            validationErrors.email = "Enter a valid email";
-        }
-        if (!formData.password) {
-            validationErrors.password = "Password is required";
-        } else if (formData.password.length < 8) {
-            validationErrors.password =
-                "Password must be at least 8 characters";
-        }
-
-        // If there are errors, update state and stop submission
-        if (validationErrors.email || validationErrors.password) {
-            setErrors(validationErrors);
-            return;
-        }
-
         dispatch(login(formData));
     };
 
@@ -122,11 +92,9 @@ const Login: React.FC = () => {
                         <TextField
                             label="Email"
                             name="email"
-                            type="email"
+                            type="text"
                             value={formData.email}
                             onChange={handleChange}
-                            error={!!errors.email}
-                            helperText={errors.email}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -141,8 +109,6 @@ const Login: React.FC = () => {
                             type={!showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={handleChange}
-                            error={!!errors.password}
-                            helperText={errors.password}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
