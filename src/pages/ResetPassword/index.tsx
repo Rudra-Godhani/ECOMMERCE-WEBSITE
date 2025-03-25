@@ -25,10 +25,6 @@ const ResetPassword: React.FC = () => {
         newPassword: "",
         confirmPassword: "",
     });
-    const [errors, setErrors] = useState({
-        newPassword: "",
-        confirmPassword: "",
-    });
     const { token } = useParams();
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -42,44 +38,11 @@ const ResetPassword: React.FC = () => {
     // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        setErrors({ ...errors, [e.target.name]: "" });
     };
 
     // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = {
-            newPassword: "",
-            confirmPassword: "",
-        };
-
-        if (!formData.newPassword) {
-            validationErrors.newPassword = "New Password is required";
-        } else if (formData.newPassword.length < 8) {
-            validationErrors.newPassword =
-                "New Password must be at least 8 characters";
-        }
-        if (!formData.confirmPassword) {
-            validationErrors.confirmPassword = "Confirm Password is required";
-        } else if (formData.confirmPassword.length < 8) {
-            validationErrors.confirmPassword =
-                "Confirm Password must be at least 8 characters";
-        }
-
-        if (validationErrors.newPassword || validationErrors.confirmPassword) {
-            setErrors(validationErrors);
-            return;
-        }
-
-        if (formData.newPassword !== formData.confirmPassword) {
-            toast.error(
-                "NewPassword and ConfirmNewPassword don't match. Please check and try again."
-            );
-            return;
-        }
-
         if (token) {
             dispatch(resetPassword({ passwordData: formData, token: token }));
         }
@@ -151,8 +114,6 @@ const ResetPassword: React.FC = () => {
                             type={!showNewPassword ? "text" : "password"}
                             value={formData.newPassword}
                             onChange={handleChange}
-                            error={!!errors.newPassword}
-                            helperText={errors.newPassword}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -185,8 +146,6 @@ const ResetPassword: React.FC = () => {
                             type={!showConfirmPassword ? "text" : "password"}
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            error={!!errors.confirmPassword}
-                            helperText={errors.confirmPassword}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
