@@ -20,11 +20,6 @@ const UpdatePassword: React.FC = () => {
         newPassword: "",
         confirmPassword: "",
     });
-    const [errors, setErrors] = useState({
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-    });
 
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
@@ -37,55 +32,10 @@ const UpdatePassword: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        setErrors({ ...errors, [e.target.name]: "" });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = {
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: "",
-            passwordMatch: "",
-        };
-
-        if (!formData.currentPassword) {
-            validationErrors.currentPassword = "Current Password is required";
-        } else if (formData.currentPassword.length < 8) {
-            validationErrors.currentPassword =
-                "Current Password must be at least 8 characters";
-        }
-        if (!formData.newPassword) {
-            validationErrors.newPassword = "New Password is required";
-        } else if (formData.newPassword.length < 8) {
-            validationErrors.newPassword =
-                "New Password must be at least 8 characters";
-        }
-        if (!formData.confirmPassword) {
-            validationErrors.confirmPassword = "Confirm Password is required";
-        } else if (formData.confirmPassword.length < 8) {
-            validationErrors.confirmPassword =
-                "Confirm Password must be at least 8 characters";
-        }
-
-        if (
-            validationErrors.currentPassword ||
-            validationErrors.newPassword ||
-            validationErrors.confirmPassword
-        ) {
-            setErrors(validationErrors);
-            return;
-        }
-
-        if (formData.newPassword !== formData.confirmPassword) {
-            toast.error(
-                "NewPassword and ConfirmPassword don't match. Please check and try again."
-            );
-            return;
-        }
-
         dispatch(updatePassword(formData));
     };
 
@@ -126,8 +76,6 @@ const UpdatePassword: React.FC = () => {
                             type={!showCurrentPassword ? "text" : "password"}
                             value={formData.currentPassword}
                             onChange={handleChange}
-                            error={!!errors.currentPassword}
-                            helperText={errors.currentPassword}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -163,8 +111,6 @@ const UpdatePassword: React.FC = () => {
                             type={!showNewPassword ? "text" : "password"}
                             value={formData.newPassword}
                             onChange={handleChange}
-                            error={!!errors.newPassword}
-                            helperText={errors.newPassword}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
@@ -195,13 +141,11 @@ const UpdatePassword: React.FC = () => {
                     <Stack gap={"15px"}>
                         <Typography variant="h4">Confirm New Password</Typography>
                         <TextField
-                            label="ConfirmPassword"
+                            label="ConfirmNewPassword"
                             name="confirmPassword"
                             type={!showConfirmPassword ? "text" : "password"}
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            error={!!errors.confirmPassword}
-                            helperText={errors.confirmPassword}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
