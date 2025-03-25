@@ -11,7 +11,6 @@ import {
 
 const ForgotPassword: React.FC = () => {
     const [email, setEmail] = useState<string>("");
-    const [emailError, setEmailError] = useState<string>("");
 
     const { loading, error, isUpdated, message } = useSelector(
         (state: RootState) => state.updateProfile
@@ -21,25 +20,11 @@ const ForgotPassword: React.FC = () => {
     // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
-        setEmailError("");
     };
 
     // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        let validationEmail: string = "";
-
-        if (!email) {
-            validationEmail = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            validationEmail = "Enter a valid email";
-        }
-
-        if (validationEmail) {
-            setEmailError(validationEmail);
-            return;
-        }
         dispatch(forgotPassword({ email }));
     };
 
@@ -101,11 +86,8 @@ const ForgotPassword: React.FC = () => {
                         <TextField
                             label="Email"
                             name="email"
-                            type="email"
                             value={email}
                             onChange={handleChange}
-                            error={!!emailError}
-                            helperText={emailError}
                             InputLabelProps={{
                                 style: { fontSize: "15px" },
                             }}
