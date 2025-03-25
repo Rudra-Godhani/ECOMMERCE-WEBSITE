@@ -330,7 +330,12 @@ const MainNavbar: React.FC = () => {
                     </Box>
                 </Drawer>
             </AppBar>
-            {<SearchBar isOpen={searchOpen} />}
+            {
+                <SearchBar
+                    isOpen={searchOpen}
+                    onClose={() => setSearchOpen(false)}
+                />
+            }
         </>
     );
 };
