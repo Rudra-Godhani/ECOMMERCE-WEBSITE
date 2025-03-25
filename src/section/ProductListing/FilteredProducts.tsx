@@ -35,14 +35,12 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
     sortOptions,
     sortBy,
     selectedCategory,
-    setSelectedCategory
+    setSelectedCategory,
 }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const topRef = React.useRef<HTMLDivElement>(null);
-
-    console.log("filteredProducst comp:");
 
     const { products, filteredProducts, isFiltered, filteredLoading } =
         useSelector((state: RootState) => state.product);
@@ -199,7 +197,12 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                     },
                 }}
             >
-                <Filters selectedSort={selectedSort} sortBy={sortBy} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+                <Filters
+                    selectedSort={selectedSort}
+                    sortBy={sortBy}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                />
             </Drawer>
 
             <Box sx={{ pt: "40px", minHeight: "150vh" }}>
