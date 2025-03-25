@@ -18,8 +18,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ isOpen }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("submitted searchText: ", searchText);
-        navigate("/product/listing", { state: { searchText } });
+        if (!searchText.trim()) return;
+        const currentParams = new URLSearchParams(window.location.search);
+        currentParams.set("q", searchText);
+        navigate(`/product/listing?q=${encodeURIComponent(searchText)}`);
     };
 
     return (
@@ -94,3 +96,4 @@ const SearchBar: React.FC<SearchBarProps> = ({ isOpen }) => {
 };
 
 export default SearchBar;
+
