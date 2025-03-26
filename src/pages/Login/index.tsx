@@ -106,7 +106,7 @@ const Login: React.FC = () => {
                         <TextField
                             label="Password"
                             name="password"
-                            type={!showPassword ? "text" : "password"}
+                            type={showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={handleChange}
                             InputLabelProps={{
@@ -123,7 +123,7 @@ const Login: React.FC = () => {
                                             }
                                             edge="end"
                                         >
-                                            {showPassword ? (
+                                            {!showPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />
@@ -151,7 +151,11 @@ const Login: React.FC = () => {
                         <Box textAlign={"center"} my={"-10px"}>
                             <Link
                                 to="/forgotPassword"
-                                style={{ color: "#23A6F0", fontSize: "14px",textDecoration:"underline" }}
+                                style={{
+                                    color: "#23A6F0",
+                                    fontSize: "14px",
+                                    textDecoration: "underline",
+                                }}
                             >
                                 Forgot Password?
                             </Link>
