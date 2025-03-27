@@ -8,13 +8,13 @@ import {
     addProductToCart,
     CartItem,
     removeProductFromCart,
-} from "../../store/Slices/CartSlice";
+} from "../../store/Slices/Cart_Slice";
 import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
     addToWishlist,
     removeFromWishlist,
-} from "../../store/Slices/WishListSlice";
+} from "../../store/Slices/WishList_Slice";
 import { RootState } from "../../store/store";
 import { Product } from "../../data/allProductsData";
 import ProductImageSlider from "./ProductImageSlider";
