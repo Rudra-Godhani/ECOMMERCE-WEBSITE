@@ -10,13 +10,13 @@ import {
     addProductToCart,
     CartItem,
     removeProductFromCart,
-} from "../../store/Slices/CartSlice";
+} from "../../store/Slices/Cart_Slice";
 import { toast } from "react-toastify";
 import {
     addToWishlist,
     removeFromWishlist,
     WishListProduct,
-} from "../../store/Slices/WishListSlice";
+} from "../../store/Slices/WishList_Slice";
 import { Product } from "../../data/allProductsData";
 
 const FavoriteProducts: React.FC = () => {
