@@ -260,10 +260,11 @@ import {
     addProductToCart,
     CartItem,
     removeProductFromCart,
-} from "../../store/Slices/CartSlice";
+} from "../../store/Slices/Cart_Slice";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
+import { addProductToCarts } from "../../store/Slices/CartSlice";
 
 const responsive = {
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
@@ -271,7 +272,7 @@ const responsive = {
     mobile: { breakpoint: { max: 464, min: 0 }, items: 1 },
 };
 
-const HeroFirst: React.FC = () => {
+const HeroSecond: React.FC = () => {
     const { loading, products: productsData } = useSelector(
         (state: RootState) => state.product
     );
@@ -304,33 +305,11 @@ const HeroFirst: React.FC = () => {
         setCurrentSlide(nextSlide % products.length);
     };
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const cart = useSelector((state: RootState) => state.cart);
 
     const handleAddRemoveProduct = (product: Product) => {
-        if (cart.some((p: CartItem) => p.id === product.id)) {
-            dispatch(removeProductFromCart(product.id));
-            toast.error("Product Removed From Cart");
-        } else {
-            console.log("Adding product to cart...");
-
-            const cartItem: CartItem = {
-                id: product.id,
-                title: product.title,
-                description: product.descriptionSmall,
-                price: product.price,
-                quantity: 1,
-                image: product.images[0],
-                color: product.colors[0],
-                availability: product.availability,
-                rating: product.rating,
-                brand: product.brand,
-                category: product.category,
-            };
-
-            dispatch(addProductToCart(cartItem));
-            toast.success("Product Added To Cart");
-        }
+        dispatch(addProductToCarts({ productId: product.id }));
     };
 
     return (
@@ -546,4 +525,4 @@ const HeroFirst: React.FC = () => {
     );
 };
 
-export default HeroFirst;
+export default HeroSecond;
