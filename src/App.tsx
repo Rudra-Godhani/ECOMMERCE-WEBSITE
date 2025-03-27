@@ -25,6 +25,7 @@ import {
     getSearchedProducts,
 } from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
+import { getCart } from "./store/Slices/CartSlice";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -46,8 +47,11 @@ const App: React.FC = () => {
         dispatch(clearAllErrorsAndMessages());
     }, [dispatch, loading, error, message]);
 
+    // useEffect(() => {
+    //     dispatch(getSearchedProducts("gold"));
+    // }, [dispatch]);
     useEffect(() => {
-        dispatch(getSearchedProducts("gold"));
+        dispatch(getCart());
     }, [dispatch]);
 
     return (
