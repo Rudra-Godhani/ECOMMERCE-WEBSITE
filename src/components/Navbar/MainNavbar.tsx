@@ -53,7 +53,6 @@ const MainNavbar: React.FC = () => {
         setDrawerOpen(false);
     };
 
-    const cart = useSelector((state: RootState) => state.cart);
     const wishlist = useSelector((state: RootState) => state.wishlist);
     const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -69,6 +68,8 @@ const MainNavbar: React.FC = () => {
                   { name: "Signup", link: "/signup" },
               ]),
     ];
+
+    const { cartItems } = useSelector((state: RootState) => state.cart);
 
     return (
         <>
@@ -219,7 +220,7 @@ const MainNavbar: React.FC = () => {
                                 }}
                             >
                                 <Badge
-                                    badgeContent={cart.length}
+                                    badgeContent={cartItems.length}
                                     color="success"
                                     sx={{ mr: "10px" }}
                                 >
