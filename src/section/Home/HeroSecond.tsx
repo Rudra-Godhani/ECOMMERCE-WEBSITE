@@ -245,26 +245,27 @@
 import {
     Box,
     Button,
+    CircularProgress,
     IconButton,
     Skeleton,
     Stack,
     Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Product } from "../../data/allProductsData";
-import {
-    addProductToCart,
-    CartItem,
-    removeProductFromCart,
-} from "../../store/Slices/Cart_Slice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
-import { addProductToCarts } from "../../store/Slices/CartSlice";
+import {
+    addProductToCart,
+    CartItem,
+    clearAllCartErrosAndMsgs,
+    removeProductFromCart,
+} from "../../store/Slices/CartSlice";
 
 const responsive = {
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
@@ -306,11 +307,28 @@ const HeroSecond: React.FC = () => {
     };
 
     const dispatch = useDispatch<AppDispatch>();
-    const cart = useSelector((state: RootState) => state.cart);
+    const { cartItems, loadingStates,error,message } = useSelector(
+        (state: RootState) => state.cart
+    );
+    const navigate = useNavigate();
 
-    const handleAddRemoveProduct = (product: Product) => {
-        dispatch(addProductToCarts({ productId: product.id }));
+    const handleAddRemoveProduct = (id: string) => {
+        if (cartItems.some((item) => item.product.id === id)) {
+            dispatch(removeProductFromCart({ productId: id }));
+        } else {
+            dispatch(addProductToCart({ productId: id }));
+        }
     };
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+        if (message) {
+            toast.success(message);
+        }
+        dispatch(clearAllCartErrosAndMsgs());
+    }, [dispatch, error, message]);
 
     return (
         <Box width="100%" height="716px" position="relative">
@@ -333,101 +351,109 @@ const HeroSecond: React.FC = () => {
                     arrows={false} // Hide default arrows
                     afterChange={handleAfterChange} // Fix indicator blinking issue
                 >
-                    {products.map((product) => (
-                        <Box
-                            key={product?.id}
-                            sx={{
-                                backgroundImage: `url(${product?.images[0]})`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                width: "100%",
-                                height: "716px",
-                                position: "relative",
-                            }}
-                        >
+                    {products.map((product) => {
+                        const isInCart = cartItems.some(
+                            (item: CartItem) => item.product.id === product?.id
+                        );
+                        const isAdding = loadingStates[product?.id]?.isAdding;
+                        const isRemoving =
+                            loadingStates[product?.id]?.isRemoving;
+                        const isLoading = isAdding || isRemoving;
+                        return (
                             <Box
+                                key={product?.id}
                                 sx={{
-                                    position: "absolute",
-                                    top: 0,
-                                    left: 0,
+                                    backgroundImage: `url(${product?.images[0]})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
                                     width: "100%",
-                                    height: "100%",
-                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                    zIndex: 1,
-                                }}
-                            />
-                            <Stack
-                                sx={{
-                                    position: "absolute",
-                                    zIndex: 1000,
-                                    gap: "35px",
-                                    top: "50%",
-                                    left: { xs: "50%", md: "15%" },
-                                    transform: {
-                                        xs: "translate(-50%, -50%)",
-                                        md: "translateY(-50%)",
-                                    },
-                                    width: { xs: "90%", md: "50%" },
-                                    textAlign: { xs: "center", md: "left" },
+                                    height: "716px",
+                                    position: "relative",
                                 }}
                             >
-                                {/* <Typography
-                                variant="h5"
-                                fontSize="16px"
-                                fontWeight="700"
-                                color="white"
-                            >
-                                SUMMER 2024
-                            </Typography> */}
-                                <Typography
-                                    variant="h1"
+                                <Box
                                     sx={{
-                                        fontSize: { xs: "40px", md: "58px" },
-                                        fontWeight: "700",
-                                        lineHeight: { xs: "50px", md: "80px" },
-                                        color: "#FFFFFF",
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                        zIndex: 1,
                                     }}
-                                >
-                                    {product?.title}
-                                </Typography>
+                                />
                                 <Stack
                                     sx={{
-                                        textAlign: { xs: "center", md: "left" },
-                                        alignItems: {
-                                            xs: "center",
-                                            md: "flex-start",
-                                        },
-                                        width: "100%",
+                                        position: "absolute",
+                                        zIndex: 1000,
                                         gap: "35px",
+                                        top: "50%",
+                                        left: { xs: "50%", md: "15%" },
+                                        transform: {
+                                            xs: "translate(-50%, -50%)",
+                                            md: "translateY(-50%)",
+                                        },
+                                        width: { xs: "90%", md: "50%" },
+                                        textAlign: { xs: "center", md: "left" },
                                     }}
                                 >
                                     <Typography
-                                        variant="h4"
-                                        fontSize="20px"
-                                        fontWeight="400"
-                                        lineHeight="30px"
-                                        color="#FAFAFA"
-                                        width={{ xs: "80%", md: "60%" }}
+                                        variant="h1"
+                                        sx={{
+                                            fontSize: {
+                                                xs: "40px",
+                                                md: "58px",
+                                            },
+                                            fontWeight: "700",
+                                            lineHeight: {
+                                                xs: "50px",
+                                                md: "80px",
+                                            },
+                                            color: "#FFFFFF",
+                                        }}
                                     >
-                                        {product?.descriptionSmall}
+                                        {product?.title}
                                     </Typography>
                                     <Stack
                                         sx={{
-                                            flexDirection: {
-                                                xs: "column",
-                                                md: "row",
+                                            textAlign: {
+                                                xs: "center",
+                                                md: "left",
                                             },
+                                            alignItems: {
+                                                xs: "center",
+                                                md: "flex-start",
+                                            },
+                                            width: "100%",
+                                            gap: "35px",
                                         }}
-                                        gap={"35px"}
-                                        alignItems={"center"}
                                     >
                                         <Typography
-                                            variant="h3"
-                                            color="#FFFFFF"
+                                            variant="h4"
+                                            fontSize="20px"
+                                            fontWeight="400"
+                                            lineHeight="30px"
+                                            color="#FAFAFA"
+                                            width={{ xs: "80%", md: "60%" }}
                                         >
-                                            ${product?.retailPrice}
+                                            {product?.descriptionSmall}
                                         </Typography>
-                                        <Link to="/shopping-cart">
+                                        <Stack
+                                            sx={{
+                                                flexDirection: {
+                                                    xs: "column",
+                                                    md: "row",
+                                                },
+                                            }}
+                                            gap={"35px"}
+                                            alignItems={"center"}
+                                        >
+                                            <Typography
+                                                variant="h3"
+                                                color="#FFFFFF"
+                                            >
+                                                ${product?.retailPrice}
+                                            </Typography>
                                             <Button
                                                 sx={{
                                                     color: "#FFFFFF",
@@ -445,23 +471,30 @@ const HeroSecond: React.FC = () => {
                                                 }}
                                                 onClick={() =>
                                                     handleAddRemoveProduct(
-                                                        product!
+                                                        product!.id
                                                     )
                                                 }
+                                                disabled={isLoading}
                                             >
-                                                {cart.some(
-                                                    (p: CartItem) =>
-                                                        p.id === product?.id
-                                                )
-                                                    ? "Remove From Cart"
-                                                    : "Add to Cart"}
+                                                {isLoading ? (
+                                                    <CircularProgress
+                                                        size={24}
+                                                        sx={{
+                                                            color: "#FFFFFF",
+                                                        }}
+                                                    />
+                                                ) : isInCart ? (
+                                                    "Remove From Cart"
+                                                ) : (
+                                                    "Add to Cart"
+                                                )}
                                             </Button>
-                                        </Link>
+                                        </Stack>
                                     </Stack>
                                 </Stack>
-                            </Stack>
-                        </Box>
-                    ))}
+                            </Box>
+                        );
+                    })}
                 </Carousel>
             )}
 
