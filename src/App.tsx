@@ -22,7 +22,6 @@ import { useEffect } from "react";
 import {
     clearAllErrorsAndMessages,
     getAllProducts,
-    getSearchedProducts,
 } from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
 import { getCart } from "./store/Slices/CartSlice";
