@@ -1,30 +1,30 @@
-import { Box, Button, Rating, Stack, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Rating, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Link, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addProductToCart,
-    CartItem,
-    removeProductFromCart,
-} from "../../store/Slices/Cart_Slice";
 import { toast } from "react-toastify";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
     addToWishlist,
     removeFromWishlist,
 } from "../../store/Slices/WishList_Slice";
-import { RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { Product } from "../../data/allProductsData";
 import ProductImageSlider from "./ProductImageSlider";
+import {
+    addProductToCart,
+    CartItem,
+    clearAllCartErrosAndMsgs,
+    removeProductFromCart,
+} from "../../store/Slices/CartSlice";
 
 interface ProductProps {
     product: Product;
 }
 
 const ProductInfo: React.FC<ProductProps> = ({ product }) => {
-
     if (!product) {
         return (
             <Typography variant="h4" color="error">
@@ -35,31 +35,17 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
 
     const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 
-    const dispatch = useDispatch();
-    const cart = useSelector((state: RootState) => state.cart);
+    const dispatch = useDispatch<AppDispatch>();
+    const { cartItems, error, message, loadingStates } = useSelector(
+        (state: RootState) => state.cart
+    );
     const wishlist = useSelector((state: RootState) => state.wishlist);
 
-    const handleAddRemoveProduct = (product: Product) => {
-        if (cart.some((p: CartItem) => p.id === product.id)) {
-            dispatch(removeProductFromCart(product.id));
-            toast.error("Product Removed From Cart");
+    const handleAddRemoveProduct = (id: string) => {
+        if (cartItems.some((item) => item.product.id === id)) {
+            dispatch(removeProductFromCart({ productId: id }));
         } else {
-            const cartItem: CartItem = {
-                id: product.id,
-                title: product.title,
-                description: product.descriptionSmall,
-                price: product.price,
-                quantity: 1,
-                image: product.images[0],
-                color: selectedColor,
-                availability: product.availability,
-                rating: product.rating,
-                brand: product.brand,
-                category: product.category,
-            };
-
-            dispatch(addProductToCart(cartItem));
-            toast.success("Product Added To Cart");
+            dispatch(addProductToCart({ productId: id }));
         }
     };
 
@@ -75,9 +61,27 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
         }
     };
 
+    const isInCart = cartItems.some(
+        (item: CartItem) => item.product.id === product?.id
+    );
+    const isAdding = loadingStates[product?.id]?.isAdding;
+    const isRemoving = loadingStates[product?.id]?.isRemoving;
+    const isLoading = isAdding || isRemoving;
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+        if (message) {
+            toast.success(message);
+        }
+        dispatch(clearAllCartErrosAndMsgs());
+    }, [dispatch, error, message]);
+
     useEffect(() => {
         setSelectedColor(product.colors[0]);
     }, [product]);
+
     return (
         <Box>
             <Box sx={{ backgroundColor: "#FAFAFA" }}>
@@ -249,14 +253,22 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                                         alignSelf: "flex-start",
                                     }}
                                     onClick={() =>
-                                        handleAddRemoveProduct(product)
+                                        handleAddRemoveProduct(product.id)
                                     }
+                                    disabled={isLoading}
                                 >
-                                    {cart.some(
-                                        (p: CartItem) => p.id === product.id
-                                    )
-                                        ? "Remove From Cart"
-                                        : "Add to Cart"}
+                                    {isLoading ? (
+                                        <CircularProgress
+                                            size={24}
+                                            sx={{
+                                                color: "#FFFFFF",
+                                            }}
+                                        />
+                                    ) : isInCart ? (
+                                        "Remove From Cart"
+                                    ) : (
+                                        "Add to Cart"
+                                    )}
                                 </Button>
                                 <Box
                                     key="favorite-icon"
