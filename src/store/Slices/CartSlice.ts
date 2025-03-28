@@ -3,29 +3,32 @@ import { Product } from "../../data/allProductsData";
 import { AppDispatch } from "../store";
 import axios, { AxiosError } from "axios";
 import { BASE_URL } from "../../const/constants";
-// import { CartItem } from "./Cart_Slice";
 
-interface CartItem {
+interface LoadingStates {
+    [productId: string]: {
+        isAdding?: boolean;
+        isRemoving?: boolean;
+        isDecreasing?: boolean;
+    };
+}
+
+export interface CartItem {
     quantity: number;
     product: Product;
 }
 
 interface CartState {
     getCartloading: boolean;
-    addLoading: boolean;
-    removeLoading: boolean;
-    decreaseLoading: boolean;
     cartItems: CartItem[] | [];
+    loadingStates: LoadingStates;
     error: string | null;
     message: string | null;
 }
 
 const initialState: CartState = {
     getCartloading: false,
-    addLoading: false,
-    removeLoading: false,
-    decreaseLoading: false,
     cartItems: [],
+    loadingStates: {},
     error: null,
     message: null,
 };
@@ -35,7 +38,7 @@ interface Cart {
 }
 
 const cartSlice = createSlice({
-    name: "carts",
+    name: "cart",
     initialState,
     reducers: {
         getCartRequest: (state) => {
@@ -44,12 +47,12 @@ const cartSlice = createSlice({
         getCartSuccess(
             state,
             action: PayloadAction<{
-                cart: Cart;
+                cartData: Cart;
                 message: string;
             }>
         ) {
             state.getCartloading = false;
-            state.cartItems = action.payload.cart.cartItems;
+            state.cartItems = action.payload.cartData.cartItems;
             state.message = action.payload.message;
             state.error = null;
         },
@@ -64,17 +67,24 @@ const cartSlice = createSlice({
             state.message = null;
             state.error = action.payload.message;
         },
-        addToCartRequest: (state) => {
-            state.addLoading = true;
+        addToCartRequest: (
+            state,
+            action: PayloadAction<{ productId: string }>
+        ) => {
+            state.loadingStates[action.payload.productId] = {
+                ...state.loadingStates[action.payload.productId],
+                isAdding: true,
+            };
         },
         addToCartSuccess: (
             state,
             action: PayloadAction<{
-                cart: Cart;
+                cartData: Cart;
                 message: string;
             }>
         ) => {
-            state.addLoading = false;
+            state.cartItems = action.payload.cartData.cartItems;
+            state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
         },
@@ -82,23 +92,36 @@ const cartSlice = createSlice({
             state,
             action: PayloadAction<{
                 message: string;
+                productId?: string;
             }>
         ) => {
-            state.addLoading = false;
+            if (action.payload.productId) {
+                state.loadingStates[action.payload.productId] = {
+                    ...state.loadingStates[action.payload.productId],
+                    isAdding: false,
+                };
+            }
             state.error = action.payload.message;
             state.message = null;
         },
-        removeFromCartRequest: (state) => {
-            state.removeLoading = true;
+        removeFromCartRequest: (
+            state,
+            action: PayloadAction<{ productId: string }>
+        ) => {
+            state.loadingStates[action.payload.productId] = {
+                ...state.loadingStates[action.payload.productId],
+                isRemoving: true,
+            };
         },
         removeFromCartSuccess: (
             state,
             action: PayloadAction<{
-                cart: Cart;
+                cartData: Cart;
                 message: string;
             }>
         ) => {
-            state.removeLoading = false;
+            state.cartItems = action.payload.cartData.cartItems;
+            state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
         },
@@ -106,23 +129,36 @@ const cartSlice = createSlice({
             state,
             action: PayloadAction<{
                 message: string;
+                productId?: string;
             }>
         ) => {
-            state.removeLoading = false;
+            if (action.payload.productId) {
+                state.loadingStates[action.payload.productId] = {
+                    ...state.loadingStates[action.payload.productId],
+                    isRemoving: false,
+                };
+            }
             state.error = action.payload.message;
             state.message = null;
         },
-        decreaseQantityRequest: (state) => {
-            state.decreaseLoading = true;
+        decreaseQantityRequest: (
+            state,
+            action: PayloadAction<{ productId: string }>
+        ) => {
+            state.loadingStates[action.payload.productId] = {
+                ...state.loadingStates[action.payload.productId],
+                isDecreasing: true,
+            };
         },
         decreaseQantitySuccess: (
             state,
             action: PayloadAction<{
-                cart: Cart;
+                cartData: Cart;
                 message: string;
             }>
         ) => {
-            state.decreaseLoading = false;
+            state.cartItems = action.payload.cartData.cartItems;
+            state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
         },
@@ -130,10 +166,20 @@ const cartSlice = createSlice({
             state,
             action: PayloadAction<{
                 message: string;
+                productId?: string;
             }>
         ) => {
-            state.decreaseLoading = false;
+            if (action.payload.productId) {
+                state.loadingStates[action.payload.productId] = {
+                    ...state.loadingStates[action.payload.productId],
+                    isDecreasing: false,
+                };
+            }
             state.error = action.payload.message;
+            state.message = null;
+        },
+        clearAllCartErrosAndMsgs(state) {
+            state.error = null;
             state.message = null;
         },
     },
@@ -142,8 +188,8 @@ const cartSlice = createSlice({
 const handleApiCall = async (
     dispatch: AppDispatch,
     requestAction: () => AnyAction,
-    successAction: (data: { cart: Cart; message: string }) => AnyAction,
-    failureAction: (data: { message: string }) => AnyAction,
+    successAction: (data: { cartData: Cart; message: string }) => AnyAction,
+    failureAction: (data: { message: string; productId?: string }) => AnyAction,
     apiCall: () => Promise<any>
 ) => {
     dispatch(requestAction());
@@ -176,14 +222,18 @@ export const getCart = () => async (dispatch: AppDispatch) => {
     );
 };
 
-export const addProductToCarts =
+export const addProductToCart =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
         console.log("addtocart:");
         await handleApiCall(
             dispatch,
-            cartSlice.actions.addToCartRequest,
+            () => cartSlice.actions.addToCartRequest(data),
             cartSlice.actions.addToCartSuccess,
-            cartSlice.actions.addToCartFailed,
+            (errorData) =>
+                cartSlice.actions.addToCartFailed({
+                    ...errorData,
+                    productId: data.productId,
+                }),
             () =>
                 axios.post(`${BASE_URL}/cart/addproducttocart`, data, {
                     withCredentials: true,
@@ -191,14 +241,18 @@ export const addProductToCarts =
         );
     };
 
-export const removeProductFromCarts =
+export const removeProductFromCart =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
         console.log("removetocart:");
         await handleApiCall(
             dispatch,
-            cartSlice.actions.removeFromCartRequest,
+            () => cartSlice.actions.removeFromCartRequest(data),
             cartSlice.actions.removeFromCartSuccess,
-            cartSlice.actions.removeFromCartFailed,
+            (errorData) =>
+                cartSlice.actions.removeFromCartFailed({
+                    ...errorData,
+                    productId: data.productId,
+                }),
             () =>
                 axios.post(`${BASE_URL}/cart/removeproductfromcart`, data, {
                     withCredentials: true,
@@ -206,19 +260,27 @@ export const removeProductFromCarts =
         );
     };
 
-export const decreaseQuantitys =
+export const decreaseQuantity =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
         console.log("decreaseQuantityCart:");
         await handleApiCall(
             dispatch,
-            cartSlice.actions.removeFromCartRequest,
-            cartSlice.actions.removeFromCartSuccess,
-            cartSlice.actions.removeFromCartFailed,
+            () => cartSlice.actions.decreaseQantityRequest(data),
+            cartSlice.actions.decreaseQantitySuccess,
+            (errorData) =>
+                cartSlice.actions.decreaseQantityFailed({
+                    ...errorData,
+                    productId: data.productId,
+                }),
             () =>
                 axios.post(`${BASE_URL}/cart/decreasequantity`, data, {
                     withCredentials: true,
                 })
         );
     };
+
+export const clearAllCartErrosAndMsgs = () => (dispatch: AppDispatch) => {
+    dispatch(cartSlice.actions.clearAllCartErrosAndMsgs());
+};
 
 export default cartSlice.reducer;
