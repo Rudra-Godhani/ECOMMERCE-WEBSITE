@@ -307,16 +307,21 @@ const HeroSecond: React.FC = () => {
     };
 
     const dispatch = useDispatch<AppDispatch>();
-    const { cartItems, loadingStates,error,message } = useSelector(
+    const { cartItems, loadingStates, error, message } = useSelector(
         (state: RootState) => state.cart
     );
     const navigate = useNavigate();
 
-    const handleAddRemoveProduct = (id: string) => {
-        if (cartItems.some((item) => item.product.id === id)) {
-            dispatch(removeProductFromCart({ productId: id }));
+    const handleAddRemoveProduct = (product: Product) => {
+        if (cartItems.some((item) => item.product.id === product.id)) {
+            dispatch(removeProductFromCart({ productId: product.id }));
         } else {
-            dispatch(addProductToCart({ productId: id }));
+            dispatch(
+                addProductToCart({
+                    productId: product.id,
+                    color: product.colors[0],
+                })
+            );
         }
     };
 
@@ -352,7 +357,7 @@ const HeroSecond: React.FC = () => {
                     afterChange={handleAfterChange} // Fix indicator blinking issue
                 >
                     {products.map((product) => {
-                        const isInCart = cartItems.some(
+                        const isInCart = cartItems?.some(
                             (item: CartItem) => item.product.id === product?.id
                         );
                         const isAdding = loadingStates[product?.id]?.isAdding;
@@ -471,7 +476,7 @@ const HeroSecond: React.FC = () => {
                                                 }}
                                                 onClick={() =>
                                                     handleAddRemoveProduct(
-                                                        product!.id
+                                                        product
                                                     )
                                                 }
                                                 disabled={isLoading}
