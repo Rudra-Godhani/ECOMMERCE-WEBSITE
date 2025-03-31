@@ -1,32 +1,80 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BestSellerProducts from "../../section/ProductDetails/BestSellerProducts";
 import BrandsStrip from "../../components/BrandsStrip";
 import ProductAddInfo from "../../section/ProductDetails/ProductAddInfo";
 import { useParams } from "react-router-dom";
 import ProductInfo from "../../section/ProductDetails/ProductInfo";
-import { Box, Typography } from "@mui/material";
-import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
+import { Box, Button, Typography } from "@mui/material";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProduct } from "../../store/Slices/productSlice";
 
 const ProductDetails: React.FC = () => {
     const { id } = useParams();
-    console.log(id);
 
-    const { products: backendProductsData } = useSelector(
+    const { product, loading, error } = useSelector(
         (state: RootState) => state.product
     );
 
-    console.log(backendProductsData);
+    const dispatch = useDispatch<AppDispatch>();
 
-    const product = backendProductsData && backendProductsData.find((product) => product.id === id);
+    if (id) {
+        useEffect(() => {
+            dispatch(getSingleProduct({ productId: id }));
+        }, [id, dispatch]);
+    }
 
-    console.log(product);
-
-    if (!product) {
+    if (!loading && error) {
         return (
-            <Box sx={{ textAlign: "center", py: 5 }}>
-                <Typography variant="h4" color="error">
-                    Product Not Found
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "50vh",
+                    textAlign: "center",
+                }}
+            >
+                <Typography
+                    variant="h5"
+                    fontWeight="700"
+                    color="error"
+                    sx={{ mb: 2 }}
+                >
+                    Failed to load product details. Please check your connection
+                    or try again.
+                </Typography>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.reload()}
+                >
+                    Refresh
+                </Button>
+            </Box>
+        );
+    }
+
+    if (!loading && !error && !product) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "50vh",
+                    textAlign: "center",
+                }}
+            >
+                <Typography
+                    variant="h5"
+                    fontWeight="700"
+                    color="textSecondary"
+                    sx={{ mb: 2 }}
+                >
+                    Product not found.
                 </Typography>
             </Box>
         );
@@ -34,8 +82,8 @@ const ProductDetails: React.FC = () => {
 
     return (
         <>
-            <ProductInfo product={product} />
-            <ProductAddInfo product={product} />
+            <ProductInfo />
+            <ProductAddInfo />
             <BestSellerProducts />
             <BrandsStrip />
         </>
