@@ -43,7 +43,6 @@ const MainNavbar: React.FC = () => {
     }));
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-    const [searchOpen, setSearchOpen] = useState<boolean>(false);
 
     const handleDrawerOpen = () => {
         setDrawerOpen(true);
@@ -53,7 +52,7 @@ const MainNavbar: React.FC = () => {
         setDrawerOpen(false);
     };
 
-    const wishlist = useSelector((state: RootState) => state.wishlist);
+    const { wishListItems } = useSelector((state: RootState) => state.wishList);
     const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
     const MobilePages = [
@@ -198,9 +197,7 @@ const MainNavbar: React.FC = () => {
                                     </>
                                 )}
                             </Box>
-                            <IconButton
-                                onClick={() => setSearchOpen((prev) => !prev)}
-                            >
+                            <IconButton>
                                 <SearchIcon
                                     // fontSize="small"
                                     htmlColor="#23A6F0"
@@ -220,7 +217,7 @@ const MainNavbar: React.FC = () => {
                                 }}
                             >
                                 <Badge
-                                    badgeContent={cartItems.length}
+                                    badgeContent={cartItems?.length}
                                     color="success"
                                     sx={{ mr: "10px" }}
                                 >
@@ -243,7 +240,7 @@ const MainNavbar: React.FC = () => {
                                 }}
                             >
                                 <Badge
-                                    badgeContent={wishlist.length}
+                                    badgeContent={wishListItems?.length}
                                     color="success"
                                     sx={{ mr: "10px" }}
                                 >
@@ -331,12 +328,6 @@ const MainNavbar: React.FC = () => {
                     </Box>
                 </Drawer>
             </AppBar>
-            {
-                <SearchBar
-                    isOpen={searchOpen}
-                    onClose={() => setSearchOpen(false)}
-                />
-            }
         </>
     );
 };
