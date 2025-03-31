@@ -6,8 +6,11 @@ const ProductListing: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     return (
         <>
-            <ShopCarousel setSelectedCategory={setSelectedCategory}/>
-            <Products selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>
+            <ShopCarousel setSelectedCategory={setSelectedCategory} />
+            <Products
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+            />
         </>
     );
 };
