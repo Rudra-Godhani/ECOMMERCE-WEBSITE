@@ -147,12 +147,12 @@ const BestSellerProducts: React.FC = () => {
                                     }}
                                 >
                                     <Typography variant="h2" sx={{}}>
-                                        No Products Found with Given Filters.
+                                        BestSeller products is not avialble.
                                     </Typography>
                                 </Box>
                             )}
                             {randomProducts.map((item) => (
-                                <Link to={`/product/${item.id}/detail`}>
+                                <Link to={`/product/${item.id}/detail`} key={item.id}>
                                     <Card
                                         key={item.id}
                                         sx={{
