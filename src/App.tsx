@@ -25,6 +25,9 @@ import {
 } from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
 import { getCart } from "./store/Slices/CartSlice";
+import { getWishList } from "./store/Slices/WishListSlice";
+import { getAllCategories } from "./store/Slices/categorySlice";
+import { getAllBrands } from "./store/Slices/brandSlice";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -49,9 +52,15 @@ const App: React.FC = () => {
     // useEffect(() => {
     //     dispatch(getSearchedProducts("gold"));
     // }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(getCart());
+    // }, [dispatch]);h]);
+    
     useEffect(() => {
-        dispatch(getCart());
-    }, [dispatch]);
+        dispatch(getWishList());
+        dispatch(getAllCategories());
+        dispatch(getAllBrands());
+    },[dispatch]);
 
     return (
         <>
