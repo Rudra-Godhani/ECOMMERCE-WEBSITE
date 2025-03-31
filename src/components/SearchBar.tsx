@@ -1,99 +1,63 @@
-import { Box, InputAdornment, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface SearchBarProps {
-    isOpen: boolean;
+    searchText: string;
+    setSearchText: (search: string) => void;
 }
-
-const SearchBar: React.FC<SearchBarProps> = ({ isOpen }) => {
-    const [searchText, setSearchText] = useState<string>("");
+const SearchBar: React.FC<SearchBarProps> = ({ searchText, setSearchText }) => {
+    const handleClear = () => setSearchText("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
     };
 
-    const navigate = useNavigate();
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!searchText.trim()) return;
-        const currentParams = new URLSearchParams(window.location.search);
-        currentParams.set("q", searchText);
-        navigate(`/product/listing?q=${encodeURIComponent(searchText)}`);
-    };
 
+        console.log(searchText);
+    };
     return (
-        <Box
-            sx={{
-                position: "relative",
-                width: "100%",
-            }}
-        >
-            <Box
-                maxWidth={"1050px"}
-                mx={"auto"}
-                sx={{
-                    position: "absolute",
-                    top: { xs: "10px", md: "10px" },
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "100%",
-                    maxWidth: "1200px",
-                    zIndex: 1200,
-                    boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
-                    overflow: "hidden",
-                    maxHeight: isOpen ? "60px" : "0px",
-                    opacity: isOpen ? 1 : 0,
-                    transition: "max-height 0.3s ease, opacity 0.3s ease",
-                    borderRadius: "8px",
-                    backgroundColor: "#ffffff",
-                }}
-            >
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        variant="outlined"
-                        placeholder="Search for Products"
-                        size="small"
-                        name="searchText"
-                        type="search"
-                        value={searchText}
-                        onChange={handleChange}
-                        sx={{
-                            bgcolor: "#f9f9f9",
-                            "& .MuiOutlinedInput-root": {
-                                pl: "10px",
-                                py: "5px",
-                                fontSize: "15px",
-                                borderRadius: "8px",
-                                px: "20px",
-                                borderColor: "#4CAF50",
-                                "&:hover fieldset": {
-                                    borderColor: "#000000",
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: "#23A6F0",
-                                },
-                            },
-                        }}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon
-                                        fontSize="medium"
-                                        htmlColor="#23A6F0"
-                                    />
-                                </InputAdornment>
-                            ),
-                        }}
-                        fullWidth
-                    />
-                </form>
-            </Box>
+        <Box>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    variant="outlined"
+                    placeholder="Search for Products, Brands and More"
+                    name="searchText"
+                    value={searchText}
+                    onChange={handleChange}
+                    sx={{
+                        width: "100%",
+                        mt: "10px",
+                        backgroundColor: "#F9F9F9",
+                        borderRadius: "8px",
+                    }}
+                    fullWidth
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <IconButton>
+                                    <SearchIcon htmlColor="#23A6F0" />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                        endAdornment: searchText && (
+                            <InputAdornment position="end">
+                                <IconButton onClick={handleClear} size="small">
+                                    <CloseIcon />
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                        style: {
+                            fontSize: "17px",
+                        },
+                    }}
+                />
+            </form>
         </Box>
     );
 };
 
 export default SearchBar;
-
