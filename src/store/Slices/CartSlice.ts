@@ -50,7 +50,8 @@ const cartSlice = createSlice({
         ) {
             state.getCartloading = false;
             state.cartItems = action.payload.cartData;
-            state.message = action.payload.message;
+            // state.message = action.payload.message;
+            state.message = null;
             state.error = null;
         },
         getCartFailed(
