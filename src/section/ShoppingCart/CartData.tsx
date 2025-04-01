@@ -34,14 +34,14 @@ const CartData: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const incQuantity = (id: string) => {
-        dispatch(addProductToCart({ productId: id }));
+    const incQuantity = (id: string, color: string) => {
+        dispatch(addProductToCart({ productId: id, color: color }));
     };
 
     const decQuantity = (id: string) => {
         dispatch(decreaseQuantity({ productId: id }));
     };
-    
+
     useEffect(() => {
         if (error) {
             toast.error(error);
@@ -305,7 +305,7 @@ const CartData: React.FC = () => {
                                                     height={"25px"}
                                                     sx={{
                                                         backgroundColor:
-                                                            item.product.colors,
+                                                            item.color,
                                                         borderRadius: "50%",
                                                         border: "2px solid rgb(184, 180, 180)",
                                                     }}
@@ -353,7 +353,8 @@ const CartData: React.FC = () => {
                                                     sx={{ cursor: "pointer" }}
                                                     onClick={() =>
                                                         incQuantity(
-                                                            item.product.id
+                                                            item.product.id,
+                                                            item.color
                                                         )
                                                     }
                                                 >
