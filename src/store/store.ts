@@ -1,29 +1,34 @@
 import { configureStore, ThunkDispatch } from "@reduxjs/toolkit";
-import wishListReducer from "./Slices/WishList_Slice";
+import wishListReducer from "./Slices/WishListSlice";
 import filterReducer from "./Slices/FilterSlice";
 import authReducer from "./Slices/authSlice";
 import userReducer from "./Slices/userSlice";
 import updateProfileReducer from "./Slices/updateProfileSlice";
 import productReducer from "./Slices/productSlice";
 import cartReducer from "./Slices/CartSlice";
+import categoryReducer from "./Slices/categorySlice";
+import brandReducer from "./Slices/brandSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { AnyAction, combineReducers } from "redux";
+import { brands } from "../data/allProductsData";
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["wishlist", "user"],
+    whitelist: ["wishList", "user"],
 };
 
 const rootReducer = combineReducers({
-    wishlist: wishListReducer,
     filter: filterReducer,
     auth: authReducer,
     user: userReducer,
     updateProfile: updateProfileReducer,
     product: productReducer,
     cart: cartReducer,
+    wishList: wishListReducer,
+    category: categoryReducer,
+    brands: brandReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
