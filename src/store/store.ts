@@ -11,7 +11,6 @@ import brandReducer from "./Slices/brandSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { AnyAction, combineReducers } from "redux";
-import { brands } from "../data/allProductsData";
 
 const persistConfig = {
     key: "root",
