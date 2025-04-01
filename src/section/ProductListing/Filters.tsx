@@ -294,13 +294,13 @@ import {
     Checkbox,
     FormControlLabel,
     FormGroup,
+    Skeleton,
     Slider,
     Stack,
     Typography,
 } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import React, { useEffect, useState } from "react";
-import { brands, categories } from "../../data/allProductsData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import {
@@ -317,6 +317,8 @@ interface FiltersProps {
     sortBy: Map<string, string>;
     selectedCategory: string;
     setSelectedCategory: (category: string) => void;
+    searchText: string;
+    setSearchText: (search: string) => void;
 }
 
 const Filters: React.FC<FiltersProps> = ({
@@ -324,6 +326,8 @@ const Filters: React.FC<FiltersProps> = ({
     selectedSort,
     selectedCategory,
     setSelectedCategory,
+    searchText,
+    setSearchText,
 }) => {
     const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
     const [minPrice, setMinPrice] = useState<number>(0);
@@ -335,10 +339,30 @@ const Filters: React.FC<FiltersProps> = ({
         (state: RootState) => state.product
     );
 
+    const {
+        loading: categoryLoading,
+        error: categoryError,
+        message: categoryMessage,
+        categories,
+    } = useSelector((state: RootState) => state.category);
+    const {
+        loading: brandLoading,
+        error: brandError,
+        message: brandMessage,
+        brands,
+    } = useSelector((state: RootState) => state.brands);
+
+    let brandsData = brands;
+    if (selectedCategory === "") {
+        brandsData == brands;
+    } else {
+        brandsData = brands.filter(
+            (brand) => brand.category.name === selectedCategory
+        );
+    }
+
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get("q") || "";
-
-    console.log("searchText: ", searchParams.get("q"));
 
     useEffect(() => {
         setValue([minPrice, maxPrice]);
@@ -395,7 +419,7 @@ const Filters: React.FC<FiltersProps> = ({
             queryParams.delete("brand");
         }
         if (filterData.search) {
-            queryParams.set("q", filterData.search); // Preserve the search query
+            queryParams.set("q", filterData.search);
         }
         const fetchProducts = () => {
             setSearchParams(queryParams);
@@ -407,16 +431,10 @@ const Filters: React.FC<FiltersProps> = ({
         );
 
         if (isPriceChange) {
-            console.log(
-                "------------------------- debounce called: -----------------------------"
-            );
             const debouncedFetch = debounce(fetchProducts, 500);
             debouncedFetch();
             return () => debouncedFetch.cancel();
         } else {
-            console.log(
-                "-------------------------------- without debounce called: ----------------------------------"
-            );
             fetchProducts();
         }
     }, [
@@ -466,33 +484,43 @@ const Filters: React.FC<FiltersProps> = ({
                         </Box>
                     </Stack>
                     <Box display={"flex"} flexDirection={"column"} gap="12px">
-                        {categories.map((category, index) => (
-                            <Box
-                                key={index}
-                                sx={{
-                                    cursor: "pointer",
-                                }}
-                            >
-                                <Typography
-                                    variant="h6"
-                                    color="#000000"
-                                    sx={{
-                                        "&:hover": {
-                                            fontWeight: "700",
-                                        },
-                                        fontWeight:
-                                            selectedCategory === category
-                                                ? "700"
-                                                : "400",
-                                    }}
-                                    onClick={() =>
-                                        setSelectedCategory(category)
-                                    }
-                                >
-                                    {category}
-                                </Typography>
-                            </Box>
-                        ))}
+                        {categoryLoading
+                            ? [...Array(8)].map((_, index) => (
+                                  <Skeleton
+                                      key={index}
+                                      variant="text"
+                                      width={140}
+                                      height={24}
+                                  />
+                              ))
+                            : categories.map((category) => (
+                                  <Box
+                                      key={category.id}
+                                      sx={{
+                                          cursor: "pointer",
+                                      }}
+                                  >
+                                      <Typography
+                                          variant="h6"
+                                          color="#000000"
+                                          sx={{
+                                              "&:hover": {
+                                                  fontWeight: "700",
+                                              },
+                                              fontWeight:
+                                                  selectedCategory ===
+                                                  category.name
+                                                      ? "700"
+                                                      : "400",
+                                          }}
+                                          onClick={() =>
+                                              setSelectedCategory(category.name)
+                                          }
+                                      >
+                                          {category.name}
+                                      </Typography>
+                                  </Box>
+                              ))}
                     </Box>
                 </Stack>
             </Box>
@@ -545,37 +573,70 @@ const Filters: React.FC<FiltersProps> = ({
                         Brands
                     </Typography>
                     <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={selectedBrand.length === 0}
-                                    onChange={handleAllBrandsChange}
+                        {brandLoading ? (
+                            [...Array(15)].map((_, index) => (
+                                <Stack direction={"row"} alignItems={"center"} gap={2}>
+                                    <Skeleton
+                                        key={index}
+                                        variant="rectangular"
+                                        width={20}
+                                        height={20}
+                                        sx={{ mb: "12px" }}
+                                    />
+                                    <Skeleton
+                                        key={index}
+                                        variant="text"
+                                        width={120}
+                                        height={24}
+                                        sx={{ mb: "12px" }}
+                                    />
+                                </Stack>
+                            ))
+                        ) : (
+                            <>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={selectedBrand.length === 0}
+                                            onChange={handleAllBrandsChange}
+                                        />
+                                    }
+                                    label={
+                                        <Typography
+                                            variant="h6"
+                                            color="#000000"
+                                        >
+                                            All
+                                        </Typography>
+                                    }
                                 />
-                            }
-                            label={
-                                <Typography variant="h6" color="#000000">
-                                    All
-                                </Typography>
-                            }
-                        />
-                        {brands.map((brand, index) => (
-                            <FormControlLabel
-                                key={index}
-                                control={
-                                    <Checkbox
-                                        checked={selectedBrand.includes(brand)}
-                                        onChange={() =>
-                                            handleBrandChange(brand)
+                                {brandsData.map((brand) => (
+                                    <FormControlLabel
+                                        key={brand.id}
+                                        control={
+                                            <Checkbox
+                                                checked={selectedBrand.includes(
+                                                    brand.name
+                                                )}
+                                                onChange={() =>
+                                                    handleBrandChange(
+                                                        brand.name
+                                                    )
+                                                }
+                                            />
+                                        }
+                                        label={
+                                            <Typography
+                                                variant="h6"
+                                                color="#000000"
+                                            >
+                                                {brand.name}
+                                            </Typography>
                                         }
                                     />
-                                }
-                                label={
-                                    <Typography variant="h6" color="#000000">
-                                        {brand}
-                                    </Typography>
-                                }
-                            />
-                        ))}
+                                ))}
+                            </>
+                        )}
                     </FormGroup>
                 </Stack>
             </Box>
