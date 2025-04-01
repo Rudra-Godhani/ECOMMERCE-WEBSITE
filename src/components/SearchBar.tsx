@@ -2,22 +2,61 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/store";
+import { getFilteredProducts } from "../store/Slices/productSlice";
 
 interface SearchBarProps {
+    setSelectedSort: (sortby: string) => void;
+    setSelectedCategory: (category: string) => void;
     searchText: string;
     setSearchText: (search: string) => void;
+    setSelectedBrand: (brand: string[]) => void;
+    minPrice: number;
+    setMinPrice: (minPrice: number) => void;
+    maxPrice: number;
+    setMaxPrice: (maxPrice: number) => void;
+    setValue: (value: number[]) => void;
 }
-const SearchBar: React.FC<SearchBarProps> = ({ searchText, setSearchText }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+    setSelectedSort,
+    setSelectedCategory,
+    searchText,
+    setSearchText,
+    setSelectedBrand,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+    setValue,
+}) => {
     const handleClear = () => setSearchText("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
     };
 
+    const dispatch = useDispatch<AppDispatch>();
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
+        if (!searchText.trim()) return;
         console.log(searchText);
+        setSelectedCategory("");
+        setSelectedBrand([]);
+        setMinPrice(0);
+        setMaxPrice(5000);
+        setSelectedSort("popularity_high_to_low");
+        // setValue([minPrice, maxPrice]);
+        const filterData = {
+            category: "",
+            brand: [].join(","),
+            minprice: 0,
+            maxprice: 5000,
+            sortby: "popularity_high_to_low",
+            search: searchText,
+        };
+        dispatch(getFilteredProducts(filterData));
     };
     return (
         <Box>
@@ -30,7 +69,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchText, setSearchText }) => {
                     onChange={handleChange}
                     sx={{
                         width: "100%",
-                        mt: "10px",
+                        mt: "20px",
                         backgroundColor: "#F9F9F9",
                         borderRadius: "8px",
                     }}
@@ -38,7 +77,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchText, setSearchText }) => {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <IconButton>
+                                <IconButton onClick={handleSubmit}>
                                     <SearchIcon htmlColor="#23A6F0" />
                                 </IconButton>
                             </InputAdornment>
