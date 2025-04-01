@@ -28,6 +28,7 @@ interface ProductState {
     filteredLoading: boolean;
     searchedLoading: boolean;
     products: Product[] | [];
+    product: Product | null;
     filteredProducts: Product[] | [];
     searchedProducts: Product[] | [];
     isFiltered: boolean;
@@ -41,6 +42,7 @@ const initialState: ProductState = {
     filteredLoading: false,
     searchedLoading: false,
     products: [],
+    product: null,
     filteredProducts: [],
     searchedProducts: [],
     isFiltered: false,
@@ -73,6 +75,27 @@ const productSlice = createSlice({
             state.loading = false;
             state.products = [];
             state.error = action.payload.message;
+        },
+        fetchSingleProductRequest(state) {
+            state.loading = true;
+        },
+        fetchSingleProductSuccess(
+            state,
+            action: PayloadAction<{
+                product: Product;
+            }>
+        ) {
+            state.loading = false;
+            state.product = action.payload.product;
+        },
+        fetchSingleProductFailed(
+            state,
+            action: PayloadAction<{ message: string }>
+        ) {
+            state.loading = false;
+            state.product = null;
+            state.error = action.payload.message;
+            state.message = null;
         },
         fetchFilteredProductsRequest(state) {
             state.filteredLoading = true;
@@ -135,6 +158,7 @@ const handleApiCall = async (
     dispatch: AppDispatch,
     requestAction: () => AnyAction,
     successAction: (data: {
+        product: Product;
         products: Product[];
         filteredProducts: Product[];
         searchedProducts: Product[];
@@ -170,6 +194,20 @@ export const getAllProducts = () => async (dispatch: AppDispatch) => {
             })
     );
 };
+
+export const getSingleProduct =
+    (data: { productId: string }) => async (dispatch: AppDispatch) => {
+        await handleApiCall(
+            dispatch,
+            productSlice.actions.fetchSingleProductRequest,
+            productSlice.actions.fetchSingleProductSuccess,
+            productSlice.actions.fetchSingleProductFailed,
+            () =>
+                axios.get(`${BASE_URL}/product/getproduct/${data.productId}`, {
+                    withCredentials: true,
+                })
+        );
+    };
 
 interface FilterData {
     category: string;
