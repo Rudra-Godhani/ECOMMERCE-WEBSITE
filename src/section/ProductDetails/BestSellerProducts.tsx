@@ -138,7 +138,7 @@ const BestSellerProducts: React.FC = () => {
                                 },
                             }}
                         >
-                            {!loading && products.length === 0 && (
+                            {!loading && randomProducts.length === 0 && (
                                 <Box
                                     sx={{
                                         textAlign: "center",
