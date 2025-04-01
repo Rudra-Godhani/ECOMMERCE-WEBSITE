@@ -16,8 +16,18 @@ interface Product {
     reviewsText: string[];
     noOfReviews: number;
     rating: number;
-    brand: string;
-    category: string;
+    brand: {
+        id: string;
+        name: string;
+        category: {
+            id: string;
+            name: string;
+        };
+    };
+    category: {
+        id: string;
+        name: string;
+    };
     additionalInformation: string;
     createdAt: Date;
     updatedAt: Date;
@@ -242,6 +252,9 @@ export const getFilteredProducts =
                 }
                 if (data.sortby) {
                     queryParams.push(`sortby=${data.sortby}`);
+                }
+                if (data.search) {
+                    queryParams.push(`search=${data.search}`);
                 }
                 url = url + queryParams.join("&");
 
