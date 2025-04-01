@@ -58,8 +58,6 @@ const App: React.FC = () => {
     
     useEffect(() => {
         dispatch(getWishList());
-        dispatch(getAllCategories());
-        dispatch(getAllBrands());
     },[dispatch]);
 
     return (
