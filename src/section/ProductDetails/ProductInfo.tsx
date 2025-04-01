@@ -1,85 +1,109 @@
-import { Box, Button, CircularProgress, Rating, Stack, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    CircularProgress,
+    IconButton,
+    Rating,
+    Skeleton,
+    Stack,
+    Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import {
-    addToWishlist,
-    removeFromWishlist,
-} from "../../store/Slices/WishList_Slice";
 import { AppDispatch, RootState } from "../../store/store";
-import { Product } from "../../data/allProductsData";
 import ProductImageSlider from "./ProductImageSlider";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
     addProductToCart,
     CartItem,
     clearAllCartErrosAndMsgs,
     removeProductFromCart,
 } from "../../store/Slices/CartSlice";
+import {
+    addProductToWishList,
+    clearAllWishListErrosAndMsgs,
+    removeProductFromWishList,
+} from "../../store/Slices/WishListSlice";
 
-interface ProductProps {
-    product: Product;
-}
+const ProductInfo: React.FC = () => {
+    const { product, loading } = useSelector(
+        (state: RootState) => state.product
+    );
 
-const ProductInfo: React.FC<ProductProps> = ({ product }) => {
-    if (!product) {
-        return (
-            <Typography variant="h4" color="error">
-                Product not found
-            </Typography>
-        );
-    }
-
-    const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+    const [selectedColor, setSelectedColor] = useState(
+        product?.colors.length ? product?.colors[0] : ""
+    );
 
     const dispatch = useDispatch<AppDispatch>();
-    const { cartItems, error, message, loadingStates } = useSelector(
-        (state: RootState) => state.cart
-    );
-    const wishlist = useSelector((state: RootState) => state.wishlist);
+    const {
+        cartItems,
+        error: cartError,
+        message: cartMessage,
+        loadingStates: cartLoadingStates,
+        getCartloading,
+    } = useSelector((state: RootState) => state.cart);
+    const {
+        wishListItems,
+        error: wishListError,
+        message: wishListMessage,
+        getWishListLoading,
+    } = useSelector((state: RootState) => state.wishList);
 
     const handleAddRemoveProduct = (id: string) => {
         if (cartItems.some((item) => item.product.id === id)) {
             dispatch(removeProductFromCart({ productId: id }));
         } else {
-            dispatch(addProductToCart({ productId: id }));
+            dispatch(addProductToCart({ productId: id, color: selectedColor }));
         }
     };
 
-    const handleFavorite = (product: Product) => {
-        const productToAdd = { ...product, selectedColor };
-        if (!wishlist.some((p: Product) => p.id === product.id)) {
-            dispatch(addToWishlist(productToAdd));
-            toast.success("Product Added To WishList");
+    const handleFavorite = (id: string) => {
+        console.log("handlefavourite: ");
+        if (wishListItems?.some((item) => item.product.id === id)) {
+            dispatch(removeProductFromWishList({ productId: id }));
         } else {
-            console.log("removed wishlist");
-            dispatch(removeFromWishlist(product.id));
-            toast.error("Product Removed From WishList");
+            dispatch(
+                addProductToWishList({ productId: id, color: selectedColor })
+            );
         }
     };
 
-    const isInCart = cartItems.some(
-        (item: CartItem) => item.product.id === product?.id
-    );
-    const isAdding = loadingStates[product?.id]?.isAdding;
-    const isRemoving = loadingStates[product?.id]?.isRemoving;
+    const isInCart = product
+        ? cartItems.some((item: CartItem) => item.product.id === product?.id)
+        : false;
+
+    const isAdding = product ? cartLoadingStates[product.id]?.isAdding : false;
+    const isRemoving = product
+        ? cartLoadingStates[product.id]?.isRemoving
+        : false;
     const isLoading = isAdding || isRemoving;
 
     useEffect(() => {
-        if (error) {
-            toast.error(error);
+        if (cartError) {
+            toast.error(cartError);
         }
-        if (message) {
-            toast.success(message);
+        if (cartMessage) {
+            toast.success(cartMessage);
         }
         dispatch(clearAllCartErrosAndMsgs());
-    }, [dispatch, error, message]);
+    }, [dispatch, cartError, cartMessage]);
 
     useEffect(() => {
-        setSelectedColor(product.colors[0]);
+        if (wishListError) {
+            toast.error(wishListError);
+        }
+        if (wishListMessage) {
+            toast.success(wishListMessage);
+        }
+        dispatch(clearAllWishListErrosAndMsgs());
+    }, [dispatch, wishListError, wishListMessage]);
+
+    useEffect(() => {
+        setSelectedColor(product?.colors.length ? product?.colors[0] : "");
     }, [product]);
 
     return (
@@ -97,23 +121,36 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                         alignItems: { xs: "center", sm: "start" },
                     }}
                 >
-                    <Link to="/">
+                    {loading ? (
+                        <Skeleton width={60} height={30} />
+                    ) : (
+                        <Link to="/">
+                            <Typography
+                                variant="h6"
+                                color="secondary"
+                                fontWeight={"700"}
+                            >
+                                Home
+                            </Typography>
+                        </Link>
+                    )}
+                    <ArrowForwardIos fontSize="small" htmlColor="#BDBDBD" />
+
+                    {loading ? (
+                        <Skeleton width={60} height={30} />
+                    ) : (
                         <Typography
                             variant="h6"
-                            color="secondary"
+                            color="#BDBDBD"
                             fontWeight={"700"}
                         >
-                            Home
+                            Shop
                         </Typography>
-                    </Link>
-                    <ArrowForwardIos fontSize="small" htmlColor="#BDBDBD" />
-                    <Typography variant="h6" color="#BDBDBD" fontWeight={"700"}>
-                        Shop
-                    </Typography>
+                    )}
                 </Stack>
             </Box>
             <Box sx={{ backgroundColor: "#FAFAFA" }}>
-                <Box key={product.id}>
+                <Box key={product?.id}>
                     <Box
                         sx={{
                             gap: { xs: "30px", sm: "10px", md: "30px" },
@@ -126,7 +163,16 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                             mx: "auto",
                         }}
                     >
-                        <ProductImageSlider product={product} />
+                        {loading ? (
+                            <Skeleton
+                                variant="rectangular"
+                                width={400}
+                                height={400}
+                                animation="wave"
+                            />
+                        ) : (
+                            <ProductImageSlider />
+                        )}
 
                         <Stack
                             sx={{
@@ -135,164 +181,259 @@ const ProductInfo: React.FC<ProductProps> = ({ product }) => {
                             }}
                             height={"100%"}
                         >
-                            <Typography
-                                variant="h4"
-                                color="secondary"
-                                pb={"12px"}
-                            >
-                                {product.title}
-                            </Typography>
-                            <Stack direction={"row"} gap={"10px"}>
-                                <Rating
-                                    name="half-rating"
-                                    defaultValue={2.5}
-                                    precision={0.1}
-                                    sx={{ pb: "20px" }}
-                                    value={product.rating}
-                                />
-                                <Typography
-                                    variant="h6"
-                                    color="gray"
-                                    fontWeight={"700"}
-                                >
-                                    {product.noOfReviews} Reviews
-                                </Typography>
-                            </Stack>
-                            <Typography
-                                variant="h3"
-                                color="secondary"
-                                pb={"5px"}
-                            >
-                                ${product.price}
-                            </Typography>
-                            <Stack direction={"row"} pb={"32px"}>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight={"700"}
-                                    color="gray"
-                                >
-                                    Availability :{" "}
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    fontWeight={"700"}
-                                    color="lightBlue"
-                                >
-                                    {product.availability
-                                        ? "In Stock"
-                                        : "Out Of Stock"}
-                                </Typography>
-                            </Stack>
-                            <Typography variant="h6" color="#858585">
-                                {product.descriptionSmall}
-                            </Typography>
-                            <hr
-                                color="#BDBDBD"
-                                style={{ margin: "28px 0px" }}
-                            />
-                            <Stack
-                                spacing={1.25}
-                                direction={"row"}
-                                sx={{ pb: { xs: "58px", sm: "68px" } }}
-                            >
-                                {product.colors.map(
-                                    (color: string, index: number) => (
-                                        <Box
-                                            key={index}
-                                            position="relative"
-                                            width={"30px"}
-                                            height={"30px"}
+                            {loading ? (
+                                <>
+                                    <Skeleton
+                                        variant="text"
+                                        width="80%"
+                                        height={40}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="60%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="20%"
+                                        height={40}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="40%"
+                                        height={40}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="60%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width="100%"
+                                        height={2}
+                                        sx={{ my: 2 }}
+                                    />
+                                    <Stack
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{ mt: "20px" }}
+                                    >
+                                        <Skeleton
+                                            variant="circular"
+                                            width={30}
+                                            height={30}
+                                        />
+                                        <Skeleton
+                                            variant="circular"
+                                            width={30}
+                                            height={30}
+                                        />
+                                        <Skeleton
+                                            variant="circular"
+                                            width={30}
+                                            height={30}
+                                        />
+                                    </Stack>
+                                    <Stack direction={"row"} spacing={2} mt="20px">
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={120}
+                                            height={36}
+                                            sx={{ mt: 2 }}
+                                        />
+                                        <Skeleton
+                                            variant="circular"
+                                            width={35}
+                                            height={35}
+                                            sx={{ mt: 2 }}
+                                        />
+                                    </Stack>
+                                </>
+                            ) : (
+                                <>
+                                    <Typography
+                                        variant="h4"
+                                        color="secondary"
+                                        pb={"12px"}
+                                    >
+                                        {product?.title}
+                                    </Typography>
+                                    <Stack direction={"row"} gap={"10px"}>
+                                        <Rating
+                                            name="half-rating"
+                                            defaultValue={2.5}
+                                            precision={0.1}
+                                            sx={{ pb: "20px" }}
+                                            value={product?.rating}
+                                        />
+                                        <Typography
+                                            variant="h6"
+                                            color="gray"
+                                            fontWeight={"700"}
+                                        >
+                                            {product?.noOfReviews} Reviews
+                                        </Typography>
+                                    </Stack>
+                                    <Typography
+                                        variant="h3"
+                                        color="secondary"
+                                        pb={"5px"}
+                                    >
+                                        ${product?.price}
+                                    </Typography>
+                                    <Stack direction={"row"} pb={"32px"}>
+                                        <Typography
+                                            variant="h6"
+                                            fontWeight={"700"}
+                                            color="gray"
+                                        >
+                                            Availability :{" "}
+                                        </Typography>
+                                        <Typography
+                                            variant="h6"
+                                            fontWeight={"700"}
+                                            color="lightBlue"
+                                        >
+                                            {product?.availability
+                                                ? "In Stock"
+                                                : "Out Of Stock"}
+                                        </Typography>
+                                    </Stack>
+                                    <Typography variant="h6" color="#858585">
+                                        {product?.descriptionSmall}
+                                    </Typography>
+                                    <hr
+                                        color="#BDBDBD"
+                                        style={{ margin: "28px 0px" }}
+                                    />
+                                    <Stack
+                                        spacing={1.25}
+                                        direction={"row"}
+                                        sx={{ pb: { xs: "58px", sm: "68px" } }}
+                                    >
+                                        {product?.colors.map(
+                                            (color: string, index: number) => (
+                                                <Box
+                                                    key={index}
+                                                    position="relative"
+                                                    width={"30px"}
+                                                    height={"30px"}
+                                                    sx={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent:
+                                                            "center",
+                                                    }}
+                                                    onClick={() =>
+                                                        setSelectedColor(color)
+                                                    }
+                                                >
+                                                    {selectedColor ===
+                                                        color && (
+                                                        <Box
+                                                            sx={{
+                                                                position:
+                                                                    "absolute",
+                                                                width: "40px",
+                                                                height: "40px",
+                                                                borderRadius:
+                                                                    "50%",
+                                                                border: "3px solid #7fff00",
+                                                            }}
+                                                        />
+                                                    )}
+                                                    <Box
+                                                        sx={{
+                                                            backgroundColor:
+                                                                color,
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            borderRadius: "50%",
+                                                        }}
+                                                    ></Box>
+                                                </Box>
+                                            )
+                                        )}
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            gap: {
+                                                xs: "10px",
+                                                sm: "5px",
+                                                md: "10px",
+                                            },
+                                            flexDirection: {
+                                                xs: "row",
+                                            },
+                                        }}
+                                    >
+                                        <Button
                                             sx={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
+                                                color: "#FAFAFA",
+                                                backgroundColor: "#23A6F0",
+                                                p: {
+                                                    xs: "10px 10px",
+                                                    sm: "10px 20px",
+                                                },
+                                                whiteSpace: "nowrap",
+                                                minWidth: "fit-content",
+                                                width: "fit-content",
+                                                alignSelf: "flex-start",
                                             }}
                                             onClick={() =>
-                                                setSelectedColor(color)
+                                                handleAddRemoveProduct(
+                                                    product!.id
+                                                )
                                             }
+                                            disabled={isLoading}
                                         >
-                                            {selectedColor === color && (
-                                                <Box
+                                            {isLoading ? (
+                                                <CircularProgress
+                                                    size={24}
                                                     sx={{
-                                                        position: "absolute",
-                                                        width: "40px",
-                                                        height: "40px",
-                                                        borderRadius: "50%",
-                                                        border: "3px solid #7fff00",
+                                                        color: "#FFFFFF",
                                                     }}
                                                 />
+                                            ) : isInCart ? (
+                                                "Remove From Cart"
+                                            ) : (
+                                                "Add to Cart"
                                             )}
-                                            <Box
-                                                sx={{
-                                                    backgroundColor: color,
-                                                    width: "100%",
-                                                    height: "100%",
-                                                    borderRadius: "50%",
-                                                }}
-                                            ></Box>
+                                        </Button>
+                                        <Box
+                                            key="favorite-icon"
+                                            width={"40px"}
+                                            height={"40px"}
+                                            border={"1px solid #E8E8E8"}
+                                            borderRadius={"50%"}
+                                            alignItems={"center"}
+                                            justifyContent={"center"}
+                                            display={"flex"}
+                                            onClick={() =>
+                                                handleFavorite(product!.id)
+                                            }
+                                        >
+                                            {wishListItems?.some(
+                                                (item) =>
+                                                    item.product.id ===
+                                                    product?.id
+                                            ) ? (
+                                                <IconButton>
+                                                    <FavoriteIcon
+                                                        fontSize="medium"
+                                                        sx={{ color: "red" }}
+                                                    />
+                                                </IconButton>
+                                            ) : (
+                                                <IconButton>
+                                                    <FavoriteBorderIcon fontSize="medium" />
+                                                </IconButton>
+                                            )}
                                         </Box>
-                                    )
-                                )}
-                            </Stack>
-                            <Stack
-                                sx={{
-                                    gap: { xs: "10px", sm: "5px", md: "10px" },
-                                    flexDirection: {
-                                        xs: "row",
-                                    },
-                                }}
-                            >
-                                <Button
-                                    sx={{
-                                        color: "#FAFAFA",
-                                        backgroundColor: "#23A6F0",
-                                        p: { xs: "10px 10px", sm: "10px 20px" },
-                                        whiteSpace: "nowrap",
-                                        minWidth: "fit-content",
-                                        width: "fit-content",
-                                        alignSelf: "flex-start",
-                                    }}
-                                    onClick={() =>
-                                        handleAddRemoveProduct(product.id)
-                                    }
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? (
-                                        <CircularProgress
-                                            size={24}
-                                            sx={{
-                                                color: "#FFFFFF",
-                                            }}
-                                        />
-                                    ) : isInCart ? (
-                                        "Remove From Cart"
-                                    ) : (
-                                        "Add to Cart"
-                                    )}
-                                </Button>
-                                <Box
-                                    key="favorite-icon"
-                                    width={"40px"}
-                                    height={"40px"}
-                                    border={"1px solid #E8E8E8"}
-                                    borderRadius={"50%"}
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
-                                    display={"flex"}
-                                    onClick={() => handleFavorite(product)}
-                                >
-                                    {wishlist.some(
-                                        (p: Product) => p.id === product.id
-                                    ) ? (
-                                        <FavoriteIcon
-                                            fontSize="medium"
-                                            sx={{ color: "red" }}
-                                        />
-                                    ) : (
-                                        <FavoriteBorderIcon fontSize="medium" />
-                                    )}
-                                </Box>
-                            </Stack>
+                                    </Stack>
+                                </>
+                            )}
                         </Stack>
                     </Box>
                 </Box>
