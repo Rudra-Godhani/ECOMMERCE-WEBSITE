@@ -7,10 +7,12 @@ import { BASE_URL } from "../../const/constants";
 interface Brand {
     id: string;
     name: string;
-    category: {
-        id: string;
-        name: string;
-    };
+    categories: [
+        {
+            id: string;
+            name: string;
+        }
+    ];
 }
 
 interface BrandState {
