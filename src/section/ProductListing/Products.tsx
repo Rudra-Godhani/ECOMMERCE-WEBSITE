@@ -19,6 +19,7 @@ const Products: React.FC<ProductsProps> = ({
     const [selectedSort, setSelectedSort] = useState<string>(
         "Popularity: high to low"
     );
+    const [searchText, setSearchText] = useState<string>("");
 
     const sortOptions = [
         "Popularity: high to low",
@@ -33,16 +34,6 @@ const Products: React.FC<ProductsProps> = ({
         [sortOptions[2], "price_high_to_low"],
         [sortOptions[3], "price_low_to_high"],
     ]);
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const location = useLocation();
-    const { searchText } = location.state || {};
-
-    const dispatch = useDispatch<AppDispatch>();
-
-    useEffect(() => {
-        dispatch(getSearchedProducts(searchText));
-    }, [dispatchEvent, searchText]);
 
     return (
         <Box sx={{ py: "48px" }} maxWidth={"1100px"} mx={"auto"}>
@@ -61,6 +52,8 @@ const Products: React.FC<ProductsProps> = ({
                         sortBy={sortByMap}
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
                     />
                 </Grid>
                 <Grid
@@ -78,6 +71,8 @@ const Products: React.FC<ProductsProps> = ({
                         sortBy={sortByMap}
                         selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
                     />
                 </Grid>
             </Grid>
