@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Product } from "../../data/allProductsData";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const slideVariants = {
     enter: (direction: number) => ({
@@ -19,20 +21,20 @@ const slideVariants = {
     }),
 };
 
-interface ProductImageSliderProps {
-    product: Product;
-}
-
-const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ product }) => {
+const ProductImageSlider: React.FC = () => {
     const [index, setIndex] = useState(0);
     const [direction, setDirection] = useState(1);
 
+    const { product } = useSelector((state: RootState) => state.product);
+
     const nextSlide = () => {
+        if (!product || !product.images) return;
         setDirection(1);
         setIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
     };
 
     const prevSlide = () => {
+        if (!product || !product.images) return;
         setDirection(-1);
         setIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
     };
@@ -55,7 +57,7 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ product }) => {
                     <AnimatePresence custom={direction} mode="popLayout">
                         <motion.img
                             key={index}
-                            src={product.images[index]}
+                            src={product?.images[index]}
                             alt={`Slide ${index}`}
                             style={{
                                 position: "absolute",
@@ -103,7 +105,8 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ product }) => {
                 </Box>
 
                 <Stack direction="row" gap="10px">
-                    {product.images.length > 0 &&
+                    {product &&
+                        product.images.length > 0 &&
                         product.images.map((img: string, imgIndex: number) => (
                             <img
                                 key={imgIndex}
