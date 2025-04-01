@@ -20,6 +20,10 @@ const Products: React.FC<ProductsProps> = ({
         "Popularity: high to low"
     );
     const [searchText, setSearchText] = useState<string>("");
+    const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+    const [minPrice, setMinPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(5000);
+    const [value, setValue] = useState<number[]>([minPrice, maxPrice]);
 
     const sortOptions = [
         "Popularity: high to low",
@@ -54,6 +58,14 @@ const Products: React.FC<ProductsProps> = ({
                         setSelectedCategory={setSelectedCategory}
                         searchText={searchText}
                         setSearchText={setSearchText}
+                        selectedBrand={selectedBrand}
+                        setSelectedBrand={setSelectedBrand}
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
+                        value={value}
+                        setValue={setValue}
                     />
                 </Grid>
                 <Grid
@@ -73,6 +85,14 @@ const Products: React.FC<ProductsProps> = ({
                         setSelectedCategory={setSelectedCategory}
                         searchText={searchText}
                         setSearchText={setSearchText}
+                        selectedBrand={selectedBrand}
+                        setSelectedBrand={setSelectedBrand}
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
+                        value={value}
+                        setValue={setValue}
                     />
                 </Grid>
             </Grid>
