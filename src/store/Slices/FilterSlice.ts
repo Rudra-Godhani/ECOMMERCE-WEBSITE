@@ -9,6 +9,7 @@ interface FilterState {
     showAll: boolean;
     minPrice: number;
     maxPrice: number;
+    searchText: string | null;
 }
 
 const initialState: FilterState = {
@@ -19,6 +20,7 @@ const initialState: FilterState = {
     showAll: true,
     minPrice: 10,
     maxPrice: 5000,
+    searchText: null,
 };
 
 const filterSlice = createSlice({
