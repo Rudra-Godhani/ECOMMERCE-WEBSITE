@@ -1,11 +1,9 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
 import { Product } from "../../data/allProductsData";
-
-interface ProductProps {
-    product: Product;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const productDetails: string[] = [
     "Description",
@@ -13,8 +11,11 @@ const productDetails: string[] = [
     "Reviews",
 ];
 
-const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
+const ProductAddInfo: React.FC = () => {
     const [selectedItem, setSelectedItem] = useState<string>("Description");
+    const { product, loading } = useSelector(
+        (state: RootState) => state.product
+    );
     return (
         <Box>
             <Stack
@@ -81,16 +82,26 @@ const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
                             overflow: "hidden",
                         }}
                     >
-                        <img
-                            src={product.images[0]}
-                            alt=""
-                            style={{
-                                objectFit: "cover",
-                                width: "100%",
-                                height: "100%",
-                                display: "block",
-                            }}
-                        />
+                        {" "}
+                        {loading ? (
+                            <Skeleton
+                                variant="rectangular"
+                                width="100%"
+                                height="100%"
+                                animation="wave"
+                            />
+                        ) : (
+                            <img
+                                src={product?.images[0]}
+                                alt=""
+                                style={{
+                                    objectFit: "cover",
+                                    width: "100%",
+                                    height: "100%",
+                                    display: "block",
+                                }}
+                            />
+                        )}
                     </Box>
                     {selectedItem === "Description" && (
                         <Stack
@@ -101,24 +112,57 @@ const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
                                 pt: { xs: "55px", sm: "0" },
                             }}
                         >
-                            <Typography
-                                variant="h3"
-                                color="secondary"
-                                sx={{
-                                    fontSize: { sm: "22px", md: "24px" },
-                                }}
-                            >
-                                Product Description
-                            </Typography>
-                            <Typography variant="h6" color="gray">
-                                {product.descriptionLong[0]}
-                            </Typography>
-                            <Typography variant="h6" color="gray">
-                                {product.descriptionLong[1]}
-                            </Typography>
-                            <Typography variant="h6" color="gray">
-                                {product.descriptionLong[2]}
-                            </Typography>
+                            {" "}
+                            {loading ? (
+                                <>
+                                    <Skeleton
+                                        variant="text"
+                                        width="60%"
+                                        height={45}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="100%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="100%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="80%"
+                                        height={30}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <Typography
+                                        variant="h3"
+                                        color="secondary"
+                                        sx={{
+                                            fontSize: {
+                                                sm: "22px",
+                                                md: "24px",
+                                            },
+                                        }}
+                                    >
+                                        Product Description
+                                    </Typography>
+                                    {product?.descriptionLong.map(
+                                        (text, index) => (
+                                            <Typography
+                                                key={index}
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {text}
+                                            </Typography>
+                                        )
+                                    )}
+                                </>
+                            )}
                         </Stack>
                     )}
                     {selectedItem === "Additional Information" && (
@@ -129,21 +173,58 @@ const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
                                 pt: { xs: "55px", sm: "0" },
                             }}
                         >
-                            <Typography
-                                variant="h3"
-                                color="secondary"
-                                sx={{ fontSize: { sm: "22px", md: "24px" } }}
-                            >
-                                Additional Information
-                            </Typography>
-                            <Stack gap="10px">
-                                <Typography variant="h6" color="gray">
-                                    {product.additionalInformation}
-                                </Typography>
-                                <Typography variant="h6" color="gray">
-                                    {product.additionalInformation}
-                                </Typography>
-                            </Stack>
+                            {loading ? (
+                                <>
+                                    <Skeleton
+                                        variant="text"
+                                        width="60%"
+                                        height={45}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="100%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="100%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="80%"
+                                        height={30}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width="80%"
+                                        height={30}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <Typography
+                                        variant="h3"
+                                        color="secondary"
+                                        sx={{
+                                            fontSize: {
+                                                sm: "22px",
+                                                md: "24px",
+                                            },
+                                        }}
+                                    >
+                                        Additional Information
+                                    </Typography>
+                                    <Stack gap="10px">
+                                        <Typography variant="h6" color="gray">
+                                            {product?.additionalInformation}
+                                        </Typography>
+                                        <Typography variant="h6" color="gray">
+                                            {product?.additionalInformation}
+                                        </Typography>
+                                    </Stack>
+                                </>
+                            )}
                         </Stack>
                     )}
                     {selectedItem === "Reviews" && (
@@ -154,51 +235,100 @@ const ProductAddInfo: React.FC<ProductProps> = ({ product }) => {
                                 pt: { xs: "55px", sm: "0" },
                             }}
                         >
-                            <Typography
-                                variant="h3"
-                                color="secondary"
-                                sx={{ fontSize: { sm: "22px", md: "24px" } }}
-                            >
-                                Customer Reviews
-                            </Typography>
-                            <Stack gap="10px">
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[0]} – Emma L.
+                            {loading ? (
+                                <>
+                                    <Skeleton
+                                        variant="text"
+                                        width="60%"
+                                        height={45}
+                                    />
+                                    {[...Array(5)].map((_, index) => (
+                                        <Skeleton
+                                            key={index}
+                                            variant="text"
+                                            width="90%"
+                                            height={30}
+                                        />
+                                    ))}
+                                </>
+                            ) : (
+                                <>
+                                    <Typography
+                                        variant="h3"
+                                        color="secondary"
+                                        sx={{
+                                            fontSize: {
+                                                sm: "22px",
+                                                md: "24px",
+                                            },
+                                        }}
+                                    >
+                                        Customer Reviews
                                     </Typography>
-                                </Stack>
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[1]} – Mark R.
-                                    </Typography>
-                                </Stack>
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[2]} – Tom P.
-                                    </Typography>
-                                </Stack>
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[3]} – Sharma B.
-                                    </Typography>
-                                </Stack>
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[4]} – Roy N.
-                                    </Typography>
-                                </Stack>
-                                <Stack direction={"row"} gap="20px">
-                                    <ArrowForwardIos htmlColor="gray" />
-                                    <Typography variant="h6" color="gray">
-                                        {product.reviewsText[5]} – Nick K.
-                                    </Typography>
-                                </Stack>
-                            </Stack>
+                                    <Stack gap="10px">
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[0]} – Emma
+                                                L.
+                                            </Typography>
+                                        </Stack>
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[1]} – Mark
+                                                R.
+                                            </Typography>
+                                        </Stack>
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[2]} – Tom
+                                                P.
+                                            </Typography>
+                                        </Stack>
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[3]} –
+                                                Sharma B.
+                                            </Typography>
+                                        </Stack>
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[4]} – Roy
+                                                N.
+                                            </Typography>
+                                        </Stack>
+                                        <Stack direction={"row"} gap="20px">
+                                            <ArrowForwardIos htmlColor="gray" />
+                                            <Typography
+                                                variant="h6"
+                                                color="gray"
+                                            >
+                                                {product?.reviewsText[5]} – Nick
+                                                K.
+                                            </Typography>
+                                        </Stack>
+                                    </Stack>
+                                </>
+                            )}
                         </Stack>
                     )}
                     <Stack></Stack>
