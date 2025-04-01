@@ -15,6 +15,7 @@ interface LoadingStates {
 export interface CartItem {
     quantity: number;
     product: Product;
+    color: string;
 }
 
 interface CartState {
@@ -33,10 +34,6 @@ const initialState: CartState = {
     message: null,
 };
 
-interface Cart {
-    cartItems: CartItem[];
-}
-
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -47,12 +44,12 @@ const cartSlice = createSlice({
         getCartSuccess(
             state,
             action: PayloadAction<{
-                cartData: Cart;
+                cartData: CartItem[];
                 message: string;
             }>
         ) {
             state.getCartloading = false;
-            state.cartItems = action.payload.cartData.cartItems;
+            state.cartItems = action.payload.cartData;
             state.message = action.payload.message;
             state.error = null;
         },
@@ -79,11 +76,11 @@ const cartSlice = createSlice({
         addToCartSuccess: (
             state,
             action: PayloadAction<{
-                cartData: Cart;
+                cartData: CartItem[];
                 message: string;
             }>
         ) => {
-            state.cartItems = action.payload.cartData.cartItems;
+            state.cartItems = action.payload.cartData;
             state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
@@ -116,11 +113,11 @@ const cartSlice = createSlice({
         removeFromCartSuccess: (
             state,
             action: PayloadAction<{
-                cartData: Cart;
+                cartData: CartItem[];
                 message: string;
             }>
         ) => {
-            state.cartItems = action.payload.cartData.cartItems;
+            state.cartItems = action.payload.cartData;
             state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
@@ -153,11 +150,11 @@ const cartSlice = createSlice({
         decreaseQantitySuccess: (
             state,
             action: PayloadAction<{
-                cartData: Cart;
+                cartData: CartItem[];
                 message: string;
             }>
         ) => {
-            state.cartItems = action.payload.cartData.cartItems;
+            state.cartItems = action.payload.cartData;
             state.loadingStates = {};
             state.message = action.payload.message;
             state.error = null;
@@ -188,7 +185,10 @@ const cartSlice = createSlice({
 const handleApiCall = async (
     dispatch: AppDispatch,
     requestAction: () => AnyAction,
-    successAction: (data: { cartData: Cart; message: string }) => AnyAction,
+    successAction: (data: {
+        cartData: CartItem[];
+        message: string;
+    }) => AnyAction,
     failureAction: (data: { message: string; productId?: string }) => AnyAction,
     apiCall: () => Promise<any>
 ) => {
@@ -223,7 +223,8 @@ export const getCart = () => async (dispatch: AppDispatch) => {
 };
 
 export const addProductToCart =
-    (data: { productId: string }) => async (dispatch: AppDispatch) => {
+    (data: { productId: string; color: string }) =>
+    async (dispatch: AppDispatch) => {
         console.log("addtocart:");
         await handleApiCall(
             dispatch,
