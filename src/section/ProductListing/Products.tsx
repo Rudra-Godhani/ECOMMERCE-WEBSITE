@@ -19,9 +19,10 @@ const Products: React.FC<ProductsProps> = ({
     const [selectedSort, setSelectedSort] = useState<string>(
         "Popularity: high to low"
     );
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const [searchText, setSearchText] = useState<string>("");
     const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-    const [minPrice, setMinPrice] = useState<number>(0);
+    const [minPrice, setMinPrice] = useState<number>(10);
     const [maxPrice, setMaxPrice] = useState<number>(5000);
     const [value, setValue] = useState<number[]>([minPrice, maxPrice]);
 
@@ -66,6 +67,8 @@ const Products: React.FC<ProductsProps> = ({
                         setMaxPrice={setMaxPrice}
                         value={value}
                         setValue={setValue}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 </Grid>
                 <Grid
@@ -93,6 +96,8 @@ const Products: React.FC<ProductsProps> = ({
                         setMaxPrice={setMaxPrice}
                         value={value}
                         setValue={setValue}
+                        current_Page={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 </Grid>
             </Grid>
