@@ -55,10 +55,10 @@ const App: React.FC = () => {
     // useEffect(() => {
     //     dispatch(getCart());
     // }, [dispatch]);h]);
-    
+
     useEffect(() => {
         dispatch(getWishList());
-    },[dispatch]);
+    }, [dispatch]);
 
     return (
         <>
