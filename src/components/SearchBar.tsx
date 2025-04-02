@@ -17,6 +17,7 @@ interface SearchBarProps {
     maxPrice: number;
     setMaxPrice: (maxPrice: number) => void;
     setValue: (value: number[]) => void;
+    currentPage: number;
 }
 const SearchBar: React.FC<SearchBarProps> = ({
     setSelectedSort,
@@ -29,6 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     maxPrice,
     setMaxPrice,
     setValue,
+    currentPage
 }) => {
     const handleClear = () => setSearchText("");
 
@@ -55,6 +57,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
             maxprice: 5000,
             sortby: "popularity_high_to_low",
             search: searchText,
+            page: 1,
+            limit: 9,
         };
         dispatch(getFilteredProducts(filterData));
     };
