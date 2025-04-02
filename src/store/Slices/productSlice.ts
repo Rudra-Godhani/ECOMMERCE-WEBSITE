@@ -41,6 +41,8 @@ interface ProductState {
     product: Product | null;
     filteredProducts: Product[] | [];
     searchedProducts: Product[] | [];
+    totalPages: number; // New: total number of pages
+    currentPage: number; // New: current page number
     isFiltered: boolean;
     isSearched: boolean;
     error: string | null;
@@ -55,6 +57,8 @@ const initialState: ProductState = {
     product: null,
     filteredProducts: [],
     searchedProducts: [],
+    totalPages: 1,
+    currentPage: 1,
     isFiltered: false,
     isSearched: false,
     error: null,
@@ -115,10 +119,14 @@ const productSlice = createSlice({
             state,
             action: PayloadAction<{
                 filteredProducts: Product[];
+                totalPages: number;
+                currentPage: number;
             }>
         ) {
             state.filteredLoading = false;
             state.filteredProducts = action.payload.filteredProducts;
+            state.totalPages = action.payload.totalPages;
+            state.currentPage = action.payload.currentPage;
             state.isFiltered = true;
         },
         fetchFilteredProductsFailed(
@@ -172,6 +180,8 @@ const handleApiCall = async (
         products: Product[];
         filteredProducts: Product[];
         searchedProducts: Product[];
+        totalPages: number;
+        currentPage: number;
     }) => AnyAction,
     failureAction: (data: { message: string }) => AnyAction,
     apiCall: () => Promise<any>
@@ -180,7 +190,7 @@ const handleApiCall = async (
     try {
         const response = await apiCall();
         // await new Promise((resolve) => setTimeout(resolve, 5000));
-        console.log("data:", response.data);
+        console.log("product data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -192,18 +202,24 @@ const handleApiCall = async (
     }
 };
 
-export const getAllProducts = () => async (dispatch: AppDispatch) => {
-    await handleApiCall(
-        dispatch,
-        productSlice.actions.fetchAllProductsRequest,
-        productSlice.actions.fetchAllProductsSuccess,
-        productSlice.actions.fetchAllProductsFailed,
-        () =>
-            axios.get(`${BASE_URL}/product/getallproducts`, {
-                withCredentials: true,
-            })
-    );
-};
+export const getAllProducts =
+    () =>
+    async (dispatch: AppDispatch) => {
+        await handleApiCall(
+            dispatch,
+            productSlice.actions.fetchAllProductsRequest,
+            productSlice.actions.fetchAllProductsSuccess,
+            productSlice.actions.fetchAllProductsFailed,
+            () => {
+                return axios.get(
+                    `${BASE_URL}/product/getallproducts`,
+                    {
+                        withCredentials: true,
+                    }
+                )
+            }
+        );
+    };
 
 export const getSingleProduct =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
@@ -226,6 +242,8 @@ interface FilterData {
     maxprice: number;
     sortby?: string;
     search: string;
+    page: number,
+    limit: number,
 }
 
 export const getFilteredProducts =
@@ -236,7 +254,7 @@ export const getFilteredProducts =
             productSlice.actions.fetchFilteredProductsSuccess,
             productSlice.actions.fetchFilteredProductsFailed,
             () => {
-                let url = `${BASE_URL}/product/filteredproducts?`;
+                let url = `${BASE_URL}/product/filteredproducts?page=${data.page}&limit=${data.limit}&`;
                 let queryParams = [];
                 if (data.category) {
                     queryParams.push(`category=${data.category}`);
