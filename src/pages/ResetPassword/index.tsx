@@ -35,12 +35,10 @@ const ResetPassword: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (token) {
