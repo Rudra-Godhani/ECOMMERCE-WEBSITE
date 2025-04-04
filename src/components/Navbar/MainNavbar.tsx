@@ -21,7 +21,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import SearchBar from "../SearchBar";
 
 const pages = [
     { name: "Home", link: "/" },
@@ -199,12 +198,7 @@ const MainNavbar: React.FC = () => {
                             </Box>
                             <IconButton>
                                 <SearchIcon
-                                    // fontSize="small"
                                     htmlColor="#23A6F0"
-                                    // sx={{
-                                    //     cursor: "pointer",
-                                    //     // m: { xs: "0 5px", md: "0 15px" },
-                                    // }}
                                 />
                             </IconButton>
                             <NavLink
@@ -222,7 +216,6 @@ const MainNavbar: React.FC = () => {
                                     sx={{ mr: "10px" }}
                                 >
                                     <ShoppingCartIcon
-                                        // fontSize="small"
                                         sx={{
                                             cursor: "pointer",
                                             m: "0px 5px 0px 15px",
@@ -248,7 +241,6 @@ const MainNavbar: React.FC = () => {
                                         sx={{
                                             cursor: "pointer",
                                             m: "0px 5px 0px 15px",
-                                            // m: "5px",
                                         }}
                                     />
                                 </Badge>
