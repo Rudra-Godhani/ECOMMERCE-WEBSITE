@@ -103,7 +103,7 @@ const wishListSlice = createSlice({
         ) => {
             state.loadingStates[action.payload.productId] = {
                 ...state.loadingStates[action.payload.productId],
-                isAdding: true,
+                isRemoving: true,
             };
         },
         removeFromWIshListSuccess: (
@@ -128,7 +128,7 @@ const wishListSlice = createSlice({
             if (action.payload.productId) {
                 state.loadingStates[action.payload.productId] = {
                     ...state.loadingStates[action.payload.productId],
-                    isAdding: false,
+                    isRemoving: false,
                 };
             }
             state.error = action.payload.message;

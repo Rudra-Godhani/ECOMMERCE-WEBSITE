@@ -3,7 +3,7 @@ import { AppDispatch } from "../store";
 import axios, { AxiosError } from "axios";
 import { BASE_URL } from "../../const/constants";
 
-interface Product {
+export interface Product {
     id: string;
     title: string;
     descriptionSmall: string;
@@ -165,7 +165,7 @@ const productSlice = createSlice({
             state.error = action.payload.message;
             state.isSearched = true;
         },
-        clearAllErrorsAndMsgs(state) {
+        clearAllProductErrorsAndMsgs(state) {
             state.error = null;
             state.message = null;
         },
@@ -299,8 +299,8 @@ export const getSearchedProducts =
         );
     };
 
-export const clearAllErrorsAndMessages = () => (dispatch: AppDispatch) => {
-    dispatch(productSlice.actions.clearAllErrorsAndMsgs());
+export const clearAllProductErrorsAndMessages = () => (dispatch: AppDispatch) => {
+    dispatch(productSlice.actions.clearAllProductErrorsAndMsgs());
 };
 
 export default productSlice.reducer;
