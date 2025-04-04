@@ -1,5 +1,5 @@
 import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
@@ -25,12 +25,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
     searchText,
     setSearchText,
     setSelectedBrand,
-    minPrice,
     setMinPrice,
-    maxPrice,
     setMaxPrice,
-    setValue,
-    currentPage
 }) => {
     const handleClear = () => setSearchText("");
 
