@@ -647,9 +647,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { Link, useSearchParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
-import { ITEMS_PER_PAGE } from "../../const/constants";
 import SearchBar from "../../components/SearchBar";
-import { getFilteredProducts } from "../../store/Slices/productSlice";
 
 interface FilteredProductsProps {
     selectedSort: string;
@@ -700,14 +698,14 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
         totalPages,
         currentPage,
     } = useSelector((state: RootState) => state.product);
-    
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useSearchParams();
     const topRef = React.useRef<HTMLDivElement>(null);
-    
+
     const activeProducts = isFiltered ? filteredProducts : products;
-    
+
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -721,7 +719,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
             handlePageChange(1);
         }
     };
-    
+
     const toggleDrawer = (open: boolean) => () => {
         setDrawerOpen(open);
     };
@@ -738,7 +736,6 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
             topRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [currentPage]);
-
 
     return (
         <Box sx={{ px: "20px" }} ref={topRef}>
@@ -888,6 +885,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                 setMinPrice={setMinPrice}
                 setMaxPrice={setMaxPrice}
                 setValue={setValue}
+                currentPage={currentPage}
             />
 
             {searchQuery.get("q") && (
