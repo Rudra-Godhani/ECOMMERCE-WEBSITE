@@ -1,7 +1,6 @@
 import { Box, Card, Skeleton, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { productsData } from "../../data/allProductsData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
@@ -10,7 +9,7 @@ const BestSellerProducts: React.FC = () => {
         (state: RootState) => state.product
     );
 
-    const randomProducts = products.slice(41);
+    const bestSellerProducts = products.slice(101, 109);
 
     return (
         <Box sx={{ backgroundColor: "#FAFAFA" }}>
@@ -93,7 +92,11 @@ const BestSellerProducts: React.FC = () => {
                                             height={20}
                                         />
                                     </Stack>
-                                    <Stack direction="row" spacing={0.75} justifyContent={"center"}>
+                                    <Stack
+                                        direction="row"
+                                        spacing={0.75}
+                                        justifyContent={"center"}
+                                    >
                                         <Skeleton
                                             variant="text"
                                             width="60px"
@@ -105,7 +108,11 @@ const BestSellerProducts: React.FC = () => {
                                             height={30}
                                         />
                                     </Stack>
-                                    <Stack direction="row" spacing={0.75} justifyContent={"center"}>
+                                    <Stack
+                                        direction="row"
+                                        spacing={0.75}
+                                        justifyContent={"center"}
+                                    >
                                         {Array.from(new Array(3)).map(
                                             (_, i) => (
                                                 <Skeleton
@@ -138,7 +145,7 @@ const BestSellerProducts: React.FC = () => {
                                 },
                             }}
                         >
-                            {!loading && randomProducts.length === 0 && (
+                            {!loading && bestSellerProducts.length === 0 && (
                                 <Box
                                     sx={{
                                         textAlign: "center",
@@ -151,8 +158,11 @@ const BestSellerProducts: React.FC = () => {
                                     </Typography>
                                 </Box>
                             )}
-                            {randomProducts.map((item) => (
-                                <Link to={`/product/${item.id}/detail`} key={item.id}>
+                            {bestSellerProducts.map((item) => (
+                                <Link
+                                    to={`/product/${item.id}/detail`}
+                                    key={item.id}
+                                >
                                     <Card
                                         key={item.id}
                                         sx={{
