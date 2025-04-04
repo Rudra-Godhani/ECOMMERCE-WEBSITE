@@ -30,7 +30,6 @@ const Featured: React.FC = () => {
             }}
         >
             <Container maxWidth="lg" sx={{ margin: "auto", p: "0" }}>
-                {/* Header Section */}
                 <Stack
                     sx={{
                         textAlign: "center",
@@ -59,7 +58,6 @@ const Featured: React.FC = () => {
                     </Typography>
                 </Stack>
 
-                {/* Product Section */}
                 <Box
                     sx={{
                         display: "grid",
@@ -71,7 +69,6 @@ const Featured: React.FC = () => {
                         columnGap: "30px",
                     }}
                 >
-                    {/* Show shimmer effect while loading */}
                     {loading
                         ? Array.from(new Array(8)).map((_, index) => (
                               <Card

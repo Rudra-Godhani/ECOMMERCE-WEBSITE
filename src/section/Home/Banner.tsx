@@ -7,9 +7,9 @@ const Banner: React.FC = () => {
         (state: RootState) => state.product
     );
 
-    const edit1 = (productsData ?? []).slice(26, 27)[0]?.images[0];
-    const edit2 = (productsData ?? []).slice(42, 43)[0]?.images[0];
-    const edit3 = (productsData ?? []).slice(13, 14)[0]?.images[0];
+    const edit1 = (productsData ?? []).slice(53, 54)[0]?.images[0];
+    const edit2 = (productsData ?? []).slice(61, 62)[0]?.images[0];
+    const edit3 = (productsData ?? []).slice(110, 111)[0]?.images[0];
     const edit4 = (productsData ?? []).slice(29, 30)[0]?.images[0];
 
     return (
@@ -47,7 +47,6 @@ const Banner: React.FC = () => {
                             columnGap: "30px",
                         }}
                     >
-                        {/* Image 1 */}
                         <Box
                             position={"relative"}
                             width={"100%"}
@@ -86,14 +85,14 @@ const Banner: React.FC = () => {
                                         p: "12px 60px",
                                         backgroundColor: "#ffffff",
                                         color: "#252B42",
+                                        textTransform: "uppercase",
                                     }}
                                 >
-                                    BEAUTY
+                                    Women’s Clothing
                                 </Typography>
                             )}
                         </Box>
 
-                        {/* Image 2 */}
                         <Box
                             position={"relative"}
                             width={"100%"}
@@ -125,14 +124,14 @@ const Banner: React.FC = () => {
                                         p: "12px 33px",
                                         backgroundColor: "#ffffff",
                                         color: "#252B42",
+                                        textTransform: "uppercase",
                                     }}
                                 >
-                                    HANDBAGS
+                                    Mobiles
                                 </Typography>
                             )}
                         </Box>
 
-                        {/* Small Images Section */}
                         <Box
                             display={"grid"}
                             gap={"16px"}
@@ -140,7 +139,6 @@ const Banner: React.FC = () => {
                                 gridTemplateColumns: { xs: "1fr", md: "auto" },
                             }}
                         >
-                            {/* Image 3 */}
                             <Box
                                 position={"relative"}
                                 width={"100%"}
@@ -172,14 +170,14 @@ const Banner: React.FC = () => {
                                             p: "12px 26px",
                                             backgroundColor: "#ffffff",
                                             color: "#252B42",
+                                            textTransform: "uppercase",
                                         }}
                                     >
-                                        WATCHES
+                                        Jewellery
                                     </Typography>
                                 )}
                             </Box>
 
-                            {/* Image 4 */}
                             <Box
                                 position={"relative"}
                                 width={"100%"}
@@ -210,9 +208,10 @@ const Banner: React.FC = () => {
                                             p: "12px 40px",
                                             backgroundColor: "#ffffff",
                                             color: "#252B42",
+                                            textTransform: "uppercase"
                                         }}
                                     >
-                                        KIDS
+                                        Kid’s Clothing
                                     </Typography>
                                 )}
                             </Box>

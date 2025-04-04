@@ -52,7 +52,6 @@ const FeaturedPost: React.FC = () => {
                             sm: "repeat(auto-fit, minmax(300px, 1fr))",
                         },
                         p: "0px 0px",
-                        // justifyContent: "center",
                         gap: { xs: "30px", sm: "10px" },
                     }}
                 >
