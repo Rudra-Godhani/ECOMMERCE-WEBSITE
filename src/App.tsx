@@ -20,14 +20,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
 import { useEffect } from "react";
 import {
-    clearAllErrorsAndMessages,
+    clearAllProductErrorsAndMessages,
     getAllProducts,
 } from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
-import { getCart } from "./store/Slices/CartSlice";
 import { getWishList } from "./store/Slices/WishListSlice";
-import { getAllCategories } from "./store/Slices/categorySlice";
-import { getAllBrands } from "./store/Slices/brandSlice";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -46,19 +43,21 @@ const App: React.FC = () => {
         if (message) {
             toast.success(message);
         }
-        dispatch(clearAllErrorsAndMessages());
+        dispatch(clearAllProductErrorsAndMessages());
     }, [dispatch, loading, error, message]);
 
     // useEffect(() => {
-    //     dispatch(getSearchedProducts("gold"));
+    //     dispatch(getCart());
     // }, [dispatch]);
+
+    // useEffect(() => {
+    //     dispatch(getWishList());
+    // }, [dispatch]);
+
+    // const dispatch = useDispatch<AppDispatch>();
     // useEffect(() => {
     //     dispatch(getCart());
-    // }, [dispatch]);h]);
-
-    useEffect(() => {
-        dispatch(getWishList());
-    }, [dispatch]);
+    // });
 
     return (
         <>
@@ -75,6 +74,7 @@ const App: React.FC = () => {
                         element={<ResetPassword />}
                     />
                     <Route path="about-us" element={<AboutUs />} />
+
                     <Route path="product">
                         <Route
                             path="listing"
@@ -85,6 +85,7 @@ const App: React.FC = () => {
                             element={<ProductDetails />}
                         ></Route>
                     </Route>
+
                     <Route path="*" element={<Error />} />
 
                     <Route element={<ProtectedRoute />}>
