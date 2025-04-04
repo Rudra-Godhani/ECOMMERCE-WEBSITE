@@ -1,7 +1,6 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { ArrowForwardIos } from "@mui/icons-material";
-import { Product } from "../../data/allProductsData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
