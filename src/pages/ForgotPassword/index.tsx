@@ -17,12 +17,10 @@ const ForgotPassword: React.FC = () => {
     );
     const dispatch = useDispatch<AppDispatch>();
 
-    // Handle input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
-
-    // Handle form submission
+    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(forgotPassword({ email }));
