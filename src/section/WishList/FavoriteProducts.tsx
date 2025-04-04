@@ -24,7 +24,9 @@ import { toast } from "react-toastify";
 import {
     addProductToWishList,
     clearAllWishListErrosAndMsgs,
+    getWishList,
     removeProductFromWishList,
+    WishListItem,
 } from "../../store/Slices/WishListSlice";
 
 const FavoriteProducts: React.FC = () => {
@@ -59,6 +61,10 @@ const FavoriteProducts: React.FC = () => {
             dispatch(addProductToWishList({ productId: id, color: color }));
         }
     };
+
+    useEffect(() => {
+        dispatch(getWishList());
+    }, [dispatch]);
 
     useEffect(() => {
         if (cartError) {
@@ -231,7 +237,7 @@ const FavoriteProducts: React.FC = () => {
                 </Box>
             ) : (
                 <>
-                    {wishListItems.length === 0 ? (
+                    {wishListItems?.length === 0 ? (
                         <Typography
                             variant="h2"
                             color="textSecondary"
@@ -260,27 +266,38 @@ const FavoriteProducts: React.FC = () => {
                                         },
                                     }}
                                 >
-                                    {wishListItems.map((item) => {
+                                    {wishListItems?.map((item) => {
                                         const isInCart = cartItems?.some(
                                             (p: CartItem) =>
                                                 p.product.id ===
                                                 item.product?.id
                                         );
-                                        const isAdding =
+                                        const isAddingToCart =
                                             cartLoadingStates[item.product?.id]
                                                 ?.isAdding;
-                                        const isRemoving =
+                                        const isRemovingFromCart =
                                             cartLoadingStates[item.product?.id]
                                                 ?.isRemoving;
-                                        const isLoading =
-                                            isAdding || isRemoving;
-                                        console.log(
-                                            "loadingStates: ",
-                                            cartLoadingStates
-                                        );
-                                        console.log("isAdding: ", isAdding);
-                                        console.log("isRemoving: ", isRemoving);
-                                        console.log("loading:", isLoading);
+                                        const isLoadingCart =
+                                            isAddingToCart ||
+                                            isRemovingFromCart;
+                                        const isInWishList =
+                                            wishListItems?.some(
+                                                (p: WishListItem) =>
+                                                    p.product.id ===
+                                                    item.product?.id
+                                            );
+                                        const isAddingToWishList =
+                                            wishListLoadingStates[
+                                                item.product?.id
+                                            ]?.isAdding;
+                                        const isRemovingFromWishList =
+                                            wishListLoadingStates[
+                                                item.product?.id
+                                            ]?.isRemoving;
+                                        const isLoadingWishList =
+                                            isAddingToWishList ||
+                                            isRemovingFromWishList;
                                         return (
                                             <Box
                                                 sx={{
@@ -402,6 +419,7 @@ const FavoriteProducts: React.FC = () => {
                                                                     item.color,
                                                                 borderRadius:
                                                                     "50%",
+                                                                border: "2px solid rgb(184, 180, 180)",
                                                             }}
                                                         ></Box>
                                                     </Stack>
@@ -442,8 +460,11 @@ const FavoriteProducts: React.FC = () => {
                                                                     item.color
                                                                 )
                                                             }
+                                                            disabled={
+                                                                isLoadingCart
+                                                            }
                                                         >
-                                                            {isLoading ? (
+                                                            {isLoadingCart ? (
                                                                 <CircularProgress
                                                                     size={24}
                                                                     sx={{
@@ -471,22 +492,32 @@ const FavoriteProducts: React.FC = () => {
                                                                 "center"
                                                             }
                                                             display={"flex"}
-                                                            onClick={() =>
-                                                                handleFavorite(
-                                                                    item.product
-                                                                        .id,
-                                                                    item.color
-                                                                )
-                                                            }
                                                         >
-                                                            {wishListItems.some(
-                                                                (p) =>
-                                                                    p.product
-                                                                        .id ===
-                                                                    item.product
-                                                                        .id
-                                                            ) ? (
-                                                                <IconButton>
+                                                            {isLoadingWishList ? (
+                                                                <IconButton
+                                                                    disabled
+                                                                >
+                                                                    <FavoriteBorderIcon
+                                                                        fontSize="medium"
+                                                                        sx={{
+                                                                            color: "#E8E8E8",
+                                                                        }}
+                                                                    />
+                                                                </IconButton>
+                                                            ) : isInWishList ? (
+                                                                <IconButton
+                                                                    onClick={() =>
+                                                                        handleFavorite(
+                                                                            item
+                                                                                .product
+                                                                                .id,
+                                                                            item.color
+                                                                        )
+                                                                    }
+                                                                    disabled={
+                                                                        isLoadingWishList
+                                                                    }
+                                                                >
                                                                     <FavoriteIcon
                                                                         fontSize="medium"
                                                                         sx={{
@@ -495,7 +526,19 @@ const FavoriteProducts: React.FC = () => {
                                                                     />
                                                                 </IconButton>
                                                             ) : (
-                                                                <IconButton>
+                                                                <IconButton
+                                                                    onClick={() =>
+                                                                        handleFavorite(
+                                                                            item
+                                                                                .product
+                                                                                .id,
+                                                                            item.color
+                                                                        )
+                                                                    }
+                                                                    disabled={
+                                                                        isLoadingWishList
+                                                                    }
+                                                                >
                                                                     <FavoriteBorderIcon fontSize="medium" />
                                                                 </IconButton>
                                                             )}
