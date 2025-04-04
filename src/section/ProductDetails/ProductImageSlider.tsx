@@ -2,7 +2,6 @@ import { Box, Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
-import { Product } from "../../data/allProductsData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
@@ -75,7 +74,6 @@ const ProductImageSlider: React.FC = () => {
                         />
                     </AnimatePresence>
 
-                    {/* Previous Button */}
                     <Button
                         sx={{
                             position: "absolute",
@@ -89,7 +87,6 @@ const ProductImageSlider: React.FC = () => {
                         <ArrowBackIos fontSize="large" htmlColor="#FFFFFF" />
                     </Button>
 
-                    {/* Next Button */}
                     <Button
                         sx={{
                             position: "absolute",
