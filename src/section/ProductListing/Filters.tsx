@@ -415,7 +415,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import {
-    clearAllErrorsAndMessages,
+    clearAllProductErrorsAndMessages,
     getFilteredProducts,
     getSearchedProducts,
 } from "../../store/Slices/productSlice";
@@ -627,6 +627,10 @@ const Filters: React.FC<FiltersProps> = ({
     ]);
 
     useEffect(() => {
+        setCurrentPage(1);
+    },[selectedCategory,selectedBrand]);
+
+    useEffect(() => {
         dispatch(getAllCategories());
         dispatch(getAllBrands());
     }, [dispatch]);
@@ -638,7 +642,7 @@ const Filters: React.FC<FiltersProps> = ({
         if (message) {
             toast.success(message);
         }
-        dispatch(clearAllErrorsAndMessages());
+        dispatch(clearAllProductErrorsAndMessages());
     }, [dispatch, filteredLoading, error, message]);
 
     return (
