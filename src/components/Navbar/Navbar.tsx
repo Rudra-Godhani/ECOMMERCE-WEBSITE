@@ -6,10 +6,10 @@ import { getCart } from "../../store/Slices/CartSlice";
 import { AppDispatch } from "../../store/store";
 
 const Navbar: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-      dispatch(getCart());
-    });
+  // const dispatch = useDispatch<AppDispatch>();
+    // useEffect(() => {
+    //   dispatch(getCart());
+    // });
     return (
         <>
             <SocialNavbar />
