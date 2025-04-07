@@ -2,6 +2,7 @@ import { Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const CartTotal: React.FC = () => {
     const { cartItems, getCartloading } = useSelector(
@@ -19,6 +20,8 @@ const CartTotal: React.FC = () => {
         shippingCost = 20;
         totalCost = Number((subTotal + shippingCost).toFixed(2));
     }
+
+    const navigate = useNavigate();
 
     return (
         <Box
@@ -181,6 +184,11 @@ const CartTotal: React.FC = () => {
                                 border: "1px solid #E6E6E6",
                                 my: "30px",
                                 textTransform: "none",
+                            }}
+                            onClick={() => {
+                               if(totalCost !== 0) {
+                                navigate("/shopping-cart/checkout/address")
+                               }
                             }}
                         >
                             Checkout
