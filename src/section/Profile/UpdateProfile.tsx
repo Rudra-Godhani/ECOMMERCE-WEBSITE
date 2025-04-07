@@ -24,7 +24,6 @@ const UpdateProfile: React.FC = () => {
         name: user?.name || "",
         email: user?.email || "",
         phoneNumber: user?.phoneNumber ?? "",
-        address: user?.address || "",
         profileImage: user?.profileImage.url || null,
     });
 
@@ -44,14 +43,6 @@ const UpdateProfile: React.FC = () => {
         if (file) {
             const objectUrl = URL.createObjectURL(file);
             setPreviewImage(objectUrl);
-            // const reader = new FileReader();
-            // reader.onloadend = () => {
-            //     setFormData((prev) => ({
-            //         ...prev,
-            //         profileImage: reader.result as string,
-            //     }));
-            // };
-            // reader.readAsDataURL(file);
         }
     };
 
@@ -66,7 +57,6 @@ const UpdateProfile: React.FC = () => {
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
         formDataToSend.append("phoneNumber", formData.phoneNumber);
-        formDataToSend.append("address", formData.address);
         if (fileInputRef.current?.files?.[0]) {
             formDataToSend.append(
                 "profileImage",
@@ -100,7 +90,6 @@ const UpdateProfile: React.FC = () => {
             name: user?.name || "",
             email: user?.email || "",
             phoneNumber: user?.phoneNumber || "",
-            address: user?.address || "",
             profileImage: user?.profileImage?.url || null,
         });
     }, [user]);
@@ -210,7 +199,7 @@ const UpdateProfile: React.FC = () => {
                             fullWidth
                         />
                     </Stack>
-                    <Stack gap={"15px"}>
+                    {/* <Stack gap={"15px"}>
                         <Typography variant="h4">Address</Typography>
                         <TextField
                             label="Address"
@@ -225,7 +214,7 @@ const UpdateProfile: React.FC = () => {
                             }}
                             fullWidth
                         />
-                    </Stack>
+                    </Stack> */}
                     <Button
                         type="submit"
                         sx={{
