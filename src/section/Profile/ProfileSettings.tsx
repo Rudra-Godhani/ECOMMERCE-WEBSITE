@@ -3,13 +3,17 @@ import {
     Drawer,
     IconButton,
 } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import MyProfile from "./MyProfile";
 import UpdateProfile from "./UpdateProfile";
 import UpdatePassword from "./UpdatePassword";
 import MyOrders from "./MyOrders";
 import EastIcon from "@mui/icons-material/East";
 import ManageAccount from "./ManageAccount";
+import ManageAddress from "./ManageAddress";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { getUserAddresses } from "../../store/Slices/addressSlice";
 
 interface ProfileSettingsProps {
     selectedTab: string;
@@ -24,6 +28,13 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
         console.log("hello");
         setDrawerOpen(open);
     };
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getUserAddresses());
+    },[dispatch]);
+
     return (
         <>
             <Box sx={{ px: "20px" }}>
@@ -48,6 +59,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
                 </Box>
                 {selectedTab === "My Profile" && <MyProfile />}
                 {selectedTab === "Update Profile" && <UpdateProfile />}
+                {selectedTab === "Manage Address" && <ManageAddress />}
                 {selectedTab === "Update Password" && <UpdatePassword />}
                 {selectedTab === "My Orders" && <MyOrders />}   
             </Box>
