@@ -6,6 +6,7 @@ import userReducer from "./Slices/userSlice";
 import updateProfileReducer from "./Slices/updateProfileSlice";
 import productReducer from "./Slices/productSlice";
 import cartReducer from "./Slices/CartSlice";
+import addressReducer from "./Slices/addressSlice";
 import categoryReducer from "./Slices/categorySlice";
 import brandReducer from "./Slices/brandSlice";
 import storage from "redux-persist/lib/storage";
@@ -15,7 +16,7 @@ import { AnyAction, combineReducers } from "redux";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["user"],
+    whitelist: ["user","address"],
 };
 
 const rootReducer = combineReducers({
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     wishList: wishListReducer,
     category: categoryReducer,
     brands: brandReducer,
+    address: addressReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
