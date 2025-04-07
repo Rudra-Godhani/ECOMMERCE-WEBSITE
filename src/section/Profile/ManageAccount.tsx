@@ -10,6 +10,7 @@ import { clearAllUserErrors, clearAllUserMessage, logout } from "../../store/Sli
 const tabs: string[] = [
     "My Profile",
     "Update Profile",
+    "Manage Address",
     "Update Password",
     "My Orders",
 ];
