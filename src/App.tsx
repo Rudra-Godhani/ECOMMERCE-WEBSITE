@@ -25,6 +25,7 @@ import {
 } from "./store/Slices/productSlice";
 import { toast } from "react-toastify";
 import { getWishList } from "./store/Slices/WishListSlice";
+import Address from "./section/ShoppingCart/Address";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -90,10 +91,21 @@ const App: React.FC = () => {
 
                     <Route element={<ProtectedRoute />}>
                         <Route path="profile" element={<Profile />} />
-                        <Route
-                            path="shopping-cart"
-                            element={<ShoppingCart />}
-                        />
+                        {/* <Route path="shopping-cart" element={<ShoppingCart />}> */}
+                        <Route path="shopping-cart">
+                            <Route
+                                path="checkout"
+                                element={<ShoppingCart />}
+                            ></Route>
+                            <Route
+                                path="checkout/address"
+                                element={<Address />}
+                            ></Route>
+                            <Route
+                                path="checkout/payment"
+                                element={<ShoppingCart />}
+                            ></Route>
+                        </Route>
                         <Route path="wishlist" element={<WishList />} />
                     </Route>
                 </Route>
