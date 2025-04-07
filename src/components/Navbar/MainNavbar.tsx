@@ -202,7 +202,7 @@ const MainNavbar: React.FC = () => {
                                 />
                             </IconButton>
                             <NavLink
-                                to="/shopping-cart"
+                                to="/shopping-cart/checkout"
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
