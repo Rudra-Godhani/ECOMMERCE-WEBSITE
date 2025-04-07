@@ -3,13 +3,23 @@ import axios, { AxiosError } from "axios";
 import { AppDispatch } from "../store";
 import { BASE_URL } from "../../const/constants";
 
+export interface Address {
+    id: string;
+    line1: string;
+    line2: string;
+    pincode: string;
+    isDefault: boolean;
+    city: string;
+    state: string;
+}
+
 interface User {
     id: string;
     name: string;
     email: string;
     password: string;
     phoneNumber: string;
-    address: string;
+    addresses: Address[];
     profileImage: {
         public_id: string;
         url: string;
@@ -150,10 +160,7 @@ const userSlice = createSlice({
 const handleApiCall = async (
     dispatch: AppDispatch,
     requestAction: () => AnyAction,
-    successAction: (data: {
-        user: User;
-        message: string;
-    }) => AnyAction,
+    successAction: (data: { user: User; message: string }) => AnyAction,
     failureAction: (data: { message: string }) => AnyAction,
     apiCall: () => Promise<any>
 ) => {
