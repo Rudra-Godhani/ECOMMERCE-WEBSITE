@@ -38,7 +38,6 @@ const ShopCard: React.FC<ShopCardProps> = ({ data }) => {
                 },
             }}
         >
-            {/* Overlay Text */}
             <Box sx={{ position: "relative", zIndex: 2, px: 2 }}>
                 <Typography
                     variant="h6"

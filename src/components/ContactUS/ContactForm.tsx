@@ -1,6 +1,19 @@
-import React, { useState } from "react";
-import { Typography, TextField, Button, Paper, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+    Typography,
+    TextField,
+    Button,
+    Paper,
+    Grid,
+    CircularProgress,
+} from "@mui/material";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import {
+    clearAllContactUsErrorsAndMessages,
+    sendContactMessage,
+} from "../../store/Slices/contactUsSlice";
 
 const ContactForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -9,60 +22,32 @@ const ContactForm: React.FC = () => {
         phoneNumber: "",
         message: "",
     });
-    const [errors, setErrors] = useState({
-        name: "",
-        email: "",
-        phoneNumber: "",
-        message: "",
-    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        setErrors({ ...errors, [e.target.name]: "" });
     };
+
+    const dispatch = useDispatch<AppDispatch>();
+    const { error, message, loading } = useSelector(
+        (state: RootState) => state.contact
+    );
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const validationErrors = {
-            name: "",
-            email: "",
-            phoneNumber: "",
-            message: "",
-        };
-
-        if (!formData.name) {
-            validationErrors.name = "Name is required";
-        }
-        if (!formData.email) {
-            validationErrors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            validationErrors.email = "Enter a valid email";
-        }
-        if (!formData.phoneNumber) {
-            validationErrors.phoneNumber = "PhoneNumber is required";
-        } else if (formData.phoneNumber.toString().length !== 10) {
-            validationErrors.phoneNumber =
-                "PhoneNumber must be 10 characteres long.";
-        }
-        if (!formData.message) {
-            validationErrors.message = "Message is required";
-        }
-
-        if (
-            validationErrors.name ||
-            validationErrors.email ||
-            validationErrors.phoneNumber ||
-            validationErrors.message
-        ) {
-            setErrors(validationErrors);
-            return;
-        }
-
-        console.log("formData:", formData);
-        toast.success("Thank you! Your message has been sent successfully.");
-        setFormData({ name: "", email: "", phoneNumber: "", message: "" });
+        dispatch(sendContactMessage(formData));
     };
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+        }
+        if (message) {
+            toast.success(message);
+            setFormData({ name: "", email: "", phoneNumber: "", message: "" });
+        }
+        dispatch(clearAllContactUsErrorsAndMessages());
+    }, [error, message]);
+
     return (
         <Grid item xs={12} md={6}>
             <Paper
@@ -105,8 +90,6 @@ const ContactForm: React.FC = () => {
                                 type="text"
                                 value={formData.name}
                                 onChange={handleChange}
-                                error={!!errors.name}
-                                helperText={errors.name}
                                 InputLabelProps={{
                                     style: {
                                         fontSize: "14px",
@@ -131,8 +114,6 @@ const ContactForm: React.FC = () => {
                                 type="text"
                                 value={formData.email}
                                 onChange={handleChange}
-                                error={!!errors.email}
-                                helperText={errors.email}
                                 InputLabelProps={{
                                     style: {
                                         fontSize: "14px",
@@ -157,8 +138,6 @@ const ContactForm: React.FC = () => {
                                 type="number"
                                 value={formData.phoneNumber}
                                 onChange={handleChange}
-                                error={!!errors.phoneNumber}
-                                helperText={errors.phoneNumber}
                                 InputLabelProps={{
                                     style: {
                                         fontSize: "14px",
@@ -184,8 +163,6 @@ const ContactForm: React.FC = () => {
                                 type="text"
                                 value={formData.message}
                                 onChange={handleChange}
-                                error={!!errors.message}
-                                helperText={errors.message}
                                 multiline
                                 rows={4}
                                 InputLabelProps={{
@@ -208,6 +185,7 @@ const ContactForm: React.FC = () => {
                                 variant="contained"
                                 type="submit"
                                 fullWidth
+                                disabled={loading}
                                 sx={{
                                     padding: "14px",
                                     backgroundColor: "#1976d2",
@@ -219,7 +197,14 @@ const ContactForm: React.FC = () => {
                                     },
                                 }}
                             >
-                                Send Message
+                                {loading ? (
+                                    <CircularProgress
+                                        size={24}
+                                        sx={{ color: "#fff" }}
+                                    />
+                                ) : (
+                                    "Send Message"
+                                )}
                             </Button>
                         </Grid>
                     </Grid>

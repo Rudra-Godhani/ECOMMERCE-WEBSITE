@@ -8,11 +8,12 @@ import { Box, Button, Typography } from "@mui/material";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../store/Slices/productSlice";
+import { errorImage2 } from "../../assets";
 
 const ProductDetails: React.FC = () => {
     const { id } = useParams();
 
-    const { product, loading, error } = useSelector(
+    const { loading, error } = useSelector(
         (state: RootState) => state.product
     );
 
@@ -32,50 +33,36 @@ const ProductDetails: React.FC = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    height: "50vh",
+                    height: {
+                        xs: "90vh",
+                        sm: "80vh",
+                    },
                     textAlign: "center",
                 }}
             >
-                <Typography
-                    variant="h5"
-                    fontWeight="700"
-                    color="error"
-                    sx={{ mb: 2 }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        direction: "row",
+                        maxWidth: { xs: "250px", sm: "300px" },
+                    }}
                 >
-                    Failed to load product details. Please check your connection
-                    or try again.
+                    <img
+                        src={errorImage2}
+                        alt="Error illustration"
+                        style={{ marginBottom: "20px" }}
+                    />
+                </Box>
+                <Typography variant="h3" fontWeight="700" sx={{ my: 2 }}>
+                    Something went wrong. Please try again.
                 </Typography>
                 <Button
                     variant="contained"
-                    color="primary"
+                    sx={{ color: "white", backgroundColor: "#23A6F0" }}
                     onClick={() => window.location.reload()}
                 >
                     Refresh
                 </Button>
-            </Box>
-        );
-    }
-
-    if (!loading && !error && !product) {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "50vh",
-                    textAlign: "center",
-                }}
-            >
-                <Typography
-                    variant="h5"
-                    fontWeight="700"
-                    color="textSecondary"
-                    sx={{ mb: 2 }}
-                >
-                    Product not found.
-                </Typography>
             </Box>
         );
     }

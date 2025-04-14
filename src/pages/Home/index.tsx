@@ -5,15 +5,17 @@ import Featured from "../../section/Home/Featured";
 import HeroSecond from "../../section/Home/HeroSecond";
 import AdBanner from "../../section/Home/AdBanner";
 import FeaturedPost from "../../section/Home/FeaturedPost";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import { emptyBox, errorImage1 } from "../../assets";
 
 const Home: React.FC = () => {
-
     const { loading, products, error } = useSelector(
         (state: RootState) => state.product
     );
+
+    console.log("error: ", error);
 
     if (!loading && error) {
         return (
@@ -23,22 +25,32 @@ const Home: React.FC = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    height: "50vh",
+                    height: {
+                        xs: "90vh",
+                        sm: "80vh",
+                    },
                     textAlign: "center",
                 }}
             >
-                <Typography
-                    variant="h5"
-                    fontWeight="700"
-                    color="error"
-                    sx={{ mb: 2 }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        direction: "row",
+                        maxWidth: { xs: "250px", sm: "300px" },
+                    }}
                 >
-                    Failed to load products. Please check your connection or try
-                    again.
+                    <img
+                        src={errorImage1}
+                        alt="Error illustration"
+                        style={{ marginBottom: "20px" }}
+                    />
+                </Box>
+                <Typography variant="h3" fontWeight="700" sx={{ my: 2 }}>
+                    Something went wrong. Please try again.
                 </Typography>
                 <Button
                     variant="contained"
-                    color="primary"
+                    sx={{ color: "white", backgroundColor: "#23A6F0" }}
                     onClick={() => window.location.reload()}
                 >
                     Refresh
@@ -55,18 +67,39 @@ const Home: React.FC = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    height: "50vh",
+                    height: {
+                        xs: "90vh",
+                        sm: "80vh",
+                    },
                     textAlign: "center",
                 }}
             >
-                <Typography
-                    variant="h2"
-                    fontWeight="700"
-                    color="textSecondary"
-                    sx={{ mb: 2 }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        direction: "row",
+                        maxWidth: { xs: "300px", sm: "400px" },
+                    }}
                 >
-                    No products available at the moment.
-                </Typography>
+                    <img
+                        src={emptyBox}
+                        alt="Error illustration"
+                        style={{ marginBottom: "20px" }}
+                    />
+                </Box>
+                <Stack>
+                    <Typography variant="h3" fontWeight="700" sx={{ my: 2 }}>
+                        No products available at the moment.
+                    </Typography>
+                    <Typography
+                        variant="h4"
+                        color="gray"
+                        fontWeight="700"
+                        sx={{ mb: 2 }}
+                    >
+                        Stay tuned for exciting new arrivals!
+                    </Typography>
+                </Stack>
             </Box>
         );
     }
@@ -75,9 +108,9 @@ const Home: React.FC = () => {
         <>
             <HeroFirst />
             <Banner />
-            <Featured/>
+            <Featured />
             <HeroSecond />
-            <AdBanner/>
+            <AdBanner />
             <FeaturedPost />
         </>
     );

@@ -47,6 +47,13 @@ const ManageAccount: React.FC<ManageAccountProps> = ({
         }
     }, [dispatch, error, loading, isAuthenticated]);
 
+    const handleTabClick = (tab: string) => {
+        setSelectedTab(tab);
+        if (toggleDrawer) {
+            toggleDrawer(false);
+        }
+    };
+
     return (
         <Box px="20px">
             <Stack direction={"row"}>
@@ -91,7 +98,7 @@ const ManageAccount: React.FC<ManageAccountProps> = ({
                                 <Typography
                                     variant="h4"
                                     color="gray"
-                                    onClick={() => setSelectedTab(tab)}
+                                    onClick={() => handleTabClick(tab)}
                                     fontWeight={
                                         selectedTab === tab ? "700" : " 400"
                                     }

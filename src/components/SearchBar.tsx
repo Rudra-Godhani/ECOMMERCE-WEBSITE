@@ -45,7 +45,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
         setMinPrice(0);
         setMaxPrice(5000);
         setSelectedSort("popularity_high_to_low");
-        // setValue([minPrice, maxPrice]);
         const filterData = {
             category: "",
             brand: [].join(","),

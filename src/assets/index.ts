@@ -36,6 +36,9 @@ import teamMember1 from "./svg/aboutUs/team-1-user-1.svg";
 import teamMember2 from "./svg/aboutUs/team-1-user-2.svg";
 import teamMember3 from "./svg/aboutUs/team-1-user-3.svg";
 import perfumeImage from "./images/home/perfume.avif"; 
+import errorImage1 from "./images/error_image1.png";
+import errorImage2 from "./images/error_image2.png";
+import emptyBox from "./images/empty_box.png";
 
 export {
     adBanner,
@@ -75,5 +78,8 @@ export {
     teamMember1,
     teamMember2,
     teamMember3,
-    perfumeImage
+    perfumeImage,
+    errorImage1,
+    errorImage2,
+    emptyBox
 };

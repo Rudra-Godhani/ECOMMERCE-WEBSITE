@@ -7,8 +7,10 @@ import updateProfileReducer from "./Slices/updateProfileSlice";
 import productReducer from "./Slices/productSlice";
 import cartReducer from "./Slices/CartSlice";
 import addressReducer from "./Slices/addressSlice";
+import orderReducer from "./Slices/orderSlice";
 import categoryReducer from "./Slices/categorySlice";
 import brandReducer from "./Slices/brandSlice";
+import contactReducer from "./Slices/contactUsSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { AnyAction, combineReducers } from "redux";
@@ -16,7 +18,7 @@ import { AnyAction, combineReducers } from "redux";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["user","address"],
+    whitelist: ["user", "cart", "wishList"],
 };
 
 const rootReducer = combineReducers({
@@ -29,7 +31,9 @@ const rootReducer = combineReducers({
     wishList: wishListReducer,
     category: categoryReducer,
     brands: brandReducer,
-    address: addressReducer
+    address: addressReducer,
+    order: orderReducer,
+    contact: contactReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -38,7 +42,7 @@ const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false, // Required to prevent serialization errors with redux-persist
+            serializableCheck: false,
         }),
 });
 

@@ -99,7 +99,9 @@ const handleApiCall = async (
         const err = error as AxiosError<{ message: string }>;
         dispatch(
             failureAction({
-                message: err.response?.data?.message || "An error occurred",
+                message:
+                    err.response?.data?.message ||
+                    "Something went wrong. Please try again.",
             })
         );
     }

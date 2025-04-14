@@ -172,12 +172,47 @@ const ProductInfo: React.FC = () => {
                         }}
                     >
                         {loading ? (
-                            <Skeleton
-                                variant="rectangular"
-                                width={400}
-                                height={400}
-                                animation="wave"
-                            />
+                            <Box
+                                sx={{
+                                    width: {
+                                        xs: "100%",
+                                        sm: "450px",
+                                        md: "500px",
+                                    },
+                                    maxWidth: "100%",
+                                }}
+                            >
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    sx={{
+                                        width: "100%",
+                                        height: {
+                                            xs: "300px",
+                                            sm: "400px",
+                                            md: "500px",
+                                        },
+                                    }}
+                                />
+                                <Stack direction="row" gap="10px" mt="20px">
+                                    {[...Array(3)].map(
+                                        (
+                                            _,
+                                            i
+                                        ) => (
+                                            <Skeleton
+                                                key={i}
+                                                variant="rectangular"
+                                                sx={{
+                                                    width: "100px",
+                                                    height: "75px",
+                                                }}
+                                                animation="wave"
+                                            />
+                                        )
+                                    )}
+                                </Stack>
+                            </Box>
                         ) : (
                             <ProductImageSlider />
                         )}

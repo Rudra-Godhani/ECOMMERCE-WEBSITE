@@ -3,34 +3,36 @@ import {
     Button,
     Card,
     CardContent,
-    CircularProgress,
     IconButton,
     Menu,
     MenuItem,
+    Radio,
+    Skeleton,
     Stack,
     Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowForwardIos, MoreVert, Add as AddIcon } from "@mui/icons-material";
 import AddressForm from "../Profile/AddressForm";
 import {
     addAddress,
     updateAddress,
-    deleteAddress,
     clearAllAddressErrorsAndMessages,
     getUserAddresses,
+    setAddressAsDefault,
 } from "../../store/Slices/addressSlice";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+import { BASE_URL } from "../../const/constants";
 
 const Address = () => {
-    const { error, message, addresses,loading } = useSelector(
+    const { error, message, addresses, loading } = useSelector(
         (state: RootState) => state.address
     );
-    const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
     const [showAddressForm, setShowAddressForm] = useState(false);
@@ -87,8 +89,8 @@ const Address = () => {
         });
     };
 
-    const handleDeleteAddress = async (addressId: string) => {
-        await dispatch(deleteAddress(addressId));
+    const handleSetAddressAsDefault = async (addressId: string) => {
+        await dispatch(setAddressAsDefault(addressId));
         dispatch(getUserAddresses());
         handleClose();
     };
@@ -119,6 +121,10 @@ const Address = () => {
     };
 
     useEffect(() => {
+        dispatch(getUserAddresses());
+    }, [dispatch]);
+
+    useEffect(() => {
         if (error) {
             toast.error(error);
         }
@@ -128,6 +134,54 @@ const Address = () => {
         dispatch(clearAllAddressErrorsAndMessages());
     }, [error, message, dispatch]);
 
+    const { cartItems } = useSelector((state: RootState) => state.cart);
+
+    const makePayment = async () => {
+        const stripe = await loadStripe(
+            "pk_test_51RBVnhP5q7TBIR8cWlbZpjL6RhDPWGbbP7eIiGkMV1AGLPz31ah1cNhdJkPzGl8X1qRXYGlIqeM1bJ46OenPFdyK009Y2Whf2b"
+        );
+
+        const defaultAddress = addresses.find((addr) => addr.isDefault);
+
+        if (addresses.length === 0) {
+            toast.error(
+                "Add a delivery address so we know where to ship your order!"
+            );
+            return;
+        }
+        if (!defaultAddress) {
+            toast.error(
+                "Select a delivery address so we know where to ship your items."
+            );
+            return;
+        }
+
+        const paymentData = {
+            cartItems,
+            shippingAddress: defaultAddress,
+        };
+
+        try {
+            const response = await axios.post(
+                `${BASE_URL}/payment/create-checkout-session`,
+                paymentData,
+                { withCredentials: true }
+            );
+
+            const session = response.data;
+
+            const result = await stripe?.redirectToCheckout({
+                sessionId: session.id,
+            });
+
+            if (result?.error) {
+                toast.error(result.error.message);
+            }
+        } catch (error) {
+            toast.error("Payment initiation failed");
+        }
+    };
+
     return (
         <Box sx={{ minHeight: "100vh" }}>
             <Box>
@@ -136,12 +190,12 @@ const Address = () => {
                     mx="auto"
                     py="24px"
                     direction="row"
-                    gap="15px"
                     sx={{
                         justifyContent: { xs: "center", sm: "start" },
                         alignItems: "center",
                         px: { xs: "20px", sm: "0" },
                         flexWrap: "wrap",
+                        gap: { xs: "10px", sm: "15px" },
                     }}
                 >
                     <Link to="/">
@@ -249,119 +303,167 @@ const Address = () => {
                 )}
 
                 <Stack spacing={1}>
-                    {addresses.map((address) => (
-                        <React.Fragment key={address.id}>
-                            {editAddressId === address.id && showAddressForm ? (
-                                <AddressForm
-                                    addAddressformData={addAddressFormData}
-                                    handleChange={handleAddAddressChange}
-                                    handleSubmit={handleAddressSubmit}
-                                    handleClose={handleFormClose}
-                                    isEditMode={true}
-                                    initialIsDefault={address.isDefault}
-                                />
-                            ) : (
+                    {loading ? (
+                        <Stack spacing={2}>
+                            {[...Array(3)].map((_, index) => (
                                 <Card
+                                    key={index}
                                     variant="outlined"
                                     sx={{
                                         width: "100%",
                                         borderRadius: 0,
-                                        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+                                        mb: "5px",
                                     }}
                                 >
                                     <CardContent>
                                         <Box
                                             display="flex"
-                                            sx={{
-                                                justifyContent:
-                                                    address.isDefault
-                                                        ? "space-between"
-                                                        : "flex-end",
-                                                alignItems: "center",
-                                            }}
+                                            justifyContent="space-between"
+                                            alignItems="center"
                                         >
-                                            {address.isDefault && (
-                                                <CheckCircleOutlineIcon
-                                                    fontSize="large"
-                                                    htmlColor="green"
-                                                />
-                                            )}
-                                            <IconButton
-                                                size="small"
-                                                onClick={(e) =>
-                                                    handleMenuClick(
-                                                        e,
-                                                        address.id
-                                                    )
-                                                }
-                                            >
-                                                <MoreVert />
-                                            </IconButton>
-                                            <Menu
-                                                anchorEl={anchorEl}
-                                                open={
-                                                    open &&
-                                                    selectedAddressId ===
-                                                        address.id
-                                                }
-                                                onClose={handleClose}
-                                                disableScrollLock
-                                                PaperProps={{
-                                                    elevation: 2,
-                                                    sx: {
-                                                        boxShadow:
-                                                            "0px 2px 4px rgba(0,0,0,0.1)",
-                                                        borderRadius: 1.5,
-                                                    },
-                                                }}
-                                            >
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        handleEditAddress(
-                                                            address
-                                                        );
-                                                        handleClose();
-                                                    }}
-                                                >
-                                                    Edit
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        handleDeleteAddress(
-                                                            address.id
-                                                        );
-                                                        handleClose();
-                                                    }}
-                                                >
-                                                    Delete
-                                                </MenuItem>
-                                            </Menu>
+                                            <Skeleton
+                                                variant="text"
+                                                width="80%"
+                                                height={20}
+                                                sx={{ mt: 1 }}
+                                            />
+                                            <Skeleton
+                                                variant="text"
+                                                width={5}
+                                                height={35}
+                                            />
                                         </Box>
-                                        <Typography
-                                            variant="h5"
-                                            sx={{
-                                                fontSize: {
-                                                    xs: "16px",
-                                                    sm: "18px",
-                                                },
-                                                mt: 2,
-                                            }}
-                                        >
-                                            {address.line1}, {address.line2},{" "}
-                                            {address.city}, {address.state} -{" "}
-                                            {address.pincode}
-                                        </Typography>
+                                        <Skeleton
+                                            variant="text"
+                                            width="80%"
+                                            height={20}
+                                            sx={{ mt: 1 }}
+                                        />
                                     </CardContent>
                                 </Card>
-                            )}
-                        </React.Fragment>
-                    ))}
+                            ))}
+                        </Stack>
+                    ) : addresses.length === 0 ? (
+                        <Stack py="20px">
+                            <Typography
+                                variant="h5"
+                                color="gray"
+                                textAlign="center"
+                            >
+                                You have not added any addresses yet.
+                            </Typography>
+                            <Typography
+                                variant="h5"
+                                color="gray"
+                                textAlign="center"
+                            >
+                                Add one now!
+                            </Typography>
+                        </Stack>
+                    ) : (
+                        addresses.map((address) => (
+                            <React.Fragment key={address.id}>
+                                {editAddressId === address.id &&
+                                showAddressForm ? (
+                                    <AddressForm
+                                        addAddressformData={addAddressFormData}
+                                        handleChange={handleAddAddressChange}
+                                        handleSubmit={handleAddressSubmit}
+                                        handleClose={handleFormClose}
+                                        isEditMode={true}
+                                    />
+                                ) : (
+                                    <Card
+                                        variant="outlined"
+                                        sx={{
+                                            width: "100%",
+                                            borderRadius: "8px",
+                                            boxShadow: address.isDefault
+                                                ? "0 0 0 2px #23A6F0"
+                                                : "0 1px 3px rgba(0,0,0,0.1)",
+                                            bgcolor: address.isDefault
+                                                ? "#f5faff"
+                                                : "#fff",
+                                            transition: "0.2s",
+                                        }}
+                                    >
+                                        <CardContent>
+                                            <Box
+                                                display="flex"
+                                                alignItems="center"
+                                                justifyContent="space-between"
+                                                gap={2}
+                                            >
+                                                <Box
+                                                    display="flex"
+                                                    alignItems="center"
+                                                    gap={2}
+                                                    flexGrow={1}
+                                                >
+                                                    <Radio
+                                                        checked={
+                                                            address.isDefault
+                                                        }
+                                                        onChange={() =>
+                                                            handleSetAddressAsDefault(
+                                                                address.id
+                                                            )
+                                                        }
+                                                    />
+
+                                                    <Typography variant="h5">
+                                                        {address.line1},{" "}
+                                                        {address.line2},{" "}
+                                                        {address.city},{" "}
+                                                        {address.state} -{" "}
+                                                        {address.pincode}
+                                                    </Typography>
+                                                </Box>
+
+                                                <IconButton
+                                                    size="small"
+                                                    onClick={(e) =>
+                                                        handleMenuClick(
+                                                            e,
+                                                            address.id
+                                                        )
+                                                    }
+                                                >
+                                                    <MoreVert />
+                                                </IconButton>
+                                                <Menu
+                                                    anchorEl={anchorEl}
+                                                    open={
+                                                        open &&
+                                                        selectedAddressId ===
+                                                            address.id
+                                                    }
+                                                    onClose={handleClose}
+                                                >
+                                                    <MenuItem
+                                                        onClick={() => {
+                                                            handleEditAddress(
+                                                                address
+                                                            );
+                                                            handleClose();
+                                                        }}
+                                                    >
+                                                        Edit
+                                                    </MenuItem>
+                                                </Menu>
+                                            </Box>
+                                        </CardContent>
+                                    </Card>
+                                )}
+                            </React.Fragment>
+                        ))
+                    )}
                 </Stack>
 
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => navigate("/shopping-cart/checkout/payment")}
+                    onClick={makePayment}
                     sx={{
                         mt: "20px",
                         alignSelf: "end",
@@ -376,8 +478,14 @@ const Address = () => {
                     Payment
                 </Button>
             </Stack>
+        </Box>
+    );
+};
 
-            {loading && (
+export default Address;
+
+{
+    /* {loading && (
                 <Box
                     sx={{
                         position: "fixed",
@@ -399,9 +507,5 @@ const Address = () => {
                         </Typography>
                     </Stack>
                 </Box>
-            )}
-        </Box>
-    );
-};
-
-export default Address;
+            )} */
+}

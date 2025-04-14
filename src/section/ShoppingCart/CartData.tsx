@@ -1,6 +1,7 @@
 import { ArrowForwardIos } from "@mui/icons-material";
 import {
     Box,
+    Button,
     CircularProgress,
     Paper,
     Skeleton,
@@ -27,6 +28,7 @@ import {
     removeProductFromCart,
 } from "../../store/Slices/CartSlice";
 import { toast } from "react-toastify";
+import { emptyBox } from "../../assets";
 
 const CartData: React.FC = () => {
     const { cartItems, getCartloading, loadingStates, error, message } =
@@ -95,83 +97,62 @@ const CartData: React.FC = () => {
                     Your Cart
                 </Typography>
             </Box>
-            <Box
-                maxWidth={"1050px"}
-                mx="auto"
-                pb="40px"
-                sx={{ p: { xs: "0 20px", lg: "0 0" } }}
-            >
-                <TableContainer
-                    component={Paper}
-                    elevation={0}
-                    sx={{ overflowX: "auto", width: "100%" }}
+            {getCartloading ? (
+                <Box
+                    maxWidth={"1050px"}
+                    mx="auto"
+                    pb="40px"
+                    sx={{ p: { xs: "0 30px", lg: "0 0" } }}
                 >
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead sx={{ backgroundColor: "#FAFAFA" }}>
-                            <TableRow>
-                                <TableCell
-                                    sx={{
-                                        fontSize: "14px",
-                                        color: "#737373",
-                                        border: "none",
-                                    }}
-                                >
-                                    Product
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        fontSize: "14px",
-                                        color: "#737373",
-                                        border: "none",
-                                    }}
-                                >
-                                    Color
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        fontSize: "14px",
-                                        color: "#737373",
-                                        border: "none",
-                                    }}
-                                >
-                                    Quantity
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        fontSize: "14px",
-                                        color: "#737373",
-                                        border: "none",
-                                    }}
-                                >
-                                    Price
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{
-                                        fontSize: "14px",
-                                        color: "#737373",
-                                        border: "none",
-                                    }}
-                                >
-                                    Total Price
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    sx={{ border: "none" }}
-                                ></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {getCartloading ? (
-                                // Show skeleton effect while loading
-                                [...Array(3)].map((_, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell align="left">
+                    <TableContainer
+                        component={Paper}
+                        elevation={0}
+                        sx={{ overflowX: "auto", width: "100%" }}
+                    >
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead sx={{ backgroundColor: "#FAFAFA" }}>
+                                <TableRow>
+                                    {[
+                                        "Product",
+                                        "Color",
+                                        "Quantity",
+                                        "Price",
+                                        "Total Price",
+                                        "",
+                                    ].map((_, index) => (
+                                        <TableCell
+                                            key={index}
+                                            align={
+                                                index === 0 ? "left" : "center"
+                                            }
+                                            sx={{ border: "none" }}
+                                        >
+                                            <Skeleton
+                                                variant="text"
+                                                width={
+                                                    index === 0 ? "60%" : "80%"
+                                                }
+                                                height={20}
+                                                sx={{
+                                                    margin:
+                                                        index === 0
+                                                            ? "0"
+                                                            : "auto",
+                                                }}
+                                            />
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {[...Array(3)].map((_, rowIndex) => (
+                                    <TableRow key={rowIndex}>
+                                        <TableCell
+                                            align="left"
+                                            sx={{ pl: "16px" }}
+                                        >
                                             <Stack
-                                                direction={"row"}
+                                                direction="row"
                                                 alignItems="center"
                                                 gap={2}
                                             >
@@ -179,6 +160,7 @@ const CartData: React.FC = () => {
                                                     variant="rounded"
                                                     width={150}
                                                     height={120}
+                                                    animation="wave"
                                                 />
                                                 <Skeleton
                                                     variant="text"
@@ -198,7 +180,8 @@ const CartData: React.FC = () => {
                                         <TableCell align="center">
                                             <Skeleton
                                                 variant="text"
-                                                width={50}
+                                                width={60}
+                                                height={25}
                                                 sx={{ margin: "auto" }}
                                             />
                                         </TableCell>
@@ -206,6 +189,7 @@ const CartData: React.FC = () => {
                                             <Skeleton
                                                 variant="text"
                                                 width={60}
+                                                height={25}
                                                 sx={{ margin: "auto" }}
                                             />
                                         </TableCell>
@@ -213,6 +197,7 @@ const CartData: React.FC = () => {
                                             <Skeleton
                                                 variant="text"
                                                 width={80}
+                                                height={25}
                                                 sx={{ margin: "auto" }}
                                             />
                                         </TableCell>
@@ -220,27 +205,142 @@ const CartData: React.FC = () => {
                                             <Skeleton
                                                 variant="text"
                                                 width={30}
+                                                height={25}
                                                 sx={{ margin: "auto" }}
                                             />
                                         </TableCell>
                                     </TableRow>
-                                ))
-                            ) : cartItems.length === 0 ? (
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            ) : cartItems.length === 0 ? (
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: {
+                            xs: "100%",
+                            sm: "100%",
+                        },
+                        textAlign: "center",
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            direction: "row",
+                            maxWidth: { xs: "300px", sm: "400px" },
+                            mt: "-90px",
+                        }}
+                    >
+                        <img
+                            src={emptyBox}
+                            alt="Error illustration"
+                            style={{}}
+                        />
+                    </Box>
+                    <Stack>
+                        <Typography
+                            variant="h3"
+                            fontWeight="700"
+                            sx={{ mb: 2 }}
+                        >
+                            Your cart is empty!
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            color="gray"
+                            fontWeight="700"
+                            sx={{ mb: 2 }}
+                        >
+                            start Adding items to it now.
+                        </Typography>
+                        <Button
+                            component={Link}
+                            to="/product/listing"
+                            variant="outlined"
+                            sx={{ color: "white", backgroundColor: "#23A6F0" ,mt:"10px",mb:"50px"}}
+                        >
+                            Shop now
+                        </Button>
+                    </Stack>
+                </Box>
+            ) : (
+                <Box
+                    maxWidth={"1050px"}
+                    mx="auto"
+                    pb="40px"
+                    sx={{ p: { xs: "0 30px", lg: "0 0" } }}
+                >
+                    <TableContainer
+                        component={Paper}
+                        elevation={0}
+                        sx={{ overflowX: "auto", width: "100%" }}
+                    >
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead sx={{ backgroundColor: "#FAFAFA" }}>
                                 <TableRow>
-                                    <TableCell colSpan={6} align="center">
-                                        <Typography
-                                            variant="h2"
-                                            color="textSecondary"
-                                            mt={5}
-                                            mb={5}
-                                        >
-                                            No items in cart 😔
-                                        </Typography>
+                                    <TableCell
+                                        sx={{
+                                            fontSize: "14px",
+                                            color: "#737373",
+                                            border: "none",
+                                        }}
+                                    >
+                                        Product
                                     </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{
+                                            fontSize: "14px",
+                                            color: "#737373",
+                                            border: "none",
+                                        }}
+                                    >
+                                        Color
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{
+                                            fontSize: "14px",
+                                            color: "#737373",
+                                            border: "none",
+                                        }}
+                                    >
+                                        Quantity
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{
+                                            fontSize: "14px",
+                                            color: "#737373",
+                                            border: "none",
+                                        }}
+                                    >
+                                        Price
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{
+                                            fontSize: "14px",
+                                            color: "#737373",
+                                            border: "none",
+                                        }}
+                                    >
+                                        Total Price
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        sx={{ border: "none" }}
+                                    ></TableCell>
                                 </TableRow>
-                            ) : (
-                                cartItems.length > 0 &&
-                                cartItems.map((item) => (
+                            </TableHead>
+                            <TableBody>
+                                {cartItems.map((item) => (
                                     <TableRow
                                         key={item.product.id}
                                         sx={{
@@ -320,7 +420,9 @@ const CartData: React.FC = () => {
                                                 alignItems={"center"}
                                             >
                                                 <Box
-                                                    sx={{ cursor: "pointer" }}
+                                                    sx={{
+                                                        cursor: "pointer",
+                                                    }}
                                                     onClick={() =>
                                                         decQuantity(
                                                             item.product.id
@@ -350,7 +452,9 @@ const CartData: React.FC = () => {
                                                     {item.quantity}
                                                 </Typography>
                                                 <Box
-                                                    sx={{ cursor: "pointer" }}
+                                                    sx={{
+                                                        cursor: "pointer",
+                                                    }}
                                                     onClick={() =>
                                                         incQuantity(
                                                             item.product.id,
@@ -402,7 +506,9 @@ const CartData: React.FC = () => {
                                             }}
                                         >
                                             <Box
-                                                sx={{ cursor: "pointer" }}
+                                                sx={{
+                                                    cursor: "pointer",
+                                                }}
                                                 onClick={() => {
                                                     console.log("hello");
                                                     dispatch(
@@ -425,12 +531,12 @@ const CartData: React.FC = () => {
                                             </Box>
                                         </TableCell>
                                     </TableRow>
-                                ))
-                            )}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Box>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
         </Box>
     );
 };

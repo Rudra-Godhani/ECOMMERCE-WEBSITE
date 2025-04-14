@@ -64,9 +64,6 @@ const UpdateProfile: React.FC = () => {
             );
         }
 
-        formDataToSend.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        });
         dispatch(updateProfile(formDataToSend));
     };
 

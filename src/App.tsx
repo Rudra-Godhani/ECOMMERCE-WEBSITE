@@ -16,49 +16,23 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile/index";
 import ShoppingCart from "./pages/ShoppingCart/index";
 import WishList from "./pages/WishList/index";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./store/store";
 import { useEffect } from "react";
 import {
-    clearAllProductErrorsAndMessages,
     getAllProducts,
 } from "./store/Slices/productSlice";
-import { toast } from "react-toastify";
-import { getWishList } from "./store/Slices/WishListSlice";
 import Address from "./section/ShoppingCart/Address";
+import PaymentSuccess from "./section/ShoppingCart/PaymentSuccess";
+import PaymentCancel from "./section/ShoppingCart/PaymentCancel";
+import OrderDetails from "./section/Profile/OrderDetails";
 
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error, message } = useSelector(
-        (state: RootState) => state.product
-    );
 
     useEffect(() => {
         dispatch(getAllProducts());
     }, [dispatch]);
-
-    useEffect(() => {
-        if (error) {
-            toast.error(error);
-        }
-        if (message) {
-            toast.success(message);
-        }
-        dispatch(clearAllProductErrorsAndMessages());
-    }, [dispatch, loading, error, message]);
-
-    // useEffect(() => {
-    //     dispatch(getCart());
-    // }, [dispatch]);
-
-    // useEffect(() => {
-    //     dispatch(getWishList());
-    // }, [dispatch]);
-
-    // const dispatch = useDispatch<AppDispatch>();
-    // useEffect(() => {
-    //     dispatch(getCart());
-    // });
 
     return (
         <>
@@ -75,6 +49,11 @@ const App: React.FC = () => {
                         element={<ResetPassword />}
                     />
                     <Route path="about-us" element={<AboutUs />} />
+                    <Route
+                        path="payment/success"
+                        element={<PaymentSuccess />}
+                    />
+                    <Route path="payment/cancel" element={<PaymentCancel />} />
 
                     <Route path="product">
                         <Route
@@ -101,12 +80,16 @@ const App: React.FC = () => {
                                 path="checkout/address"
                                 element={<Address />}
                             ></Route>
-                            <Route
+                            {/* <Route
                                 path="checkout/payment"
                                 element={<ShoppingCart />}
-                            ></Route>
+                            ></Route> */}
                         </Route>
                         <Route path="wishlist" element={<WishList />} />
+                        <Route
+                            path="order_details/:orderId"
+                            element={<OrderDetails />}
+                        />
                     </Route>
                 </Route>
             </Routes>

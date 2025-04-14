@@ -28,6 +28,7 @@ import {
     removeProductFromWishList,
     WishListItem,
 } from "../../store/Slices/WishListSlice";
+import { emptyBox } from "../../assets";
 
 const FavoriteProducts: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -54,7 +55,6 @@ const FavoriteProducts: React.FC = () => {
     };
 
     const handleFavorite = (id: string, color: string) => {
-        console.log("handlefavourite: ");
         if (wishListItems?.some((item) => item.product.id === id)) {
             dispatch(removeProductFromWishList({ productId: id }));
         } else {
@@ -138,7 +138,12 @@ const FavoriteProducts: React.FC = () => {
                                 gridTemplateColumns:
                                     "repeat(auto-fit, minmax(300px, 1fr))",
                                 gap: "24px",
-                                padding: "24px 30px 48px 30px",
+                                padding: {
+                                    xs: "24px 10px 48px 10px",
+                                    md: "24px 30px 48px 30px",
+                                },
+                                justifyItems: "center",
+                                alignItems: "center",
                             }}
                         >
                             {[...Array(6)].map((_, index) => (
@@ -238,14 +243,64 @@ const FavoriteProducts: React.FC = () => {
             ) : (
                 <>
                     {wishListItems?.length === 0 ? (
-                        <Typography
-                            variant="h2"
-                            color="textSecondary"
-                            mb="40px"
-                            textAlign={"center"}
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: {
+                                    xs: "100%",
+                                    sm: "100%",
+                                },
+                                textAlign: "center",
+                            }}
                         >
-                            No items in wishList 😔
-                        </Typography>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    direction: "row",
+                                    maxWidth: { xs: "300px", sm: "400px" },
+                                    mt: "-90px",
+                                }}
+                            >
+                                <img
+                                    src={emptyBox}
+                                    alt="Error illustration"
+                                    style={{}}
+                                />
+                            </Box>
+                            <Stack>
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="700"
+                                    sx={{ mb: 2 }}
+                                >
+                                    Your wishlist is empty!
+                                </Typography>
+                                <Typography
+                                    variant="h6"
+                                    color="gray"
+                                    fontWeight="700"
+                                    sx={{ mb: 2 }}
+                                >
+                                    Add your favorite products to it now.
+                                </Typography>
+                                <Button
+                                    component={Link}
+                                    to="/product/listing"
+                                    variant="outlined"
+                                    sx={{
+                                        color: "white",
+                                        backgroundColor: "#23A6F0",
+                                        mt: "10px",
+                                        mb: "50px",
+                                    }}
+                                >
+                                    Find Your Favorites
+                                </Button>
+                            </Stack>
+                        </Box>
                     ) : (
                         <Box sx={{ backgroundColor: "#FAFAFA" }}>
                             <Box maxWidth={"1050px"} mx="auto">

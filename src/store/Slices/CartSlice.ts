@@ -196,14 +196,16 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
+        // await new Promise((resolve) => setTimeout(resolve, 500000));
         console.log("data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
         dispatch(
             failureAction({
-                message: err.response?.data?.message || "An error occurred",
+                message:
+                    err.response?.data?.message ||
+                    "Something went wrong. Please try again.",
             })
         );
     }

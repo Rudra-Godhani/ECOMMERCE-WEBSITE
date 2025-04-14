@@ -37,6 +37,7 @@ const ProductImageSlider: React.FC = () => {
         setDirection(-1);
         setIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
     };
+    
     return (
         <Box
             sx={{

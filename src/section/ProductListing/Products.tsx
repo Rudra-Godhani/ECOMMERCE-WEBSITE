@@ -1,12 +1,8 @@
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FilteredProducts from "./FilteredProducts";
 import Filters from "./Filters";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { getSearchedProducts } from "../../store/Slices/productSlice";
 
 interface ProductsProps {
     selectedCategory: string;
@@ -22,7 +18,7 @@ const Products: React.FC<ProductsProps> = ({
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [searchText, setSearchText] = useState<string>("");
     const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-    const [minPrice, setMinPrice] = useState<number>(10);
+    const [minPrice, setMinPrice] = useState<number>(0);
     const [maxPrice, setMaxPrice] = useState<number>(5000);
     const [value, setValue] = useState<number[]>([minPrice, maxPrice]);
 

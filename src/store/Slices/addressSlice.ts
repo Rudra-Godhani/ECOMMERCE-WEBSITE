@@ -77,6 +77,10 @@ const addressSlice = createSlice({
         deleteAddressSuccess: setSuccessState,
         deleteAddressFailed: setFailureState,
 
+        setAddressAsDefaultRequest: setRequestState,
+        setAddressAsDefaultSuccess: setSuccessState,
+        setAddressAsDefaultFailed: setFailureState,
+
         clearAllAddressErrorsAndMsgs(state) {
             state.error = null;
             state.message = null;
@@ -97,6 +101,7 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
+        // await new Promise((resolve) => setTimeout(resolve, 5000));
         dispatch(
             successAction({
                 addresses: response.data.addresses,
@@ -107,7 +112,9 @@ const handleApiCall = async (
         const err = error as AxiosError<{ message: string }>;
         dispatch(
             failureAction({
-                message: err.response?.data?.message || "An error occurred",
+                message:
+                    err.response?.data?.message ||
+                    "Something went wrong. Please try again.",
             })
         );
     }
@@ -153,19 +160,32 @@ export const updateAddress =
         );
     };
 
-export const deleteAddress =
+export const setAddressAsDefault =
     (id: string) => async (dispatch: AppDispatch) => {
         await handleApiCall(
             dispatch,
-            addressSlice.actions.updateAddressRequest,
-            addressSlice.actions.updateAddressSuccess,
-            addressSlice.actions.updateAddressFailed,
+            addressSlice.actions.setAddressAsDefaultRequest,
+            addressSlice.actions.setAddressAsDefaultSuccess,
+            addressSlice.actions.setAddressAsDefaultFailed,
             () =>
-                axios.delete(`${BASE_URL}/user/delete/address/${id}`, {
+                axios.put(`${BASE_URL}/user/update/address/setdefault/${id}`, id, {
                     withCredentials: true,
                 })
         );
     };
+
+export const deleteAddress = (id: string) => async (dispatch: AppDispatch) => {
+    await handleApiCall(
+        dispatch,
+        addressSlice.actions.updateAddressRequest,
+        addressSlice.actions.updateAddressSuccess,
+        addressSlice.actions.updateAddressFailed,
+        () =>
+            axios.delete(`${BASE_URL}/user/delete/address/${id}`, {
+                withCredentials: true,
+            })
+    );
+};
 
 export const clearAllAddressErrorsAndMessages =
     () => (dispatch: AppDispatch) => {

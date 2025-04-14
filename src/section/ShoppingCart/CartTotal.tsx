@@ -23,6 +23,10 @@ const CartTotal: React.FC = () => {
 
     const navigate = useNavigate();
 
+    if (cartItems.length === 0 && !getCartloading) {
+        return <></>;
+    }
+
     return (
         <Box
             sx={{

@@ -7,14 +7,12 @@ import {
     List,
     ListItem,
     ListItemText,
-    styled,
     Toolbar,
     Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -30,16 +28,6 @@ const pages = [
 ];
 
 const MainNavbar: React.FC = () => {
-    const StyledToolebar = styled(Toolbar)(({ theme }) => ({
-        display: "flex",
-        padding: "12px 0px 8px 0px",
-        gap: "40px",
-        margin: "0px 30px",
-        [theme.breakpoints.down("md")]: {
-            gap: "0px",
-            margin: "0px 15px",
-        },
-    }));
 
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
@@ -75,16 +63,24 @@ const MainNavbar: React.FC = () => {
                 position="sticky"
                 sx={{ top: 0, color: "#ffffff", backgroundColor: "#FFFFFF" }}
             >
-                <StyledToolebar>
+                <Toolbar
+                    sx={{
+                        display: "flex",
+                        padding: "12px 0px 8px 0px",
+                        gap: { xs: "5px", md: "40px" },
+                        margin: { xs: "0px 15px", md: "0px 30px" },
+                    }}
+                >
                     <Link to="/">
                         <Typography
                             variant="h3"
                             color="secondary"
                             sx={{
                                 fontSize: "1.5rem",
-                                width: "187px",
+                                width: "100%",
                                 padding: {
-                                    xs: "13px 10px 13px 0",
+                                    xs: "13px 0px 13px 0",
+                                    sm: "13px 10px 13px 0",
                                     md: "13px 28px 13px 0",
                                 },
                                 cursor: "pointer",
@@ -106,7 +102,6 @@ const MainNavbar: React.FC = () => {
                             width: "100%",
                         }}
                     >
-                        {/* Desktop Navigation */}
                         <Box
                             sx={{
                                 gap: "15px",
@@ -148,7 +143,7 @@ const MainNavbar: React.FC = () => {
                                     alignItems: "center",
                                 }}
                             >
-                                <NavLink
+                                <Link
                                     to={`${
                                         isAuthenticated ? "/profile" : "/login"
                                     } `}
@@ -161,9 +156,9 @@ const MainNavbar: React.FC = () => {
                                         }}
                                         htmlColor="#23A6F0"
                                     />
-                                </NavLink>
+                                </Link>
                                 {isAuthenticated ? (
-                                    <NavLink
+                                    <Link
                                         to="/profile"
                                         style={{
                                             textDecoration: "none",
@@ -171,10 +166,10 @@ const MainNavbar: React.FC = () => {
                                         }}
                                     >
                                         Profile
-                                    </NavLink>
+                                    </Link>
                                 ) : (
                                     <>
-                                        <NavLink
+                                        <Link
                                             to="/login"
                                             style={{
                                                 textDecoration: "none",
@@ -182,9 +177,9 @@ const MainNavbar: React.FC = () => {
                                             }}
                                         >
                                             Login
-                                        </NavLink>{" "}
+                                        </Link>{" "}
                                         /
-                                        <NavLink
+                                        <Link
                                             to="/signup"
                                             style={{
                                                 textDecoration: "none",
@@ -192,16 +187,11 @@ const MainNavbar: React.FC = () => {
                                             }}
                                         >
                                             Register
-                                        </NavLink>
+                                        </Link>
                                     </>
                                 )}
                             </Box>
-                            <IconButton>
-                                <SearchIcon
-                                    htmlColor="#23A6F0"
-                                />
-                            </IconButton>
-                            <NavLink
+                            <Link
                                 to="/shopping-cart/checkout"
                                 style={{
                                     display: "flex",
@@ -222,8 +212,8 @@ const MainNavbar: React.FC = () => {
                                         }}
                                     />
                                 </Badge>
-                            </NavLink>
-                            <NavLink
+                            </Link>
+                            <Link
                                 to="/wishlist"
                                 style={{
                                     display: "flex",
@@ -244,11 +234,10 @@ const MainNavbar: React.FC = () => {
                                         }}
                                     />
                                 </Badge>
-                            </NavLink>
+                            </Link>
                         </Box>
                     </Box>
 
-                    {/* Hamburger Icon for Mobile */}
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -256,25 +245,22 @@ const MainNavbar: React.FC = () => {
                             justifyContent: "flex-end",
                         }}
                     >
-                        <IconButton size="large" onClick={handleDrawerOpen}>
+                        <IconButton size="medium" onClick={handleDrawerOpen}>
                             <MenuIcon htmlColor="#000000" />
                         </IconButton>
                     </Box>
-                </StyledToolebar>
+                </Toolbar>
 
-                {/* Drawer for Mobile Menu */}
                 <Drawer
                     anchor="right"
                     open={drawerOpen}
                     onClose={handleDrawerClose}
                 >
                     <Box sx={{ width: 250, p: 2 }}>
-                        {/* Close Button */}
                         <IconButton sx={{ mb: 2 }} onClick={handleDrawerClose}>
                             <CloseIcon htmlColor="#000000" />
                         </IconButton>
 
-                        {/* Drawer Menu List */}
                         <List>
                             {MobilePages.map((page, index) => (
                                 <ListItem

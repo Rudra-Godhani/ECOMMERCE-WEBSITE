@@ -41,8 +41,8 @@ interface ProductState {
     product: Product | null;
     filteredProducts: Product[] | [];
     searchedProducts: Product[] | [];
-    totalPages: number; // New: total number of pages
-    currentPage: number; // New: current page number
+    totalPages: number;
+    currentPage: number;
     isFiltered: boolean;
     isSearched: boolean;
     error: string | null;
@@ -89,6 +89,7 @@ const productSlice = createSlice({
             state.loading = false;
             state.products = [];
             state.error = action.payload.message;
+            state.message = null;
         },
         fetchSingleProductRequest(state) {
             state.loading = true;
@@ -189,37 +190,34 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
+        // await new Promise((resolve) => setTimeout(resolve, 500000));
         console.log("product data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
         dispatch(
             failureAction({
-                message: err.response?.data?.message || "An error occurred",
+                message:
+                    err.response?.data?.message ||
+                    "Something went wrong. Please try again.",
             })
         );
     }
 };
 
-export const getAllProducts =
-    () =>
-    async (dispatch: AppDispatch) => {
-        await handleApiCall(
-            dispatch,
-            productSlice.actions.fetchAllProductsRequest,
-            productSlice.actions.fetchAllProductsSuccess,
-            productSlice.actions.fetchAllProductsFailed,
-            () => {
-                return axios.get(
-                    `${BASE_URL}/product/getallproducts`,
-                    {
-                        withCredentials: true,
-                    }
-                )
-            }
-        );
-    };
+export const getAllProducts = () => async (dispatch: AppDispatch) => {
+    await handleApiCall(
+        dispatch,
+        productSlice.actions.fetchAllProductsRequest,
+        productSlice.actions.fetchAllProductsSuccess,
+        productSlice.actions.fetchAllProductsFailed,
+        () => {
+            return axios.get(`${BASE_URL}/product/getallproducts`, {
+                withCredentials: true,
+            });
+        }
+    );
+};
 
 export const getSingleProduct =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
@@ -242,8 +240,8 @@ interface FilterData {
     maxprice: number;
     sortby?: string;
     search: string;
-    page: number,
-    limit: number,
+    page: number;
+    limit: number;
 }
 
 export const getFilteredProducts =
@@ -299,8 +297,9 @@ export const getSearchedProducts =
         );
     };
 
-export const clearAllProductErrorsAndMessages = () => (dispatch: AppDispatch) => {
-    dispatch(productSlice.actions.clearAllProductErrorsAndMsgs());
-};
+export const clearAllProductErrorsAndMessages =
+    () => (dispatch: AppDispatch) => {
+        dispatch(productSlice.actions.clearAllProductErrorsAndMsgs());
+    };
 
 export default productSlice.reducer;
