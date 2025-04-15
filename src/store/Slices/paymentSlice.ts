@@ -69,7 +69,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        console.log("payment response:", response);
         dispatch(
             successAction({
                 message:

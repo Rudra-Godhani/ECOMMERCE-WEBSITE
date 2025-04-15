@@ -49,10 +49,6 @@ const ManageAddress = () => {
     };
 
     const handleAddAddressSubmit = async (data: FormData) => {
-        for (const [key, value] of data.entries()) {
-            console.log(`${key}: ${value}`);
-        }
-
         if (editAddressId) {
             data.append("addressId", editAddressId);
             await dispatch(updateAddress(data, editAddressId));

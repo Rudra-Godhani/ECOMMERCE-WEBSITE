@@ -13,7 +13,6 @@ const AdBanner: React.FC = () => {
     );
 
     const product = products?.slice(87, 88)[0];
-    console.log(product);
 
     return (
         <Box
