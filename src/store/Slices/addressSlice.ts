@@ -126,7 +126,7 @@ export const getUserAddresses = () => async (dispatch: AppDispatch) => {
         addressSlice.actions.getAddressesSuccess,
         addressSlice.actions.getAddressesFailed,
         () =>
-            axios.get(`${BASE_URL}/user/getuseraddresses`, {
+            axios.get(`${BASE_URL}/address/getuseraddresses`, {
                 withCredentials: true,
             })
     );
@@ -139,7 +139,7 @@ export const addAddress = (data: FormData) => async (dispatch: AppDispatch) => {
         addressSlice.actions.addAddressSuccess,
         addressSlice.actions.addAddressFailed,
         () =>
-            axios.post(`${BASE_URL}/user/addnewaddress`, data, {
+            axios.post(`${BASE_URL}/address/addnewaddress`, data, {
                 withCredentials: true,
             })
     );
@@ -153,7 +153,7 @@ export const updateAddress =
             addressSlice.actions.updateAddressSuccess,
             addressSlice.actions.updateAddressFailed,
             () =>
-                axios.put(`${BASE_URL}/user/update/address/${id}`, data, {
+                axios.put(`${BASE_URL}/address/update/${id}`, data, {
                     withCredentials: true,
                 })
         );
@@ -167,7 +167,7 @@ export const setAddressAsDefault =
             addressSlice.actions.setAddressAsDefaultSuccess,
             addressSlice.actions.setAddressAsDefaultFailed,
             () =>
-                axios.put(`${BASE_URL}/user/update/address/setdefault/${id}`, id, {
+                axios.put(`${BASE_URL}/address/update/setdefault/${id}`, id, {
                     withCredentials: true,
                 })
         );
@@ -180,7 +180,7 @@ export const deleteAddress = (id: string) => async (dispatch: AppDispatch) => {
         addressSlice.actions.updateAddressSuccess,
         addressSlice.actions.updateAddressFailed,
         () =>
-            axios.delete(`${BASE_URL}/user/delete/address/${id}`, {
+            axios.delete(`${BASE_URL}/address/delete/${id}`, {
                 withCredentials: true,
             })
     );
