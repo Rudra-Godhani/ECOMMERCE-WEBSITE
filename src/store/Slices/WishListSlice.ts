@@ -53,7 +53,7 @@ const wishListSlice = createSlice({
         },
         getWishListFailed(
             state,
-            action: PayloadAction<{
+            _action: PayloadAction<{
                 message: string;
             }>
         ) {

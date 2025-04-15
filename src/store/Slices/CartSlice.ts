@@ -55,7 +55,7 @@ const cartSlice = createSlice({
         },
         getCartFailed(
             state,
-            action: PayloadAction<{
+            _action: PayloadAction<{
                 message: string;
             }>
         ) {
