@@ -48,6 +48,8 @@ const wishListSlice = createSlice({
         ) {
             state.getWishListLoading = false;
             state.wishListItems = action.payload.wishListData;
+            state.message = null;
+            state.error = null;
         },
         getWishListFailed(
             state,
@@ -58,7 +60,7 @@ const wishListSlice = createSlice({
             state.getWishListLoading = false;
             state.wishListItems = [];
             state.message = null;
-            state.error = action.payload.message;
+            state.error = null;
         },
         addToWishListRequest: (
             state,
@@ -154,6 +156,7 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
+        console.log("response:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;

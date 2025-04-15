@@ -191,6 +191,10 @@ const Featured: React.FC = () => {
                                                   color="#BDBDBD"
                                                   fontWeight="700"
                                                   fontSize="16px"
+                                                  sx={{
+                                                      textDecoration:
+                                                          "line-through",
+                                                  }}
                                               >
                                                   ₹{product.price}
                                               </Typography>

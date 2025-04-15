@@ -241,6 +241,10 @@ const BestSellerProducts: React.FC = () => {
                                                     color="#BDBDBD"
                                                     fontWeight={"700"}
                                                     fontSize={"16px"}
+                                                    sx={{
+                                                        textDecoration:
+                                                            "line-through",
+                                                    }}
                                                 >
                                                     ₹{item.price}
                                                 </Typography>

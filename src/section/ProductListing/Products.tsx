@@ -19,7 +19,7 @@ const Products: React.FC<ProductsProps> = ({
     const [searchText, setSearchText] = useState<string>("");
     const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
     const [minPrice, setMinPrice] = useState<number>(0);
-    const [maxPrice, setMaxPrice] = useState<number>(5000);
+    const [maxPrice, setMaxPrice] = useState<number>(500000);
     const [value, setValue] = useState<number[]>([minPrice, maxPrice]);
 
     const sortOptions = [

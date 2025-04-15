@@ -322,7 +322,10 @@ const ProductInfo: React.FC = () => {
                                             variant="h3"
                                             color="#BDBDBD"
                                             pb={"5px"}
-                                            >
+                                            sx={{
+                                                textDecoration: "line-through",
+                                            }}
+                                        >
                                             ₹{product?.price}
                                         </Typography>
                                         <Typography

@@ -182,7 +182,7 @@ const Filters: React.FC<FiltersProps> = ({
         };
 
         const isPriceChange = [minPrice, maxPrice].some(
-            (value) => value !== 0 && value !== 5000
+            (value) => value !== 0 && value !== 500000
         );
 
         if (isPriceChange) {
@@ -299,7 +299,7 @@ const Filters: React.FC<FiltersProps> = ({
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         min={0}
-                        max={5000}
+                        max={500000}
                         disableSwap
                     />
                     <Stack direction="row" justifyContent="space-between">

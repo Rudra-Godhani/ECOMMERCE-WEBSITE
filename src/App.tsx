@@ -26,7 +26,6 @@ import Address from "./section/ShoppingCart/Address";
 import PaymentSuccess from "./section/ShoppingCart/PaymentSuccess";
 import PaymentFailed from "./section/ShoppingCart/PaymentFailed";
 import OrderDetails from "./section/Profile/OrderDetails";
-
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
 

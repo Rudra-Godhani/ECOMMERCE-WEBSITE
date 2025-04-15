@@ -85,7 +85,7 @@ const ProductImageSlider: React.FC = () => {
                         }}
                         onClick={prevSlide}
                     >
-                        <ArrowBackIos fontSize="large" htmlColor="#FFFFFF" />
+                        <ArrowBackIos fontSize="large" htmlColor="#854836" />
                     </Button>
 
                     <Button
@@ -98,7 +98,7 @@ const ProductImageSlider: React.FC = () => {
                         }}
                         onClick={nextSlide}
                     >
-                        <ArrowForwardIos fontSize="large" htmlColor="#FFFFFF" />
+                        <ArrowForwardIos fontSize="large" htmlColor="#854836" />
                     </Button>
                 </Box>
 
@@ -111,7 +111,7 @@ const ProductImageSlider: React.FC = () => {
                                 src={img}
                                 alt={`Thumbnail ${imgIndex}`}
                                 style={{
-                                    objectFit: "cover",
+                                    objectFit: "contain",
                                     width: "100px",
                                     height: "75px",
                                     cursor: "pointer",

@@ -86,6 +86,8 @@ const FavoriteProducts: React.FC = () => {
         dispatch(clearAllWishListErrosAndMsgs());
     }, [dispatch, wishListError, wishListMessage]);
 
+    console.log("wishListItems:", wishListItems);
+
     return (
         <Box>
             <Box>
@@ -242,7 +244,7 @@ const FavoriteProducts: React.FC = () => {
                 </Box>
             ) : (
                 <>
-                    {wishListItems?.length === 0 ? (
+                    {!wishListItems || wishListItems?.length === 0 ? (
                         <Box
                             sx={{
                                 display: "flex",

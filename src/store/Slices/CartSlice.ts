@@ -62,7 +62,7 @@ const cartSlice = createSlice({
             state.getCartloading = false;
             state.cartItems = [];
             state.message = null;
-            state.error = action.payload.message;
+            state.error = null;
         },
         addToCartRequest: (
             state,
