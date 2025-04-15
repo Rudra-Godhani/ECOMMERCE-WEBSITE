@@ -50,7 +50,6 @@ const cartSlice = createSlice({
         ) {
             state.getCartloading = false;
             state.cartItems = action.payload.cartData;
-            // state.message = action.payload.message;
             state.message = null;
             state.error = null;
         },
@@ -196,8 +195,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 500000));
-        console.log("data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;

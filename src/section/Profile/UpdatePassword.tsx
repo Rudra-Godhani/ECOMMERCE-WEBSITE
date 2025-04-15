@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
     Button,
+    CircularProgress,
     IconButton,
     InputAdornment,
     Stack,
@@ -11,7 +12,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
-import { clearAllUpdateProfileErrorsAndMessage, updatePassword } from "../../store/Slices/updateProfileSlice";
+import {
+    clearAllUpdateProfileErrorsAndMessage,
+    updatePassword,
+} from "../../store/Slices/updateProfileSlice";
 import { getUser } from "../../store/Slices/userSlice";
 
 const UpdatePassword: React.FC = () => {
@@ -40,12 +44,12 @@ const UpdatePassword: React.FC = () => {
     };
 
     useEffect(() => {
-        if(error){
+        if (error) {
             toast.error(error);
             dispatch(clearAllUpdateProfileErrorsAndMessage());
         }
-        if(isUpdated){
-            if(message){
+        if (isUpdated) {
+            if (message) {
                 toast.success(message);
             }
             setFormData({
@@ -56,8 +60,7 @@ const UpdatePassword: React.FC = () => {
             dispatch(getUser());
             dispatch(clearAllUpdateProfileErrorsAndMessage());
         }
-    },[dispatch,loading,error,isUpdated]);
-
+    }, [dispatch, loading, error, isUpdated]);
 
     return (
         <Stack>
@@ -139,7 +142,9 @@ const UpdatePassword: React.FC = () => {
                         />
                     </Stack>
                     <Stack gap={"15px"}>
-                        <Typography variant="h4">Confirm New Password</Typography>
+                        <Typography variant="h4">
+                            Confirm New Password
+                        </Typography>
                         <TextField
                             label="ConfirmNewPassword"
                             name="confirmPassword"
@@ -186,7 +191,16 @@ const UpdatePassword: React.FC = () => {
                         }}
                         disabled={loading}
                     >
-                        Update Password
+                        {loading ? (
+                            <CircularProgress
+                                size={24}
+                                sx={{
+                                    color: "#FFFFFF",
+                                }}
+                            />
+                        ) : (
+                            " Update Password"
+                        )}
                     </Button>
                 </Stack>
             </form>

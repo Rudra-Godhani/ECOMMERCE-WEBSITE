@@ -9,7 +9,7 @@ const CartTotal: React.FC = () => {
         (state: RootState) => state.cart
     );
 
-    const total = cartItems.map((item) => item.product.price * item.quantity);
+    const total = cartItems.map((item) => item.product.retailPrice * item.quantity);
     let subTotal: number = 0;
     if (total.length !== 0) {
         subTotal = Number(total.reduce((acc, curr) => acc + curr).toFixed(2));
@@ -17,7 +17,7 @@ const CartTotal: React.FC = () => {
     let shippingCost: number = 0;
     let totalCost: number = 0;
     if (subTotal !== 0) {
-        shippingCost = 20;
+        shippingCost = 100;
         totalCost = Number((subTotal + shippingCost).toFixed(2));
     }
 
@@ -117,7 +117,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ${subTotal}
+                                ₹{subTotal}
                             </Typography>
                         </Stack>
                         <hr
@@ -145,7 +145,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ${shippingCost}
+                                ₹{shippingCost}
                             </Typography>
                         </Stack>
                         <hr
@@ -173,7 +173,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ${totalCost}
+                                ₹{totalCost}
                             </Typography>
                         </Stack>
                         <Button
@@ -190,9 +190,9 @@ const CartTotal: React.FC = () => {
                                 textTransform: "none",
                             }}
                             onClick={() => {
-                               if(totalCost !== 0) {
-                                navigate("/shopping-cart/checkout/address")
-                               }
+                                if (totalCost !== 0) {
+                                    navigate("/shopping-cart/checkout/address");
+                                }
                             }}
                         >
                             Checkout

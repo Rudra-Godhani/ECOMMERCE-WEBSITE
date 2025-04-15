@@ -46,17 +46,14 @@ const updateProfileSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        // Profile
         updateProfileRequest: setRequestState,
         updateProfileSuccess: setSuccessState,
         updateProfileFailed: setFailureState,
 
-        // Password
         updatePasswordRequest: setRequestState,
         updatePasswordSuccess: setSuccessState,
         updatePasswordFailed: setFailureState,
 
-        // Forgot Password
         forgotPasswordRequest: setRequestState,
         forgotPasswordSuccess: (
             state,
@@ -69,12 +66,10 @@ const updateProfileSlice = createSlice({
         },
         forgotPasswordFailed: setFailureState,
 
-        // Reset Password
         resetPasswordRequest: setRequestState,
         resetPasswordSuccess: setSuccessState,
         resetPasswordFailed: setFailureState,
 
-        // Reset State
         profileResetAfterUpdate(state) {
             state.error = null;
             state.isUpdated = false;

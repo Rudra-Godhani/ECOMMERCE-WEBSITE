@@ -181,14 +181,18 @@ const Featured: React.FC = () => {
                                           >
                                               {product.title}
                                           </Typography>
-                                          <Stack direction="row" spacing={0.75} justifyContent={"center"}>
+                                          <Stack
+                                              direction="row"
+                                              spacing={0.75}
+                                              justifyContent={"center"}
+                                          >
                                               <Typography
                                                   variant="h5"
                                                   color="#BDBDBD"
                                                   fontWeight="700"
                                                   fontSize="16px"
                                               >
-                                                  ${product.price}
+                                                  ₹{product.price}
                                               </Typography>
                                               <Typography
                                                   variant="h5"
@@ -196,10 +200,14 @@ const Featured: React.FC = () => {
                                                   fontWeight="700"
                                                   fontSize="16px"
                                               >
-                                                  ${product.retailPrice}
+                                                  ₹{product.retailPrice}
                                               </Typography>
                                           </Stack>
-                                          <Stack direction="row" spacing={0.75} justifyContent={"center"}>
+                                          <Stack
+                                              direction="row"
+                                              spacing={0.75}
+                                              justifyContent={"center"}
+                                          >
                                               {product.colors.map(
                                                   (color, index) => (
                                                       <Box

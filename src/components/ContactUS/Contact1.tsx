@@ -44,7 +44,6 @@ const Contact1: React.FC = () => {
                             Contact Information
                         </Typography>
 
-                        {/* Email */}
                         {[
                             {
                                 icon: <Email color="primary" />,

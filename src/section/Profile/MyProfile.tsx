@@ -106,28 +106,6 @@ const MyProfile: React.FC = () => {
                         />
                     </Stack>
                 )}
-                {/* {user?.address !== null && (
-                    <Stack gap={"15px"}>
-                        <Typography variant="h4">Address</Typography>
-                        <TextField
-                            value={user?.address}
-                            disabled
-                            InputProps={{
-                                sx: {
-                                    fontSize: "18px",
-                                    backgroundColor: "#f0f0f0",
-                                    "& .MuiInputBase-input": {
-                                        padding: "10px",
-                                    },
-                                    "&.Mui-disabled .MuiInputBase-input": {
-                                        WebkitTextFillColor: "black",
-                                    },
-                                },
-                            }}
-                            fullWidth
-                        />
-                    </Stack>
-                )} */}
             </Stack>
         </Stack>
     );

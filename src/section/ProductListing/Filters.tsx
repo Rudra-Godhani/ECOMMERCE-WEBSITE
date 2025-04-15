@@ -110,6 +110,7 @@ const Filters: React.FC<FiltersProps> = ({
 
     useEffect(() => {
         setValue([minPrice, maxPrice]);
+        setCurrentPage(1);
     }, [minPrice, maxPrice]);
 
     const handleChange = (
@@ -307,14 +308,14 @@ const Filters: React.FC<FiltersProps> = ({
                             fontWeight="500"
                             color="#000000"
                         >
-                            ${value[0]}
+                            ₹{value[0]}
                         </Typography>
                         <Typography
                             variant="body1"
                             fontWeight="500"
                             color="#000000"
                         >
-                            ${value[1]}
+                            ₹{value[1]}
                         </Typography>
                     </Stack>
                 </Stack>

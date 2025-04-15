@@ -148,11 +148,9 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.message;
         },
-        clearAllErrors(state) {
-            state.error = null;
-        },
-        clearAllMessage(state) {
+        clearAllUserErrorsAndMsgs(state) {
             state.message = null;
+            state.error = null;
         },
     },
 });
@@ -246,11 +244,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
     );
 };
 
-export const clearAllUserErrors = () => (dispatch: AppDispatch) => {
-    dispatch(userSlice.actions.clearAllErrors());
-};
-export const clearAllUserMessage = () => (dispatch: AppDispatch) => {
-    dispatch(userSlice.actions.clearAllMessage());
+export const clearAllUserErrorsAndMessages = () => (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.clearAllUserErrorsAndMsgs());
 };
 
 export default userSlice.reducer;

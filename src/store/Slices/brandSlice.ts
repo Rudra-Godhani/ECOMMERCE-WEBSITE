@@ -1,5 +1,4 @@
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../../data/allProductsData";
 import axios, { AxiosError } from "axios";
 import { AppDispatch } from "../store";
 import { BASE_URL } from "../../const/constants";
@@ -71,7 +70,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -96,6 +94,10 @@ export const getAllBrands = () => async (dispatch: AppDispatch) => {
                 withCredentials: true,
             })
     );
+};
+
+export const clearAllBrandErrorsAndMessages = () => (dispatch: AppDispatch) => {
+    dispatch(brandSlice.actions.clearAllBrandErrorsAndMsgs());
 };
 
 export default brandSlice.reducer;

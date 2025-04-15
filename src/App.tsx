@@ -24,7 +24,7 @@ import {
 } from "./store/Slices/productSlice";
 import Address from "./section/ShoppingCart/Address";
 import PaymentSuccess from "./section/ShoppingCart/PaymentSuccess";
-import PaymentCancel from "./section/ShoppingCart/PaymentCancel";
+import PaymentFailed from "./section/ShoppingCart/PaymentFailed";
 import OrderDetails from "./section/Profile/OrderDetails";
 
 const App: React.FC = () => {
@@ -53,7 +53,7 @@ const App: React.FC = () => {
                         path="payment/success"
                         element={<PaymentSuccess />}
                     />
-                    <Route path="payment/cancel" element={<PaymentCancel />} />
+                    <Route path="payment/failed" element={<PaymentFailed />} />
 
                     <Route path="product">
                         <Route
@@ -70,7 +70,6 @@ const App: React.FC = () => {
 
                     <Route element={<ProtectedRoute />}>
                         <Route path="profile" element={<Profile />} />
-                        {/* <Route path="shopping-cart" element={<ShoppingCart />}> */}
                         <Route path="shopping-cart">
                             <Route
                                 path="checkout"
@@ -80,10 +79,6 @@ const App: React.FC = () => {
                                 path="checkout/address"
                                 element={<Address />}
                             ></Route>
-                            {/* <Route
-                                path="checkout/payment"
-                                element={<ShoppingCart />}
-                            ></Route> */}
                         </Route>
                         <Route path="wishlist" element={<WishList />} />
                         <Route

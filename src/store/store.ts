@@ -1,7 +1,5 @@
 import { configureStore, ThunkDispatch } from "@reduxjs/toolkit";
 import wishListReducer from "./Slices/WishListSlice";
-import filterReducer from "./Slices/FilterSlice";
-import authReducer from "./Slices/authSlice";
 import userReducer from "./Slices/userSlice";
 import updateProfileReducer from "./Slices/updateProfileSlice";
 import productReducer from "./Slices/productSlice";
@@ -11,6 +9,7 @@ import orderReducer from "./Slices/orderSlice";
 import categoryReducer from "./Slices/categorySlice";
 import brandReducer from "./Slices/brandSlice";
 import contactReducer from "./Slices/contactUsSlice";
+import paymentReducer from "./Slices/paymentSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { AnyAction, combineReducers } from "redux";
@@ -22,8 +21,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    filter: filterReducer,
-    auth: authReducer,
     user: userReducer,
     updateProfile: updateProfileReducer,
     product: productReducer,
@@ -34,6 +31,7 @@ const rootReducer = combineReducers({
     address: addressReducer,
     order: orderReducer,
     contact: contactReducer,
+    payment: paymentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

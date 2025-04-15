@@ -16,8 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
 import {
-    clearAllUserErrors,
-    clearAllUserMessage,
+    clearAllUserErrorsAndMessages,
     login,
 } from "../../store/Slices/userSlice";
 
@@ -45,15 +44,14 @@ const Login: React.FC = () => {
     useEffect(() => {
         if (error) {
             toast.error(error);
-            dispatch(clearAllUserErrors());
         }
         if (isAuthenticated) {
             if (message) {
                 toast.success(message);
-                dispatch(clearAllUserMessage());
             }
             navigate("/");
         }
+        dispatch(clearAllUserErrorsAndMessages());
     }, [dispatch, error, loading, isAuthenticated, message]);
 
     return (

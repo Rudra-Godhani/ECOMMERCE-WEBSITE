@@ -101,7 +101,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
         dispatch(
             successAction({
                 addresses: response.data.addresses,

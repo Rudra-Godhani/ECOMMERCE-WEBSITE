@@ -195,22 +195,17 @@ const ProductInfo: React.FC = () => {
                                     }}
                                 />
                                 <Stack direction="row" gap="10px" mt="20px">
-                                    {[...Array(3)].map(
-                                        (
-                                            _,
-                                            i
-                                        ) => (
-                                            <Skeleton
-                                                key={i}
-                                                variant="rectangular"
-                                                sx={{
-                                                    width: "100px",
-                                                    height: "75px",
-                                                }}
-                                                animation="wave"
-                                            />
-                                        )
-                                    )}
+                                    {[...Array(3)].map((_, i) => (
+                                        <Skeleton
+                                            key={i}
+                                            variant="rectangular"
+                                            sx={{
+                                                width: "100px",
+                                                height: "75px",
+                                            }}
+                                            animation="wave"
+                                        />
+                                    ))}
                                 </Stack>
                             </Box>
                         ) : (
@@ -322,13 +317,22 @@ const ProductInfo: React.FC = () => {
                                             {product?.noOfReviews} Reviews
                                         </Typography>
                                     </Stack>
-                                    <Typography
-                                        variant="h3"
-                                        color="secondary"
-                                        pb={"5px"}
-                                    >
-                                        ${product?.price}
-                                    </Typography>
+                                    <Stack direction={"row"} gap={1}>
+                                        <Typography
+                                            variant="h3"
+                                            color="#BDBDBD"
+                                            pb={"5px"}
+                                            >
+                                            ₹{product?.price}
+                                        </Typography>
+                                        <Typography
+                                            variant="h3"
+                                            color="darkGreen"
+                                            pb={"5px"}
+                                        >
+                                            ₹{product?.retailPrice}
+                                        </Typography>
+                                    </Stack>
                                     <Stack direction={"row"} pb={"32px"}>
                                         <Typography
                                             variant="h6"

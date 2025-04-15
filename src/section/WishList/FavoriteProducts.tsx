@@ -441,7 +441,7 @@ const FavoriteProducts: React.FC = () => {
                                                             fontWeight={"700"}
                                                             fontSize={"16px"}
                                                         >
-                                                            $
+                                                            ₹
                                                             {item.product.price}
                                                         </Typography>
                                                         <Typography
@@ -450,7 +450,7 @@ const FavoriteProducts: React.FC = () => {
                                                             fontWeight={"700"}
                                                             fontSize={"16px"}
                                                         >
-                                                            $
+                                                            ₹
                                                             {
                                                                 item.product
                                                                     .retailPrice

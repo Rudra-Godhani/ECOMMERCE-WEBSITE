@@ -2,6 +2,7 @@ import {
     Avatar,
     Box,
     Button,
+    CircularProgress,
     IconButton,
     Stack,
     TextField,
@@ -196,22 +197,6 @@ const UpdateProfile: React.FC = () => {
                             fullWidth
                         />
                     </Stack>
-                    {/* <Stack gap={"15px"}>
-                        <Typography variant="h4">Address</Typography>
-                        <TextField
-                            label="Address"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            InputLabelProps={{
-                                style: { fontSize: "15px" },
-                            }}
-                            InputProps={{
-                                style: { fontSize: "15px" },
-                            }}
-                            fullWidth
-                        />
-                    </Stack> */}
                     <Button
                         type="submit"
                         sx={{
@@ -225,7 +210,16 @@ const UpdateProfile: React.FC = () => {
                         }}
                         disabled={loading}
                     >
-                        Save Changes
+                        {loading ? (
+                            <CircularProgress
+                                size={24}
+                                sx={{
+                                    color: "#FFFFFF",
+                                }}
+                            />
+                        ) : (
+                            "Save Changes"
+                        )}
                     </Button>
                 </Stack>
             </form>

@@ -25,6 +25,7 @@ export interface Order {
             price: number;
             totalPrice: number;
             product: Product;
+            color: string;
         }
     ];
     address: {
@@ -120,8 +121,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 500000));
-        console.log("order data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;

@@ -8,9 +8,7 @@ import {
     Skeleton,
 } from "@mui/material";
 import { useEffect } from "react";
-import {
-    getMyOrderById,
-} from "../../store/Slices/orderSlice";
+import { getMyOrderById } from "../../store/Slices/orderSlice";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
@@ -20,7 +18,6 @@ import { errorImage2 } from "../../assets";
 
 const OrderDetailsPage = () => {
     const { orderId } = useParams();
-    console.log("orderId:", orderId);
     const { order, loading, error } = useSelector(
         (state: RootState) => state.order
     );
@@ -121,8 +118,7 @@ const OrderDetailsPage = () => {
     const calculateListPrice = () => {
         return order?.orderItems
             .reduce(
-                (total, item) =>
-                    total + item.product.retailPrice * item.quantity,
+                (total, item) => total + item.product.price * item.quantity,
                 0
             )
             .toFixed(2);
@@ -284,6 +280,28 @@ const OrderDetailsPage = () => {
                                             </Typography>
                                             <Stack
                                                 direction={"row"}
+                                                gap={"2px"}
+                                                alignItems={"center"}
+                                            >
+                                                <Typography
+                                                    variant="h6"
+                                                    color="text.secondary"
+                                                >
+                                                    color:
+                                                </Typography>
+                                                <Box
+                                                    width={"18px"}
+                                                    height={"18px"}
+                                                    sx={{
+                                                        backgroundColor:
+                                                            item.color,
+                                                        borderRadius: "50%",
+                                                        border: "2px solid rgb(184, 180, 180)",
+                                                    }}
+                                                ></Box>
+                                            </Stack>
+                                            <Stack
+                                                direction={"row"}
                                                 alignItems={"center"}
                                                 mt={"30px"}
                                                 gap={2}
@@ -298,7 +316,7 @@ const OrderDetailsPage = () => {
                                                     variant="h5"
                                                     fontWeight={500}
                                                 >
-                                                    $
+                                                    ₹
                                                     {item.totalPrice.toFixed(2)}
                                                 </Typography>
                                             </Stack>
@@ -384,13 +402,14 @@ const OrderDetailsPage = () => {
                                     >
                                         Phone number:
                                     </Typography>
-                                    <Typography variant="h6" mt={1}>
-                                        {order?.user.phoneNumber}
-                                    </Typography>
+                                    {order?.user.phoneNumber && (
+                                        <Typography variant="h6" mt={1}>
+                                            {order?.user.phoneNumber}
+                                        </Typography>
+                                    )}
                                 </Stack>
                             </Paper>
 
-                            {/* Price Details */}
                             <Paper sx={{ p: 2 }}>
                                 <Typography fontWeight={600}>
                                     Price Details
@@ -409,7 +428,7 @@ const OrderDetailsPage = () => {
                                             textDecoration: "line-through",
                                         }}
                                     >
-                                        ${calculateListPrice()}
+                                        ₹{calculateListPrice()}
                                     </Typography>
                                 </Stack>
                                 <Stack
@@ -420,7 +439,7 @@ const OrderDetailsPage = () => {
                                         Selling Price
                                     </Typography>
                                     <Typography variant="h6">
-                                        ${order?.total.toFixed(2)}
+                                        ₹{order?.total.toFixed(2)}
                                     </Typography>
                                 </Stack>
                                 <Stack
@@ -431,7 +450,7 @@ const OrderDetailsPage = () => {
                                         Discount
                                     </Typography>
                                     <Typography variant="h6" color="green">
-                                        - ${order?.discount.toFixed(2)}
+                                        - ₹{order?.discount.toFixed(2)}
                                     </Typography>
                                 </Stack>
                                 <Stack
@@ -450,7 +469,7 @@ const OrderDetailsPage = () => {
                                         }
                                     >
                                         {order!.deliveryCharge > 0
-                                            ? `$${order?.deliveryCharge}`
+                                            ? `₹${order?.deliveryCharge}`
                                             : "Free"}
                                     </Typography>
                                 </Stack>
@@ -463,7 +482,7 @@ const OrderDetailsPage = () => {
                                         Total Amount
                                     </Typography>
                                     <Typography variant="h6" fontWeight={600}>
-                                        ${order?.netTotal.toFixed(2)}
+                                        ₹{order?.netTotal.toFixed(2)}
                                     </Typography>
                                 </Stack>
                             </Paper>

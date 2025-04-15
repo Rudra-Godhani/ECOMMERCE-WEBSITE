@@ -263,7 +263,12 @@ const CartData: React.FC = () => {
                             component={Link}
                             to="/product/listing"
                             variant="outlined"
-                            sx={{ color: "white", backgroundColor: "#23A6F0" ,mt:"10px",mb:"50px"}}
+                            sx={{
+                                color: "white",
+                                backgroundColor: "#23A6F0",
+                                mt: "10px",
+                                mb: "50px",
+                            }}
                         >
                             Shop now
                         </Button>
@@ -483,7 +488,7 @@ const CartData: React.FC = () => {
                                                 fontWeight: "700",
                                             }}
                                         >
-                                            {item.product.price}
+                                            ₹{item.product.retailPrice}
                                         </TableCell>
                                         <TableCell
                                             align="center"
@@ -493,8 +498,9 @@ const CartData: React.FC = () => {
                                                 fontWeight: "700",
                                             }}
                                         >
+                                            ₹
                                             {(
-                                                item.product.price *
+                                                item.product.retailPrice *
                                                 item.quantity
                                             ).toFixed(2)}
                                         </TableCell>

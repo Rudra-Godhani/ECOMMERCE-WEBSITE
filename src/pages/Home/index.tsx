@@ -15,8 +15,6 @@ const Home: React.FC = () => {
         (state: RootState) => state.product
     );
 
-    console.log("error: ", error);
-
     if (!loading && error) {
         return (
             <Box

@@ -16,8 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
 import {
-    clearAllUserErrors,
-    clearAllUserMessage,
+    clearAllUserErrorsAndMessages,
     register,
 } from "../../store/Slices/userSlice";
 
@@ -46,16 +45,15 @@ const SignUp: React.FC = () => {
     useEffect(() => {
         if (error) {
             toast.error(error);
-            dispatch(clearAllUserErrors());
         }
         if (message) {
             toast.success(message);
-            dispatch(clearAllUserMessage());
             navigate("/login");
         }
         if (isAuthenticated) {
             navigate("/");
         }
+        dispatch(clearAllUserErrorsAndMessages());
     }, [dispatch, error, loading, isAuthenticated, message]);
 
     return (
@@ -120,7 +118,7 @@ const SignUp: React.FC = () => {
                         <TextField
                             label="Password"
                             name="password"
-                            type={!showPassword ? "text" : "password"}
+                            type={showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={handleChange}
                             InputLabelProps={{
@@ -137,7 +135,7 @@ const SignUp: React.FC = () => {
                                             }
                                             edge="end"
                                         >
-                                            {showPassword ? (
+                                            {!showPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />

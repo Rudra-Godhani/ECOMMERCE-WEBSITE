@@ -55,7 +55,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 500000));
         dispatch(
             successAction({
                 message: response.data.message,

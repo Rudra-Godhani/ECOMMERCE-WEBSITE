@@ -15,7 +15,6 @@ import { NavLink } from "react-router-dom";
 const Footer: React.FC = () => {
     return (
         <Box>
-            {/* Footer Top */}
             <Box
                 sx={{ bgcolor: "#FAFAFA", py: 5, px: { xs: "20px", sm: "0" } }}
             >
@@ -54,7 +53,6 @@ const Footer: React.FC = () => {
                 </Container>
             </Box>
 
-            {/* Footer Middle */}
             <Box sx={{ py: 6.25, px: { xs: "20px", sm: "0" } }}>
                 <Container maxWidth="lg">
                     <Grid container spacing={4} justifyContent="space-between">
@@ -125,7 +123,6 @@ const Footer: React.FC = () => {
                                 ))}
                             </Grid>
                         ))}
-                        {/* Get In Touch Section with More Space */}
                         <Grid
                             item
                             xs={12}
@@ -210,7 +207,6 @@ const Footer: React.FC = () => {
                 </Container>
             </Box>
 
-            {/* Footer Bottom */}
             <Box
                 sx={{
                     bgcolor: "#FAFAFA",

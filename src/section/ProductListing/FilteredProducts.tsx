@@ -493,7 +493,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                                                     fontWeight={"700"}
                                                     fontSize={"16px"}
                                                 >
-                                                    ${item.price}
+                                                    ₹{item.price}
                                                 </Typography>
                                                 <Typography
                                                     variant="h5"
@@ -501,7 +501,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                                                     fontWeight={"700"}
                                                     fontSize={"16px"}
                                                 >
-                                                    ${item.retailPrice}
+                                                    ₹{item.retailPrice}
                                                 </Typography>
                                             </Stack>
                                             <Stack

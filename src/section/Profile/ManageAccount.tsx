@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../store/store";
 import { toast } from "react-toastify";
-import { clearAllUserErrors, clearAllUserMessage, logout } from "../../store/Slices/userSlice";
+import {
+    clearAllUserErrorsAndMessages,
+    logout,
+} from "../../store/Slices/userSlice";
 
 const tabs: string[] = [
     "My Profile",
@@ -38,13 +41,12 @@ const ManageAccount: React.FC<ManageAccountProps> = ({
     useEffect(() => {
         if (error) {
             toast.error(error);
-            dispatch(clearAllUserErrors());
         }
-        if(message){
+        if (message) {
             toast.success(message);
-            dispatch(clearAllUserMessage());
             navigate("/");
         }
+        dispatch(clearAllUserErrorsAndMessages());
     }, [dispatch, error, loading, isAuthenticated]);
 
     const handleTabClick = (tab: string) => {

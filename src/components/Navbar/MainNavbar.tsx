@@ -128,7 +128,6 @@ const MainNavbar: React.FC = () => {
                             ))}
                         </Box>
 
-                        {/* Icons */}
                         <Box
                             sx={{
                                 display: "flex",

@@ -36,15 +36,12 @@ export interface Product {
 interface ProductState {
     loading: boolean;
     filteredLoading: boolean;
-    searchedLoading: boolean;
     products: Product[] | [];
     product: Product | null;
     filteredProducts: Product[] | [];
-    searchedProducts: Product[] | [];
     totalPages: number;
     currentPage: number;
     isFiltered: boolean;
-    isSearched: boolean;
     error: string | null;
     message: string | null;
 }
@@ -52,15 +49,12 @@ interface ProductState {
 const initialState: ProductState = {
     loading: false,
     filteredLoading: false,
-    searchedLoading: false,
     products: [],
     product: null,
     filteredProducts: [],
-    searchedProducts: [],
     totalPages: 1,
     currentPage: 1,
     isFiltered: false,
-    isSearched: false,
     error: null,
     message: null,
 };
@@ -141,31 +135,6 @@ const productSlice = createSlice({
             state.error = action.payload.message;
             state.isFiltered = true;
         },
-        fetchSearchedProductsRequest(state) {
-            state.searchedLoading = true;
-            state.isSearched = true;
-        },
-        fetchSearchedProductsSuccess(
-            state,
-            action: PayloadAction<{
-                searchedProducts: Product[];
-            }>
-        ) {
-            state.searchedLoading = false;
-            state.searchedProducts = action.payload.searchedProducts;
-            state.isSearched = true;
-        },
-        fetchSearchedProductsFailed(
-            state,
-            action: PayloadAction<{
-                message: string;
-            }>
-        ) {
-            state.searchedLoading = false;
-            state.searchedProducts = [];
-            state.error = action.payload.message;
-            state.isSearched = true;
-        },
         clearAllProductErrorsAndMsgs(state) {
             state.error = null;
             state.message = null;
@@ -190,8 +159,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        // await new Promise((resolve) => setTimeout(resolve, 500000));
-        console.log("product data:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -274,22 +241,6 @@ export const getFilteredProducts =
                 }
                 url = url + queryParams.join("&");
 
-                return axios.get(url, {
-                    withCredentials: true,
-                });
-            }
-        );
-    };
-
-export const getSearchedProducts =
-    (query: string) => async (dispatch: AppDispatch) => {
-        await handleApiCall(
-            dispatch,
-            productSlice.actions.fetchSearchedProductsRequest,
-            productSlice.actions.fetchSearchedProductsSuccess,
-            productSlice.actions.fetchSearchedProductsFailed,
-            () => {
-                let url = `${BASE_URL}/product/searchedproducts?search=${query}`;
                 return axios.get(url, {
                     withCredentials: true,
                 });

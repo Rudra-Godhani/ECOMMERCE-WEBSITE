@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    Box,
-    Typography,
-    CircularProgress,
-    Button,
-    Grow,
-    Card,
-    CardContent,
-} from "@mui/material";
+import { Box, Typography, CircularProgress, Button, Grow, Card, CardContent } from "@mui/material";
 import { AppDispatch, RootState } from "../../store/store";
 import {
     clearAllPaymentSessionErrorsAndMessages,
     validatePaymentSession,
 } from "../../store/Slices/paymentSlice";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-const PaymentSuccess = () => {
+const PaymentFailed = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const location = useLocation();
@@ -46,7 +39,7 @@ const PaymentSuccess = () => {
 
     useEffect(() => {
         if (hasValidated && !loading) {
-            if (error || sessionStatus !== "paid") {
+            if (error || sessionStatus === "paid") {
                 navigate("/");
             }
         }
@@ -67,7 +60,7 @@ const PaymentSuccess = () => {
         );
     }
 
-    if (sessionStatus !== "paid") {
+    if (sessionStatus === "paid") {
         return null;
     }
 
@@ -102,10 +95,10 @@ const PaymentSuccess = () => {
                             px: { xs: 3, sm: 5 },
                         }}
                     >
-                        <Box
+                        <CancelIcon
                             sx={{
-                                width: 70,
-                                height: 70,
+                                fontSize: 70,
+                                color: "error.main",    
                                 mb: 2,
                                 animation: "pulse 2s infinite",
                                 "@keyframes pulse": {
@@ -114,58 +107,17 @@ const PaymentSuccess = () => {
                                     "100%": { transform: "scale(1)" },
                                 },
                             }}
-                        >
-                            <svg
-                                viewBox="0 0 100 100"
-                                style={{ width: "100%", height: "100%" }}
-                            >
-                                <path
-                                    d="M35,50 L45,60 L65,40"
-                                    stroke="#2e7d32"
-                                    strokeWidth="8"
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    strokeDasharray="42.4"
-                                    strokeDashoffset="42.4"
-                                >
-                                    <animate
-                                        attributeName="stroke-dashoffset"
-                                        values="42.4;0"
-                                        dur="0.5s"
-                                        fill="freeze"
-                                        begin="0s"
-                                    />
-                                </path>
-                                <circle
-                                    cx="50"
-                                    cy="50"
-                                    r="40"
-                                    fill="none"
-                                    stroke="#2e7d32"
-                                    strokeWidth="8"
-                                    strokeDasharray="251.2"
-                                    strokeDashoffset="251.2"
-                                >
-                                    <animate
-                                        attributeName="stroke-dashoffset"
-                                        values="251.2;0"
-                                        dur="0.7s"
-                                        fill="freeze"
-                                        begin="0.5s"
-                                    />
-                                </circle>
-                            </svg>
-                        </Box>
+                        />
 
                         <Typography
                             variant="h4"
                             component="h1"
-                            color="success.main"
+                            color="error.main"
                             fontWeight="bold"
                             gutterBottom
                             sx={{ fontSize: { xs: "1.75rem", sm: "2.125rem" } }}
                         >
-                            Payment Successful!
+                            Payment Failed
                         </Typography>
 
                         <Typography
@@ -173,8 +125,8 @@ const PaymentSuccess = () => {
                             color="gray"
                             sx={{ mb: 4, maxWidth: 400, lineHeight: 1.6 }}
                         >
-                            Thank you for your purchase! Your order is being
-                            processed.
+                            We’re sorry, something went wrong with your payment.
+                            Please try again.
                         </Typography>
 
                         <Box
@@ -189,7 +141,9 @@ const PaymentSuccess = () => {
                             <Button
                                 variant="contained"
                                 size="large"
-                                onClick={() => navigate("/profile")}
+                                onClick={() =>
+                                    navigate("/shopping-cart/checkout")
+                                }
                                 sx={{
                                     borderRadius: 2,
                                     px: 4,
@@ -198,10 +152,10 @@ const PaymentSuccess = () => {
                                     fontWeight: "medium",
                                     textTransform: "none",
                                     flex: { xs: "1 1 auto", sm: "0 1 auto" },
-                                    backgroundColor: "#23A6F0",
+                                    backgroundColor:"#23A6F0"
                                 }}
                             >
-                                View Orders
+                                Try Again
                             </Button>
                         </Box>
                     </CardContent>
@@ -211,4 +165,4 @@ const PaymentSuccess = () => {
     );
 };
 
-export default PaymentSuccess;
+export default PaymentFailed;

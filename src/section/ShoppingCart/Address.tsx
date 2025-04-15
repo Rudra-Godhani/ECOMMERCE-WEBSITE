@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowForwardIos, MoreVert, Add as AddIcon } from "@mui/icons-material";
 import AddressForm from "../Profile/AddressForm";
 import {
@@ -30,10 +30,19 @@ import axios from "axios";
 import { BASE_URL } from "../../const/constants";
 
 const Address = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const { error, message, addresses, loading } = useSelector(
         (state: RootState) => state.address
     );
-    const dispatch = useDispatch<AppDispatch>();
+    const { cartItems } = useSelector((state: RootState) => state.cart);
+
+    useEffect(() => {
+        if (cartItems.length === 0) {
+            toast.error("Your cart is empty! please add items to the cart.");
+            navigate("/shopping-cart/checkout");
+        }
+    }, [dispatch]);
 
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [editAddressId, setEditAddressId] = useState<string | null>(null);
@@ -134,8 +143,6 @@ const Address = () => {
         dispatch(clearAllAddressErrorsAndMessages());
     }, [error, message, dispatch]);
 
-    const { cartItems } = useSelector((state: RootState) => state.cart);
-
     const makePayment = async () => {
         const stripe = await loadStripe(
             "pk_test_51RBVnhP5q7TBIR8cWlbZpjL6RhDPWGbbP7eIiGkMV1AGLPz31ah1cNhdJkPzGl8X1qRXYGlIqeM1bJ46OenPFdyK009Y2Whf2b"
@@ -175,10 +182,12 @@ const Address = () => {
             });
 
             if (result?.error) {
-                toast.error(result.error.message);
+                toast.error(
+                    result.error.message || "Payment initiation failed"
+                );
             }
         } catch (error) {
-            toast.error("Payment initiation failed");
+            toast.error("Payment initiation failed. Please try again.");
         }
     };
 
@@ -483,29 +492,3 @@ const Address = () => {
 };
 
 export default Address;
-
-{
-    /* {loading && (
-                <Box
-                    sx={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        bgcolor: "rgba(0, 0, 0, 0.5)", // Semi-transparent gray overlay
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1300, // Above most content (MUI default for modals)
-                    }}
-                >
-                    <Stack direction="column" alignItems="center" spacing={2}>
-                        <CircularProgress sx={{ color: "#23A6F0" }} />
-                        <Typography variant="h6" color="white">
-                            Loading
-                        </Typography>
-                    </Stack>
-                </Box>
-            )} */
-}
