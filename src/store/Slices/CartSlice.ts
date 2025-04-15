@@ -195,6 +195,7 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
+        console.log("response: ", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;

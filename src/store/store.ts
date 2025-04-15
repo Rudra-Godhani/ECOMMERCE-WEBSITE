@@ -17,7 +17,7 @@ import { AnyAction, combineReducers } from "redux";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["user", "cart", "wishList"],
+    whitelist: ["user"],
 };
 
 const rootReducer = combineReducers({

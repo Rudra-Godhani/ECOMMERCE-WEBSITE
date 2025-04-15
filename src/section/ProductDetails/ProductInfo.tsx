@@ -63,7 +63,7 @@ const ProductInfo: React.FC = () => {
     const handleFavorite = (id: string) => {
         if (wishListItems?.some((item) => item.product.id === id)) {
             dispatch(removeProductFromWishList({ productId: id }));
-        } else {    
+        } else {
             dispatch(
                 addProductToWishList({ productId: id, color: selectedColor })
             );
