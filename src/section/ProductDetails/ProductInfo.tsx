@@ -53,7 +53,7 @@ const ProductInfo: React.FC = () => {
     } = useSelector((state: RootState) => state.wishList);
 
     const handleAddRemoveProduct = (id: string) => {
-        if (cartItems.some((item) => item.product.id === id)) {
+        if (cartItems?.some((item) => item.product.id === id)) {
             dispatch(removeProductFromCart({ productId: id }));
         } else {
             dispatch(addProductToCart({ productId: id, color: selectedColor }));
@@ -63,7 +63,7 @@ const ProductInfo: React.FC = () => {
     const handleFavorite = (id: string) => {
         if (wishListItems?.some((item) => item.product.id === id)) {
             dispatch(removeProductFromWishList({ productId: id }));
-        } else {
+        } else {    
             dispatch(
                 addProductToWishList({ productId: id, color: selectedColor })
             );
