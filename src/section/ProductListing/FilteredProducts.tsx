@@ -497,7 +497,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                                                             "line-through",
                                                     }}
                                                 >
-                                                    ₹{item.price}
+                                                    ₹{item.price.toFixed(2)}
                                                 </Typography>
                                                 <Typography
                                                     variant="h5"
@@ -505,7 +505,7 @@ const FilteredProducts: React.FC<FilteredProductsProps> = ({
                                                     fontWeight={"700"}
                                                     fontSize={"16px"}
                                                 >
-                                                    ₹{item.retailPrice}
+                                                    ₹{item.retailPrice.toFixed(2)}
                                                 </Typography>
                                             </Stack>
                                             <Stack

@@ -37,7 +37,7 @@ const ProductImageSlider: React.FC = () => {
         setDirection(-1);
         setIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
     };
-    
+
     return (
         <Box
             sx={{
@@ -58,7 +58,7 @@ const ProductImageSlider: React.FC = () => {
                         <motion.img
                             key={index}
                             src={product?.images[index]}
-                            alt={`Slide ${index}`}
+                            alt={`${product?.title} ${index + 1}`}
                             style={{
                                 position: "absolute",
                                 width: "100%",
@@ -82,10 +82,24 @@ const ProductImageSlider: React.FC = () => {
                             left: "10px",
                             transform: "translateY(-50%)",
                             color: "white",
+                            backgroundColor: "rgba(0, 0, 0, 0.39)",
+                            padding: { xs: "10px", sm: "12px", md: "14px" },
+                            minWidth: { xs: "32px", sm: "32px", md: "48px" },
+                            height: { xs: "36px", sm: "38px", md: "40px" },
                         }}
                         onClick={prevSlide}
                     >
-                        <ArrowBackIos fontSize="large" htmlColor="#854836" />
+                        <ArrowBackIos
+                            fontSize="large"
+                            htmlColor="#FFFFFF"
+                            sx={{
+                                fontSize: {
+                                    xs: "20px",
+                                    sm: "20px",
+                                    md: "24px",
+                                },
+                            }}
+                        />
                     </Button>
 
                     <Button
@@ -95,10 +109,24 @@ const ProductImageSlider: React.FC = () => {
                             right: "10px",
                             transform: "translateY(-50%)",
                             color: "white",
+                            backgroundColor: "rgba(0, 0, 0, 0.39)",
+                            padding: { xs: "10px", sm: "12px", md: "14px" },
+                            minWidth: { xs: "32px", sm: "32px", md: "48px" },
+                            height: { xs: "36px", sm: "38px", md: "40px" },
                         }}
                         onClick={nextSlide}
                     >
-                        <ArrowForwardIos fontSize="large" htmlColor="#854836" />
+                        <ArrowForwardIos
+                            fontSize="large"
+                            htmlColor="#FFFFFF"
+                            sx={{
+                                fontSize: {
+                                    xs: "20px",
+                                    sm: "20px",
+                                    md: "24px",
+                                },
+                            }}
+                        />
                     </Button>
                 </Box>
 
@@ -109,9 +137,9 @@ const ProductImageSlider: React.FC = () => {
                             <img
                                 key={imgIndex}
                                 src={img}
-                                alt={`Thumbnail ${imgIndex}`}
+                                alt={`${product.title} ${imgIndex + 1}`}
                                 style={{
-                                    objectFit: "contain",
+                                    objectFit: "cover",
                                     width: "100px",
                                     height: "75px",
                                     cursor: "pointer",

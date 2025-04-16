@@ -44,7 +44,6 @@ const store = configureStore({
         }),
 });
 
-console.log("intial state: ", store.getState());
 export const persistor = persistStore(store);
 export default store;
 export type RootState = ReturnType<typeof store.getState>;

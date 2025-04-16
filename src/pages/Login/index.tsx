@@ -3,6 +3,7 @@ import {
     Box,
     Button,
     Card,
+    CircularProgress,
     IconButton,
     InputAdornment,
     Stack,
@@ -144,7 +145,16 @@ const Login: React.FC = () => {
                             }}
                             disabled={loading}
                         >
-                            Login
+                            {loading ? (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        color: "#FFFFFF",
+                                    }}
+                                />
+                            ) : (
+                                "Login"
+                            )}
                         </Button>
                         <Box textAlign={"center"} my={"-10px"}>
                             <Link

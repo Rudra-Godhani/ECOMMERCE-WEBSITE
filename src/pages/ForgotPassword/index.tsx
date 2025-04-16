@@ -1,4 +1,4 @@
-import { Box, Button, Card, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { bgImage } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const ForgotPassword: React.FC = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     };
-    
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(forgotPassword({ email }));
@@ -107,7 +107,16 @@ const ForgotPassword: React.FC = () => {
                             }}
                             disabled={loading}
                         >
-                            continue
+                            {loading ? (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        color: "#FFFFFF",
+                                    }}
+                                />
+                            ) : (
+                                "continue"
+                            )}
                         </Button>
                     </Stack>
                 </form>

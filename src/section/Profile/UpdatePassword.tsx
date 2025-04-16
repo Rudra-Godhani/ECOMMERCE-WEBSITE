@@ -76,7 +76,7 @@ const UpdatePassword: React.FC = () => {
                         <TextField
                             label="CurrentPassword"
                             name="currentPassword"
-                            type={!showCurrentPassword ? "text" : "password"}
+                            type={showCurrentPassword ? "text" : "password"}
                             value={formData.currentPassword}
                             onChange={handleChange}
                             InputLabelProps={{
@@ -95,7 +95,7 @@ const UpdatePassword: React.FC = () => {
                                             }
                                             edge="end"
                                         >
-                                            {showCurrentPassword ? (
+                                            {!showCurrentPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />
@@ -111,7 +111,7 @@ const UpdatePassword: React.FC = () => {
                         <TextField
                             label="NewPassword"
                             name="newPassword"
-                            type={!showNewPassword ? "text" : "password"}
+                            type={showNewPassword ? "text" : "password"}
                             value={formData.newPassword}
                             onChange={handleChange}
                             InputLabelProps={{
@@ -130,7 +130,7 @@ const UpdatePassword: React.FC = () => {
                                             }
                                             edge="end"
                                         >
-                                            {showNewPassword ? (
+                                            {!showNewPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />
@@ -148,7 +148,7 @@ const UpdatePassword: React.FC = () => {
                         <TextField
                             label="ConfirmNewPassword"
                             name="confirmPassword"
-                            type={!showConfirmPassword ? "text" : "password"}
+                            type={showConfirmPassword ? "text" : "password"}
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             InputLabelProps={{
@@ -167,7 +167,7 @@ const UpdatePassword: React.FC = () => {
                                             }
                                             edge="end"
                                         >
-                                            {showConfirmPassword ? (
+                                            {!showConfirmPassword ? (
                                                 <VisibilityOff />
                                             ) : (
                                                 <Visibility />

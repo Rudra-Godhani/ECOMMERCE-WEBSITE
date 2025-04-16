@@ -15,7 +15,7 @@ export const footerData: FooterData[] = [
     },
     {
         city: "New York",
-        street: "2715 Ash Dr. San Jose, ",
+        street: "2715 Ash San Jose. ",
         no: "75000 Paris",
         mobileNo: "+451 215 215 ",
         fax: "+451 215 215",
@@ -29,7 +29,7 @@ export const footerData: FooterData[] = [
     },
     {
         city: "London",
-        street: "3517 W. Gray St. Utica, ",
+        street: "3517 Gray St. Utica, ",
         no: "75000 Paris",
         mobileNo: "+451 215 215 ",
         fax: "+451 215 215",

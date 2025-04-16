@@ -469,7 +469,7 @@ const OrderDetailsPage = () => {
                                         }
                                     >
                                         {order!.deliveryCharge > 0
-                                            ? `₹${order?.deliveryCharge}`
+                                            ? `₹${order?.deliveryCharge.toFixed(2)}`
                                             : "Free"}
                                     </Typography>
                                 </Stack>

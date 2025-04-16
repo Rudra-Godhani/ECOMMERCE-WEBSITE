@@ -84,7 +84,7 @@ const MyOrders: React.FC = () => {
                     ))}
                 </>
             ) : orders.length === 0 ? (
-                <Typography variant="h6" color="gray" mt={2}>
+                <Typography variant="h5" color="gray" mt={"10px"}>
                     You haven’t placed any orders yet.
                 </Typography>
             ) : (
@@ -177,7 +177,7 @@ const MyOrders: React.FC = () => {
                                     </Stack>
                                 </Box>
                             ))}
-                            
+
                             <Divider sx={{ my: 2 }} />
 
                             <Box

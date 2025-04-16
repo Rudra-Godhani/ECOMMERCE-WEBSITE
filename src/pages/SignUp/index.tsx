@@ -3,6 +3,7 @@ import {
     Box,
     Button,
     Card,
+    CircularProgress,
     IconButton,
     InputAdornment,
     Stack,
@@ -158,7 +159,16 @@ const SignUp: React.FC = () => {
                             }}
                             disabled={loading}
                         >
-                            Sign Up
+                            {loading ? (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        color: "#FFFFFF",
+                                    }}
+                                />
+                            ) : (
+                                " Sign Up"
+                            )}
                         </Button>
                         <Stack
                             justifyContent={"center"}

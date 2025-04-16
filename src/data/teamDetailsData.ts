@@ -9,17 +9,17 @@ interface TeamDetail {
 export const teamDetail: TeamDetail[] = [
     {
         img: teamMember1,
-        username: "Namita Thapar",
+        username: "Ayushi Sharma",
         profession: "Frontend Developer",
     },
     {
         img: teamMember2,
-        username: "Vineeta Singh",
+        username: "Kruti Singh",
         profession: "Backend Developer",
     },
     {
         img: teamMember3,
-        username: "Piyush Bansal",
+        username: "Shivam Kumar",
         profession: "FullStack Developer",
     },
 ];

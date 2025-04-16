@@ -29,9 +29,10 @@ const TeamDetails: React.FC = () => {
                             color="gray"
                             sx={{ width: { xs: "70%", sm: "50%" } }}
                         >
-                            Problems trying to resolve the conflict between the
-                            two major realms of Classical physics: Newtonian
-                            mechanics{" "}
+                            Meet the passionate team behind Prime Picks — a
+                            group of creatives, strategists, and tech lovers
+                            committed to delivering an exceptional shopping
+                            experience.
                         </Typography>
                     </Stack>
                     <Box>

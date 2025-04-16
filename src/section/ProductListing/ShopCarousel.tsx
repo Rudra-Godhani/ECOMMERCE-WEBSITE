@@ -42,7 +42,7 @@ interface ShopCarouselProps {
     setSelectedCategory: (category: string) => void;
 }
 const ShopCarousel: React.FC<ShopCarouselProps> = ({ setSelectedCategory }) => {
-    const carouselRef = useRef<any>(null);
+    const carouselRef = useRef<Carousel | null>(null);
     return (
         <>
             <Box sx={{ backgroundColor: "#FAFAFA" }}>
@@ -97,7 +97,7 @@ const ShopCarousel: React.FC<ShopCarouselProps> = ({ setSelectedCategory }) => {
                 sx={{ backgroundColor: "#FAFAFA" }}
             >
                 <IconButton
-                    onClick={() => carouselRef.current?.previous()}
+                    onClick={() => carouselRef.current?.previous(1)}
                     sx={{
                         position: "absolute",
                         left: {
@@ -182,7 +182,7 @@ const ShopCarousel: React.FC<ShopCarouselProps> = ({ setSelectedCategory }) => {
                     </Carousel>
                 </Container>
                 <IconButton
-                    onClick={() => carouselRef.current?.next()}
+                    onClick={() => carouselRef.current?.next(1)}
                     sx={{
                         position: "absolute",
                         right: {

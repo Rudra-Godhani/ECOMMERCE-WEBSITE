@@ -246,7 +246,7 @@ const BestSellerProducts: React.FC = () => {
                                                             "line-through",
                                                     }}
                                                 >
-                                                    ₹{item.price}
+                                                    ₹{item.price.toFixed(2)}
                                                 </Typography>
                                                 <Typography
                                                     variant="h5"
@@ -254,7 +254,7 @@ const BestSellerProducts: React.FC = () => {
                                                     fontWeight={"700"}
                                                     fontSize={"16px"}
                                                 >
-                                                    ₹{item.retailPrice}
+                                                    ₹{item.retailPrice.toFixed(2)}
                                                 </Typography>
                                             </Stack>
                                             <Stack

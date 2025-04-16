@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Container,
     Grid,
@@ -13,6 +13,7 @@ import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
+    const [email, setEmail] = useState<string>();
     return (
         <Box>
             <Box
@@ -146,6 +147,11 @@ const Footer: React.FC = () => {
                                         variant="outlined"
                                         placeholder="Your Email"
                                         size="small"
+                                        name="email"
+                                        value={email}
+                                        onChange={(
+                                            e: React.ChangeEvent<HTMLInputElement>
+                                        ) => setEmail(e.target.value)}
                                         sx={{
                                             flexGrow: 1,
                                             bgcolor: "#f9f9f9",
@@ -186,21 +192,11 @@ const Footer: React.FC = () => {
                                                 sm: "14px",
                                             },
                                         }}
+                                        onClick={() => setEmail("")}
                                     >
                                         Subscribe
                                     </Button>
                                 </Box>
-                                <Typography
-                                    variant="h6"
-                                    color="gray"
-                                    sx={{
-                                        mt: 1,
-                                        fontSize: { xs: "14px", sm: "12px" },
-                                        fontWeight: { xs: "700", sm: "400" },
-                                    }}
-                                >
-                                    Lore imp sum dolor Amit
-                                </Typography>
                             </Box>
                         </Grid>
                     </Grid>

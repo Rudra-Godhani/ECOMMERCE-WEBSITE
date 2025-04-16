@@ -55,7 +55,7 @@ export const shopCardItems: ShopCardItems[] = [
     {
         id: 8,
         image: kidsCLothing,
-        heading: "Kid’s clothing",
+        heading: "Kid’s Clothing",
     },
     {
         id: 9,

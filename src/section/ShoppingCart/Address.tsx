@@ -28,6 +28,7 @@ import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { BASE_URL } from "../../const/constants";
+import { Address as AddressData } from "../../store/Slices/userSlice";
 
 const Address = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -86,7 +87,7 @@ const Address = () => {
         });
     };
 
-    const handleEditAddress = (address: any) => {
+    const handleEditAddress = (address: AddressData) => {
         setEditAddressId(address.id);
         setShowAddressForm(true);
         setAddAddressFormData({

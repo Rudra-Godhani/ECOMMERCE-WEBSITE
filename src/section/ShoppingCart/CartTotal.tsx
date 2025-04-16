@@ -17,7 +17,7 @@ const CartTotal: React.FC = () => {
     let shippingCost: number = 0;
     let totalCost: number = 0;
     if (subTotal !== 0) {
-        shippingCost = 100;
+        shippingCost = 100.0;
         totalCost = Number((subTotal + shippingCost).toFixed(2));
     }
 
@@ -117,7 +117,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ₹{subTotal}
+                                ₹{subTotal.toFixed(2)}
                             </Typography>
                         </Stack>
                         <hr
@@ -145,7 +145,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ₹{shippingCost}
+                                ₹{shippingCost.toFixed(2)}
                             </Typography>
                         </Stack>
                         <hr
@@ -173,7 +173,7 @@ const CartTotal: React.FC = () => {
                                 fontWeight={"400"}
                                 color="#000000"
                             >
-                                ₹{totalCost}
+                                ₹{totalCost.toFixed(2)}
                             </Typography>
                         </Stack>
                         <Button

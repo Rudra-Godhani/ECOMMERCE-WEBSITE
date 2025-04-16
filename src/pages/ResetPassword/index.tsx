@@ -2,6 +2,7 @@ import {
     Box,
     Button,
     Card,
+    CircularProgress,
     IconButton,
     InputAdornment,
     Stack,
@@ -183,7 +184,16 @@ const ResetPassword: React.FC = () => {
                             }}
                             disabled={loading}
                         >
-                            Set Password
+                            {loading ? (
+                                <CircularProgress
+                                    size={24}
+                                    sx={{
+                                        color: "#FFFFFF",
+                                    }}
+                                />
+                            ) : (
+                                "Set Password"
+                            )}
                         </Button>
                         <Box textAlign={"center"} my={"-10px"}>
                             <Link

@@ -213,7 +213,7 @@ const HeroSecond: React.FC = () => {
                                                 variant="h3"
                                                 color="#FFFFFF"
                                             >
-                                                ₹{product?.retailPrice}
+                                                ₹{product?.retailPrice.toFixed(2)}
                                             </Typography>
                                             <Button
                                                 sx={{

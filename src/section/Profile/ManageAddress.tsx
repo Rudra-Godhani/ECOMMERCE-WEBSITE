@@ -23,6 +23,7 @@ import {
     getUserAddresses,
     updateAddress,
 } from "../../store/Slices/addressSlice";
+import { Address } from "../../store/Slices/userSlice";
 
 const ManageAddress = () => {
     const [showAddressForm, setShowAddressForm] = useState(false);
@@ -69,7 +70,7 @@ const ManageAddress = () => {
         });
     };
 
-    const handleEditAddress = (address: any) => {
+    const handleEditAddress = (address: Address) => {
         setEditAddressId(address.id);
         setaddAddressFormData({
             line1: address.line1,

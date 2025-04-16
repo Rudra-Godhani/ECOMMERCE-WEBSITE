@@ -326,14 +326,14 @@ const ProductInfo: React.FC = () => {
                                                 textDecoration: "line-through",
                                             }}
                                         >
-                                            ₹{product?.price}
+                                            ₹{product?.price.toFixed(2)}
                                         </Typography>
                                         <Typography
                                             variant="h3"
                                             color="darkGreen"
                                             pb={"5px"}
                                         >
-                                            ₹{product?.retailPrice}
+                                            ₹{product?.retailPrice.toFixed(2)}
                                         </Typography>
                                     </Stack>
                                     <Stack direction={"row"} pb={"32px"}>

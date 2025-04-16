@@ -9,7 +9,7 @@ interface AddressFormProps {
         city: string;
         state: string;
     };
-    handleChange: (e: any) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (data: FormData) => void;
     handleClose: (close: boolean) => void;
     isEditMode: boolean;

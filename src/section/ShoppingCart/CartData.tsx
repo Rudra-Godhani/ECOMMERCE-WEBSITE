@@ -361,44 +361,51 @@ const CartData: React.FC = () => {
                                             align="left"
                                             sx={{ pl: "0px" }}
                                         >
-                                            <Stack
-                                                direction={"row"}
-                                                alignItems={"center"}
-                                                gap={"20px"}
+                                            <Link
+                                                to={`/product/${item.product.id}/detail`}
                                             >
-                                                <Box
-                                                    sx={{
-                                                        p: "0px 0px ",
-                                                        width: "150px",
-                                                        height: "120px",
-                                                        overflow: "hidden",
-                                                        borderRadius: "10px",
-                                                    }}
+                                                <Stack
+                                                    direction={"row"}
+                                                    alignItems={"center"}
+                                                    gap={"20px"}
                                                 >
-                                                    <img
-                                                        src={
-                                                            item.product
-                                                                .images[0]
-                                                        }
-                                                        alt=""
-                                                        style={{
-                                                            objectFit: "cover",
-                                                            width: "100%",
-                                                            height: "100%",
-                                                            display: "block",
+                                                    <Box
+                                                        sx={{
+                                                            p: "0px 0px ",
+                                                            width: "150px",
+                                                            height: "120px",
+                                                            overflow: "hidden",
+                                                            borderRadius:
+                                                                "10px",
                                                         }}
-                                                    />
-                                                </Box>
-                                                <Stack>
-                                                    <Typography
-                                                        variant="h5"
-                                                        fontWeight={"700"}
-                                                        color="secondary"
                                                     >
-                                                        {item.product.title}
-                                                    </Typography>
+                                                        <img
+                                                            src={
+                                                                item.product
+                                                                    .images[0]
+                                                            }
+                                                            alt=""
+                                                            style={{
+                                                                objectFit:
+                                                                    "cover",
+                                                                width: "100%",
+                                                                height: "100%",
+                                                                display:
+                                                                    "block",
+                                                            }}
+                                                        />
+                                                    </Box>
+                                                    <Stack>
+                                                        <Typography
+                                                            variant="h5"
+                                                            fontWeight={"700"}
+                                                            color="secondary"
+                                                        >
+                                                            {item.product.title}
+                                                        </Typography>
+                                                    </Stack>
                                                 </Stack>
-                                            </Stack>
+                                            </Link>
                                         </TableCell>
                                         <TableCell align="center">
                                             <Box
@@ -488,7 +495,10 @@ const CartData: React.FC = () => {
                                                 fontWeight: "700",
                                             }}
                                         >
-                                            ₹{item.product.retailPrice}
+                                            ₹
+                                            {item.product.retailPrice.toFixed(
+                                                2
+                                            )}
                                         </TableCell>
                                         <TableCell
                                             align="center"
