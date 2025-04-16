@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { BASE_URL } from "../../const/constants";
 import { Address } from "./userSlice";
 
