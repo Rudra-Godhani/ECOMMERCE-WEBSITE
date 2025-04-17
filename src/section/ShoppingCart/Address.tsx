@@ -36,14 +36,21 @@ const Address = () => {
     const { error, message, addresses, loading } = useSelector(
         (state: RootState) => state.address
     );
-    const { cartItems } = useSelector((state: RootState) => state.cart);
+
+    const {
+        cartItems,
+        getCartloading,
+        error: cartError,
+    } = useSelector((state: RootState) => state.cart);
 
     useEffect(() => {
-        if (cartItems.length === 0) {
-            toast.error("Your cart is empty! please add items to the cart.");
+        if (!getCartloading && !cartError && cartItems.length === 0) {
+            toast.error(
+                "Your cart is empty. Please add items to your cart before proceeding."
+            );
             navigate("/shopping-cart/checkout");
         }
-    }, [dispatch]);
+    }, [getCartloading, cartError, cartItems, navigate]);
 
     const [showAddressForm, setShowAddressForm] = useState(false);
     const [editAddressId, setEditAddressId] = useState<string | null>(null);

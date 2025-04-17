@@ -177,16 +177,19 @@ const CartTotal: React.FC = () => {
                             </Typography>
                         </Stack>
                         <Button
+                            variant="contained"
                             sx={{
-                                color: "#FAFAFA",
                                 backgroundColor: "#23A6F0",
-                                p: { md: "10px 10px", lg: "10px 20px" },
+                                "&:hover": { bgcolor: "#1e90d6" },
+                                px: { xs: "20px", sm: "26px" },
+                                py: "8px",
                                 whiteSpace: "nowrap",
                                 minWidth: "fit-content",
                                 width: "fit-content",
                                 alignSelf: "center",
-                                border: "1px solid #E6E6E6",
-                                my: "30px",
+                                fontSize: { xs: "14px", sm: "16px" },
+                                mt: "30px",
+                                mb: "20px",
                                 textTransform: "none",
                             }}
                             onClick={() => {
