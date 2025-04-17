@@ -86,8 +86,6 @@ const FavoriteProducts: React.FC = () => {
         dispatch(clearAllWishListErrosAndMsgs());
     }, [dispatch, wishListError, wishListMessage]);
 
-    console.log("wishListItems:", wishListItems);
-
     return (
         <Box>
             <Box>

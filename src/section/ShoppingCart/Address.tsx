@@ -27,7 +27,7 @@ import {
 import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { BASE_URL } from "../../const/constants";
+import { BASE_URL, STRIPE_PUBLISHABLE_KEY } from "../../const/constants";
 import { Address as AddressData } from "../../store/Slices/userSlice";
 
 const Address = () => {
@@ -45,9 +45,6 @@ const Address = () => {
 
     useEffect(() => {
         if (!getCartloading && !cartError && cartItems.length === 0) {
-            toast.error(
-                "Your cart is empty. Please add items to your cart before proceeding."
-            );
             navigate("/shopping-cart/checkout");
         }
     }, [getCartloading, cartError, cartItems, navigate]);
@@ -152,9 +149,7 @@ const Address = () => {
     }, [error, message, dispatch]);
 
     const makePayment = async () => {
-        const stripe = await loadStripe(
-            "pk_test_51RBVnhP5q7TBIR8cWlbZpjL6RhDPWGbbP7eIiGkMV1AGLPz31ah1cNhdJkPzGl8X1qRXYGlIqeM1bJ46OenPFdyK009Y2Whf2b"
-        );
+        const stripe = await loadStripe(`${STRIPE_PUBLISHABLE_KEY}`);
 
         const defaultAddress = addresses.find((addr) => addr.isDefault);
 

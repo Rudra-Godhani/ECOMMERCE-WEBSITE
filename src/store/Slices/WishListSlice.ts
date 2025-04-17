@@ -156,7 +156,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        console.log("response:", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -171,7 +170,6 @@ const handleApiCall = async (
 };
 
 export const getWishList = () => async (dispatch: AppDispatch) => {
-    console.log("gtwishlist:");
     await handleApiCall(
         dispatch,
         wishListSlice.actions.getWishListRequest,

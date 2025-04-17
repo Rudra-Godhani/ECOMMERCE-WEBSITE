@@ -195,7 +195,6 @@ const handleApiCall = async (
     dispatch(requestAction());
     try {
         const response = await apiCall();
-        console.log("response: ", response.data);
         dispatch(successAction(response.data));
     } catch (error) {
         const err = error as AxiosError<{ message: string }>;
@@ -210,7 +209,6 @@ const handleApiCall = async (
 };
 
 export const getCart = () => async (dispatch: AppDispatch) => {
-    console.log("gtcart:");
     await handleApiCall(
         dispatch,
         cartSlice.actions.getCartRequest,
@@ -226,7 +224,6 @@ export const getCart = () => async (dispatch: AppDispatch) => {
 export const addProductToCart =
     (data: { productId: string; color: string }) =>
     async (dispatch: AppDispatch) => {
-        console.log("addtocart:");
         await handleApiCall(
             dispatch,
             () => cartSlice.actions.addToCartRequest(data),
@@ -245,7 +242,6 @@ export const addProductToCart =
 
 export const removeProductFromCart =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
-        console.log("removetocart:");
         await handleApiCall(
             dispatch,
             () => cartSlice.actions.removeFromCartRequest(data),
@@ -264,7 +260,6 @@ export const removeProductFromCart =
 
 export const decreaseQuantity =
     (data: { productId: string }) => async (dispatch: AppDispatch) => {
-        console.log("decreaseQuantityCart:");
         await handleApiCall(
             dispatch,
             () => cartSlice.actions.decreaseQantityRequest(data),
