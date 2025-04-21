@@ -1,6 +1,7 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Banner: React.FC = () => {
     const { loading, products: productsData } = useSelector(
@@ -11,6 +12,8 @@ const Banner: React.FC = () => {
     const edit2 = (productsData ?? []).slice(61, 62)[0]?.images[0];
     const edit3 = (productsData ?? []).slice(110, 111)[0]?.images[0];
     const edit4 = (productsData ?? []).slice(29, 30)[0]?.images[0];
+
+    const navigate = useNavigate();
 
     return (
         <Box sx={{ backgroundColor: "#FAFAFA" }}>
@@ -86,6 +89,10 @@ const Banner: React.FC = () => {
                                         backgroundColor: "#ffffff",
                                         color: "#252B42",
                                         textTransform: "uppercase",
+                                        cursor: "pointer",
+                                    }}
+                                    onClick={() => {
+                                        navigate("product/listing?category=Women’s Clothing");
                                     }}
                                 >
                                     Women’s Clothing
@@ -208,7 +215,7 @@ const Banner: React.FC = () => {
                                             p: "12px 40px",
                                             backgroundColor: "#ffffff",
                                             color: "#252B42",
-                                            textTransform: "uppercase"
+                                            textTransform: "uppercase",
                                         }}
                                     >
                                         Kid’s Clothing
