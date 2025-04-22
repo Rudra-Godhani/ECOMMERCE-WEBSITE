@@ -19,18 +19,21 @@ import WishList from "./pages/WishList/index";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./store/store";
 import { useEffect } from "react";
-import {
-    getAllProducts,
-} from "./store/Slices/productSlice";
+import { getAllProducts } from "./store/Slices/productSlice";
 import Address from "./section/ShoppingCart/Address";
 import PaymentSuccess from "./section/ShoppingCart/PaymentSuccess";
 import PaymentFailed from "./section/ShoppingCart/PaymentFailed";
 import OrderDetails from "./section/Profile/OrderDetails";
+import { getUser } from "./store/Slices/userSlice";
 const App: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         dispatch(getAllProducts());
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getUser());
     }, [dispatch]);
 
     return (
